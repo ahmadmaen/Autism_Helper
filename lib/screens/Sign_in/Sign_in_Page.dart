@@ -25,15 +25,15 @@ class SignInPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               child: Image.asset('images/Logo2.png'),
-              height: 150.0,
+              height: 80.0,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             const Text(
               'Welcome Back!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black45,
-                fontSize: 30.0,
+                fontSize: 25.0,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -47,23 +47,30 @@ class SignInPage extends StatelessWidget {
                 fontWeight: FontWeight.normal,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const TextField(
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'UserName',),
+                border: InputBorder.none,
+                labelText: 'UserName',
+              ),
             ),
             const TextField(
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Password',),
+                border: InputBorder.none,
+                labelText: 'Password',
+              ),
             ),
             const SizedBox(height: 20),
             CustomRaisedButton(
               child: const Text(
-                  'Sign in',
-                  style: TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17, ),
+                'Sign in',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
               ),
+              onPressed: () {},
             ),
             const SizedBox(height: 10),
             const Text(
@@ -76,20 +83,66 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            CustomRaisedButton(
-              child: const Text(
-                'Sign in',
-                style: TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17, ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                //const SizedBox(width: 30),
+                CustomRaisedButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: SizedBox(
+                      height: 25,
+                      child: Image.asset('images/twitter.png'),
+                    )
+                ),
+                const SizedBox(width: 35),
+                CustomRaisedButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: SizedBox(
+                      height: 25,
+                      child: Image.asset('images/Facebook.png'),
+                    )
+                ),
+                const SizedBox(width: 35),
+                CustomRaisedButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: SizedBox(
+                      height: 25,
+                      child: Image.asset('images/google.png'),
+                    )
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Don\'t have an account? Sign up here',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black45,
+                fontSize: 15.0,
+                fontWeight: FontWeight.normal,
               ),
             ),
+            const SizedBox(height: 10),
+            CustomRaisedButton(
+              child: const Text(
+                'go anonymous',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              onPressed: () {},
+            ),
+
           ],
         )
     );
   }
-  void _SignIn() {
 
-  }
-  void _SignInWithGoogle() {
-
-  }
+  void _SignIn() {}
+  void _SignInWithGoogle() {}
 }
