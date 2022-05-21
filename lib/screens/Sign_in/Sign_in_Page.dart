@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  const SignInPage({Key? key, required this.OnSignIn}) : super(key: key);
+
+  final void Function(User?) OnSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +97,7 @@ class SignInPage extends StatelessWidget {
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/twitter.png'),
-                    )
-                ),
+                    )),
                 const SizedBox(width: 35),
                 CustomRaisedButton(
                     onPressed: () {},
@@ -102,8 +105,7 @@ class SignInPage extends StatelessWidget {
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/Facebook.png'),
-                    )
-                ),
+                    )),
                 const SizedBox(width: 35),
                 CustomRaisedButton(
                     onPressed: () {},
@@ -111,8 +113,7 @@ class SignInPage extends StatelessWidget {
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/google.png'),
-                    )
-                ),
+                    )),
               ],
             ),
             const SizedBox(height: 10),
@@ -135,14 +136,25 @@ class SignInPage extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-              onPressed: () {},
+              onPressed: _SignInwWthAnonymous,
             ),
-
           ],
-        )
-    );
+        ));
   }
 
   void _SignIn() {}
-  void _SignInWithGoogle() {}
+  Future<void> _SignInwWthAnonymous() async {
+    try {
+      final userCredential = await FirebaseAuth.instance.signInAnonymously();
+      OnSignIn(userCredential.user);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          print("Anonymous auth hasn't been enabled for this project.");
+          break;
+        default:
+          print("Unknown error.");
+      }
+    }
+  }
 }

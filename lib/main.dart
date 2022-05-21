@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:autism_helper_project/screens/Landing_page.dart';
 import 'package:autism_helper_project/screens/Sign_in/Sign_in_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.montserrat().fontFamily,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
-      home: SignInPage(),
+      home: LandingPage(),
     );
   }
 }
