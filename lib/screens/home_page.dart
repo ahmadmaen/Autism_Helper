@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/Widgets/grid_albums.dart';
 import 'package:autism_helper_project/Widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
 import 'package:flutter/material.dart';
