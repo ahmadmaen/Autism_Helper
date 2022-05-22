@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -52,17 +53,25 @@ class SignInPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: 'UserName',
+            Card(
+              child: const TextField(
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'User Name',
+                ),
               ),
+              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
             ),
-            const TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: 'Password',
+             Card(
+              child: const TextField(
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText:' Password',
+                ),
               ),
+              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
             ),
             const SizedBox(height: 20),
             CustomRaisedButton(

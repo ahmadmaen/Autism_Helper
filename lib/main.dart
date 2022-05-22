@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/screens/Landing_page.dart';
-import 'package:autism_helper_project/screens/Sign_in/Sign_in_Page.dart';
+import 'package:autism_helper_project/screens/Sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
