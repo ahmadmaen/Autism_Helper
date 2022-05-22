@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key, required this.OnSignIn}) : super(key: key);
+  const SignInPage({Key? key, required this.onSignIn}) : super(key: key);
 
-  final void Function(User?) OnSignIn;
+  final void Function(User?) onSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -136,17 +136,18 @@ class SignInPage extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-              onPressed: _SignInwWthAnonymous,
+              onPressed: _signInwWthAnonymous,
             ),
           ],
         ));
   }
 
-  void _SignIn() {}
-  Future<void> _SignInwWthAnonymous() async {
+  void _signIn() {}
+
+  Future<void> _signInwWthAnonymous() async {
     try {
       final userCredential = await FirebaseAuth.instance.signInAnonymously();
-      OnSignIn(userCredential.user);
+      onSignIn(userCredential.user);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":

@@ -2,6 +2,7 @@
 
 import 'package:autism_helper_project/Widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
@@ -12,7 +13,9 @@ import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.onSignOut}) : super(key: key);
+
+  final VoidCallback onSignOut;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {},
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: _signOut,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
@@ -105,6 +108,21 @@ class HomePage extends StatelessWidget {
         return Places();
       default:
         return Places();
+    }
+  }
+
+  Future<void> _signOut() async {
+    try {
+      final userCredential = await FirebaseAuth.instance.signOut();
+      onSignOut();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          print("Anonymous auth hasn't been enabled for this project.");
+          break;
+        default:
+          print("Unknown error.");
+      }
     }
   }
 }
