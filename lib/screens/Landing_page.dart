@@ -1,11 +1,16 @@
+
+
 import 'package:autism_helper_project/screens/Sign_in/sign_in_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../models/Auth.dart';
 import 'home_page.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({Key? key, required this.auth}) : super(key: key);
+
+  final AuthBase auth;
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -19,7 +24,7 @@ class _LandingPageState extends State<LandingPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _updateUser(FirebaseAuth.instance.currentUser);
+    _updateUser(widget.auth.currentUser);
   }
 
 
@@ -33,13 +38,20 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    /*return StreamBuilder<User?>(
+        stream: widget.auth.authStateChanges(),
+        initialData: ,       builder: (context,)
+    );*/
     if(_user == null)
     {
       return SignInPage(
-          onSignIn: _updateUser);
+        onSignIn: _updateUser,
+        auth: widget.auth,);
+
     }
     return HomePage(
       onSignOut: () => _updateUser(null),
+      auth: widget.auth,
     );
   }
 }

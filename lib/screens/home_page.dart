@@ -12,9 +12,14 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.onSignOut}) : super(key: key);
+import '../models/Auth.dart';
 
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key, required this.onSignOut, required this.auth}) : super(key: key);
+
+
+
+  final AuthBase auth;
   final VoidCallback onSignOut;
 
   @override
@@ -113,7 +118,7 @@ class HomePage extends StatelessWidget {
 
   Future<void> _signOut() async {
     try {
-      final userCredential = await FirebaseAuth.instance.signOut();
+      final userCredential = await auth.signOut();
       onSignOut();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {

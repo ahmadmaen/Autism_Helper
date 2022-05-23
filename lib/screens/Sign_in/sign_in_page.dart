@@ -1,4 +1,5 @@
 
+import 'package:autism_helper_project/models/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -6,9 +7,27 @@ import 'package:flutter/material.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key, required this.onSignIn}) : super(key: key);
+  const SignInPage({Key? key, required this.onSignIn, required this.auth}) : super(key: key);
 
+
+  final AuthBase auth;
   final void Function(User?) onSignIn;
+
+
+  Future<void> _signInwWthAnonymous() async {
+    try {
+      final user = await auth.signInAnonymously();
+      onSignIn(user);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "operation-not-allowed":
+          print("Anonymous auth hasn't been enabled for this project.");
+          break;
+        default:
+          print("Unknown error.");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +82,7 @@ class SignInPage extends StatelessWidget {
               ),
               shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
             ),
-             Card(
+            Card(
               child: const TextField(
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -153,18 +172,4 @@ class SignInPage extends StatelessWidget {
 
   void _signIn() {}
 
-  Future<void> _signInwWthAnonymous() async {
-    try {
-      final userCredential = await FirebaseAuth.instance.signInAnonymously();
-      onSignIn(userCredential.user);
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case "operation-not-allowed":
-          print("Anonymous auth hasn't been enabled for this project.");
-          break;
-        default:
-          print("Unknown error.");
-      }
-    }
-  }
 }

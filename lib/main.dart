@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'models/Auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.montserrat().fontFamily,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
-      home: LandingPage(),
+      home: LandingPage(
+          auth: Auth(),
+      ),
     );
   }
 }
