@@ -72,24 +72,33 @@ class SignInPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Card(
-              child: const TextField(
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'User Name',
+              elevation: 2,
+              child: const Padding(
+                padding: EdgeInsets.only(left: 16.0 ),
+                child : TextField(
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText:'Email',
+                  ),
                 ),
               ),
-              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
+              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
             ),
             Card(
-              child: const TextField(
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText:' Password',
+              elevation: 2,
+              child: const Padding(
+                padding: EdgeInsets.only(left: 16.0 ),
+                child : TextField(
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText:'Password',
+                  ),
+                  obscureText: true,
                 ),
               ),
-              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30.0)),
+              shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
             ),
             const SizedBox(height: 20),
             CustomRaisedButton(
