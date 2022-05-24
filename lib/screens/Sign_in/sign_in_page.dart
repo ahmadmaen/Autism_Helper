@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key, required this.auth}) : super(key: key);
+   SignInPage({Key? key, required this.auth}) : super(key: key);
 
 
   final AuthBase auth;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _signInwWthAnonymous() async {
     try {
@@ -26,6 +28,10 @@ class SignInPage extends StatelessWidget {
     } on FirebaseAuthException catch (e) {
       print(e.toString());
     }
+  }
+
+  void _signInButton() {
+    print(_passwordController.text);
   }
 
   @override
@@ -73,11 +79,12 @@ class SignInPage extends StatelessWidget {
             const SizedBox(height: 10),
             Card(
               elevation: 2,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 16.0 ),
+              child:  Padding(
+                padding: const EdgeInsets.only(left: 16.0 ),
                 child : TextField(
+                  controller: _emailController,
                   textAlign: TextAlign.start,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText:'Email',
                   ),
@@ -87,11 +94,12 @@ class SignInPage extends StatelessWidget {
             ),
             Card(
               elevation: 2,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 16.0 ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0 ),
                 child : TextField(
+                  controller: _passwordController,
                   textAlign: TextAlign.start,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText:'Password',
                   ),
@@ -110,7 +118,7 @@ class SignInPage extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-              onPressed: () {},
+              onPressed: _signInButton,
             ),
             const SizedBox(height: 10),
             const Text(
@@ -125,47 +133,14 @@ class SignInPage extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //const SizedBox(width: 30),
-                CustomRaisedButton(
-                    onPressed: () {},
-                    color: Colors.white,
-                    child: SizedBox(
-                      height: 25,
-                      child: Image.asset('images/twitter.png'),
-                    )
-                ),
-                const SizedBox(width: 35),
-                CustomRaisedButton(
-                    onPressed: () {},
-                    color: Colors.white,
-                    child: SizedBox(
-                      height: 25,
-                      child: Image.asset('images/Facebook.png'),
-                    )
-                ),
-                const SizedBox(width: 35),
-                CustomRaisedButton(
-                    onPressed: _signInWithGoogle,
-                    color: Colors.white,
-                    child: SizedBox(
-                      height: 25,
-                      child: Image.asset('images/google.png'),
-                    )
-                ),
-              ],
+              children: signInWithRowChildren(),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Don\'t have an account? Sign up here',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black45,
-                fontSize: 15.0,
-                fontWeight: FontWeight.normal,
-              ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:  signUpRowChildren(),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             CustomRaisedButton(
               child: const Text(
                 'go anonymous',
@@ -181,6 +156,63 @@ class SignInPage extends StatelessWidget {
         ));
   }
 
-  void _signIn() {}
+  List<Widget> signUpRowChildren() {
+    return [
+              const Text(
+                'Don\'t have an account? ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black45,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              FlatButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Sign up here',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black45,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  )
+              ),
+            ];
+  }
+
+  List<Widget> signInWithRowChildren() {
+    return <Widget>[
+              //const SizedBox(width: 30),
+              CustomRaisedButton(
+                  onPressed: () {},
+                  color: Colors.white,
+                  child: SizedBox(
+                    height: 25,
+                    child: Image.asset('images/twitter.png'),
+                  )
+              ),
+              const SizedBox(width: 35),
+              CustomRaisedButton(
+                  onPressed: () {},
+                  color: Colors.white,
+                  child: SizedBox(
+                    height: 25,
+                    child: Image.asset('images/Facebook.png'),
+                  )
+              ),
+              const SizedBox(width: 35),
+              CustomRaisedButton(
+                  onPressed: _signInWithGoogle,
+                  color: Colors.white,
+                  child: SizedBox(
+                    height: 25,
+                    child: Image.asset('images/google.png'),
+                  )
+              ),
+            ];
+  }
+
 
 }
