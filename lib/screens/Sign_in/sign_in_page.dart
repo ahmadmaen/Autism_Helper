@@ -7,17 +7,14 @@ import 'package:flutter/material.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key, required this.onSignIn, required this.auth}) : super(key: key);
+  const SignInPage({Key? key, required this.auth}) : super(key: key);
 
 
   final AuthBase auth;
-  final void Function(User?) onSignIn;
-
 
   Future<void> _signInwWthAnonymous() async {
     try {
-      final user = await auth.signInAnonymously();
-      onSignIn(user);
+      await auth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":
