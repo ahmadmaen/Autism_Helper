@@ -15,12 +15,11 @@ import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../models/Auth.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.onSignOut, required this.auth}) : super(key: key);
+  const HomePage({Key? key,  required this.auth}) : super(key: key);
 
 
 
   final AuthBase auth;
-  final VoidCallback onSignOut;
 
   @override
   Widget build(BuildContext context) {
@@ -118,8 +117,7 @@ class HomePage extends StatelessWidget {
 
   Future<void> _signOut() async {
     try {
-      final userCredential = await auth.signOut();
-      onSignOut();
+      await auth.signOut();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":
