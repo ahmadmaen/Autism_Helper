@@ -16,13 +16,15 @@ class SignInPage extends StatelessWidget {
     try {
       await auth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case "operation-not-allowed":
-          print("Anonymous auth hasn't been enabled for this project.");
-          break;
-        default:
-          print("Unknown error.");
-      }
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      await auth.signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
     }
   }
 
@@ -122,7 +124,8 @@ class SignInPage extends StatelessWidget {
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/twitter.png'),
-                    )),
+                    )
+                ),
                 const SizedBox(width: 35),
                 CustomRaisedButton(
                     onPressed: () {},
@@ -130,15 +133,17 @@ class SignInPage extends StatelessWidget {
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/Facebook.png'),
-                    )),
+                    )
+                ),
                 const SizedBox(width: 35),
                 CustomRaisedButton(
-                    onPressed: () {},
+                    onPressed: _signInWithGoogle,
                     color: Colors.white,
                     child: SizedBox(
                       height: 25,
                       child: Image.asset('images/google.png'),
-                    )),
+                    )
+                ),
               ],
             ),
             const SizedBox(height: 10),
