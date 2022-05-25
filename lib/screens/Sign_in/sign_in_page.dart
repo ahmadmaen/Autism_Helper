@@ -15,6 +15,9 @@ class SignInPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String get _email => _emailController.text;
+  String get _password => _passwordController.text;
+
   Future<void> _signInwWthAnonymous() async {
     try {
       await auth.signInAnonymously();
@@ -31,13 +34,16 @@ class SignInPage extends StatelessWidget {
     }
   }
 
-  void _signInButton() {
-    
+  Future<void> _signInButton() async {
+    try {
+      await auth.signInWithEmailAndPassword(_email, _password);
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+    }
   }
 
   void _signUpButton(BuildContext context) {
-    Navigator.of(context).push(
-        MaterialPageRoute<void>(
+    Navigator.of(context).push(MaterialPageRoute<void>(
           fullscreenDialog: true,
           builder: (context) =>  SignUpPage(auth: auth),
         ),
