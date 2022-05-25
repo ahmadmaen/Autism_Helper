@@ -82,6 +82,8 @@ class SignUpPage extends StatelessWidget {
                        border: InputBorder.none,
                        hintText: 'Email',
                      ),
+                     keyboardType: TextInputType.emailAddress,
+                     textInputAction: TextInputAction.next,
                    ),
                  ),
                  shape: RoundedRectangleBorder(

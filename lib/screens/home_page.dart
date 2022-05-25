@@ -31,16 +31,9 @@ class HomePage extends StatelessWidget {
               Icons.menu,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: _signOut,
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                Icons.add_box_outlined,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
             GestureDetector(
               onTap: _signOut,
               child: Padding(
@@ -78,11 +71,12 @@ class HomePage extends StatelessWidget {
                   )),
                   child: Card(
                     color: albums[index].albumColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    child: Padding(
+                    shape: RoundedRectangleBorder (
+                        borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    child: Padding (
                       padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
+                      child: Image.asset (
                         albums[index].picture,
                         width: 165,
                         height: 170,
