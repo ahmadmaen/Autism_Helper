@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
+import 'SignUpPage.dart';
 
 class SignInPage extends StatelessWidget {
    SignInPage({Key? key, required this.auth}) : super(key: key);
@@ -31,8 +32,17 @@ class SignInPage extends StatelessWidget {
   }
 
   void _signInButton() {
-    print(_passwordController.text);
+    
   }
+
+  void _signUpButton(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          fullscreenDialog: true,
+          builder: (context) =>  SignUpPage(auth: auth),
+        ),
+    );
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +51,12 @@ class SignInPage extends StatelessWidget {
         title: Center(child: Image.asset('images/title.png', scale: 18)),
         elevation: 10.0,
       ),
-      body: _buildContent(),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -138,7 +148,7 @@ class SignInPage extends StatelessWidget {
             const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:  signUpRowChildren(),
+              children:  signUpRowChildren(context),
             ),
             const SizedBox(height: 5),
             CustomRaisedButton(
@@ -156,7 +166,7 @@ class SignInPage extends StatelessWidget {
         ));
   }
 
-  List<Widget> signUpRowChildren() {
+  List<Widget> signUpRowChildren(BuildContext context) {
     return [
               const Text(
                 'Don\'t have an account? ',
@@ -168,7 +178,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                  onPressed: () {},
+                  onPressed: () {_signUpButton(context); },
                   child: const Text(
                     'Sign up here',
                     textAlign: TextAlign.center,
