@@ -16,7 +16,6 @@ class Drinks extends StatelessWidget {
         ),
       )),
     );
-
   }
 
   Widget _buildContent() {
