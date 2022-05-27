@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/common_widgets/profile_picture.dart';
+import 'package:autism_helper_project/common_widgets//profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.menu,
             color: Colors.black,
           ),
@@ -53,7 +52,7 @@ class HomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 7, 2, 7),
       child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 0,
             mainAxisSpacing: 0,
             crossAxisCount: 2,
