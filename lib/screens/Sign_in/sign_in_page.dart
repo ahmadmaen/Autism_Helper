@@ -1,13 +1,16 @@
 
+import 'dart:js';
+
 import 'package:autism_helper_project/models/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
+import '../../models/Validator.dart';
 import 'SignUpPage.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
    SignInPage({Key? key, required this.auth}) : super(key: key);
 
 
@@ -126,6 +129,7 @@ class SignInPage extends StatelessWidget {
   }
 
   Card buildEmailCard(BuildContext context) {
+    bool emailValid = emailValidator.isValid(_email);
     return Card(
             elevation: 2,
             child:  Padding(
@@ -133,9 +137,10 @@ class SignInPage extends StatelessWidget {
               child : TextField(
                 controller: _emailController,
                 textAlign: TextAlign.start,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText:'Email',
+                  errorText: true ? null  : invalidEmailErrorText,
                 ),
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
@@ -148,6 +153,7 @@ class SignInPage extends StatelessWidget {
   }
 
   Card buildPasswordCard() {
+    bool passwordValid = passwordValidator.isValid(_password);
      return Card(
        elevation: 2,
        child: Padding(
@@ -155,9 +161,10 @@ class SignInPage extends StatelessWidget {
          child : TextField(
            controller: _passwordController,
            textAlign: TextAlign.start,
-           decoration: const InputDecoration(
+           decoration:  InputDecoration(
              border: InputBorder.none,
              hintText:'Password',
+             errorText: true ? null  : invalidPasswordErrorText,
            ),
            obscureText: true,
            focusNode: _passwordFocusNode,
@@ -166,6 +173,17 @@ class SignInPage extends StatelessWidget {
        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0)),
      );
   }
+
+  Future<void> _signInButton() async {
+     try {
+       await auth.signInWithEmailAndPassword(_email, _password);
+     } on FirebaseAuthException catch (e) {
+       showExceptionAlertDialog(
+           context,
+           title: 'Sign in failed',
+           exception: e,
+     }
+   }
 
   Text signInWithText() {
      return const Text(
@@ -257,14 +275,6 @@ class SignInPage extends StatelessWidget {
      }
   }
 
-  Future<void> _signInButton() async {
-     try {
-       await auth.signInWithEmailAndPassword(_email, _password);
-     } on FirebaseAuthException catch (e) {
-       print(e.toString());
-     }
-  }
-
   void _signUpButton(BuildContext context) {
      Navigator.of(context).push(MaterialPageRoute<void>(
        fullscreenDialog: true,
@@ -272,6 +282,7 @@ class SignInPage extends StatelessWidget {
      ),
      );
    }
+
 
 
 }
