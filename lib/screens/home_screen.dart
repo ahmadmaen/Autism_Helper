@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:autism_helper_project/common_widgets//profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,10 +11,10 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 
-import '../models/Auth.dart';
+import '../firebase/Auth.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key,  required this.auth}) : super(key: key);
+  const HomePage({Key? key, required this.auth}) : super(key: key);
 
   final AuthBase auth;
 
@@ -32,14 +34,14 @@ class HomePage extends StatelessWidget {
           GestureDetector(
             onTap: _signOut,
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 12, bottom: 12, right: 5, left: 5),
+              padding:
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.profilePictureUrl,
+                pictureUrl: defaultUser.userProfilePictureUrl,
                 pictureSize: 30,
               ),
             ),
-          ),//(ProfilePicture)
+          ), //(ProfilePicture)
         ],
       ),
       body: _buildContent(),
@@ -62,17 +64,15 @@ class HomePage extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       fullscreenDialog: true,
-                      builder: (_) => getScreen(index)
-                  )),
+                      builder: (_) => getScreen(index))),
                   child: Card(
                     color: albums[index].albumColor,
-                    shape: RoundedRectangleBorder (
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    child: Padding (
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Image.asset (
-                        albums[index].picture,
+                      child: Image.asset(
+                        albums[index].albumPictureUrl,
                         width: 165,
                         height: 170,
                       ),
@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getScreen(int index) {
-    switch(index) {
+    switch (index) {
       case 0:
         return Foods();
       case 1:

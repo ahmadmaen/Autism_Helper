@@ -9,14 +9,14 @@ class Drinks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(
+      body: SafeArea(
+          child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child:_buildContent(),
+          child: _buildContent(),
         ),
       )),
     );
-
   }
 
   Widget _buildContent() {
@@ -32,9 +32,9 @@ class Drinks extends StatelessWidget {
             children: [
               GestureDetector(
                 child: Image.network(
-                  images[index].url,
+                  pictures[index].pictureUrl,
                   width: 400,
-                  height:120,
+                  height: 120,
                 ),
               ), //(Picture)
             ],

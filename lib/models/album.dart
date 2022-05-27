@@ -1,18 +1,19 @@
+import 'package:autism_helper_project/models/picture.dart';
 import 'package:flutter/material.dart';
 
-enum Group { me, person, game, feelings, food, drink, place }
+//enum Group { me, person, game, feelings, food, drink, place }
 
 class Album {
-  final String name;
-  final String picture;
+  final String albumName;
+  final String albumPictureUrl;
   final int albumId;
   final Color albumColor;
-  final List<Image> images;
+  final List<Picture> pictures;
   Album({
-    required this.name,
-    required this.picture,
+    required this.albumName,
+    required this.albumPictureUrl,
     required this.albumId,
     this.albumColor = Colors.white,
-    this.images = const [],
+    this.pictures = const [],
   });
 }

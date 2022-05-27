@@ -28,9 +28,8 @@ class GridAlbums extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (_) => getScreen(index)
-                  )),
+                      fullscreenDialog: true,
+                      builder: (_) => getScreen(index))),
                   child: Card(
                     color: albums[index].albumColor,
                     shape: RoundedRectangleBorder(
@@ -38,7 +37,7 @@ class GridAlbums extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index].picture,
+                        albums[index].albumPictureUrl,
                         width: 165,
                         height: 170,
                       ),
@@ -51,26 +50,22 @@ class GridAlbums extends StatelessWidget {
     );
   }
 
-  Widget getScreen(int index)
-  {
-      switch(index) {
-        case 0:
-          return Foods();
-        case 1:
-          return Games();
-        case 2:
-          return Persons();
-        case 3:
-          return Feelings();
-        case 4:
-          return Drinks();
-        case 5:
-          return Places();
-        default:
-          return Places();
-      }
+  Widget getScreen(int index) {
+    switch (index) {
+      case 0:
+        return Foods();
+      case 1:
+        return Games();
+      case 2:
+        return Persons();
+      case 3:
+        return Feelings();
+      case 4:
+        return Drinks();
+      case 5:
+        return Places();
+      default:
+        return Places();
     }
-
-
   }
-
+}
