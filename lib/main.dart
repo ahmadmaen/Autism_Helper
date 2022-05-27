@@ -17,8 +17,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-}
-void main() {
   runApp(const MyApp());
 }
 
@@ -42,10 +40,6 @@ class MyApp extends StatelessWidget {
       home: LandingPage(
           auth: Auth(),
       ),
-        iconTheme: IconThemeData(color: Colors.black,size: 30),
-        fontFamily: GoogleFonts.montserrat().fontFamily,
-        textTheme: GoogleFonts.montserratTextTheme(),
-      home: HomeScreen(),
     );
   }
 }

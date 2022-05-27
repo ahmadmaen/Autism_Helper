@@ -178,10 +178,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
      try {
        await auth.signInWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
-       showExceptionAlertDialog(
-           context,
-           title: 'Sign in failed',
-           exception: e,
+       print(e.toString());
      }
    }
 
