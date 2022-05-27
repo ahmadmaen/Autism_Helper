@@ -1,5 +1,4 @@
 
-import 'dart:js';
 
 import 'package:autism_helper_project/models/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
