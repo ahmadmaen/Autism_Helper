@@ -16,11 +16,24 @@ class SignUpPage extends StatelessWidget {
 
 
    Future<void> _signUpButton(BuildContext context) async {
+
      try {
        await auth.createUserWithEmailAndPassword(_email, _password);
-       Navigator.of(context).pop();
      } on FirebaseAuthException catch (e) {
-       print(e.toString());
+       showDialog(
+           context: context,
+           builder: (context) {
+             return AlertDialog(
+               title: const Text('Sign in failed'),
+               content: Text(e.toString()),
+               actions: [
+                 FlatButton(
+                     onPressed: () => Navigator.of(context).pop(),
+                     child: const Text('OK'))
+               ],
+             );
+           }
+       );
      }
    }
 
