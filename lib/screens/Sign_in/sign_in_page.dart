@@ -76,7 +76,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             const SizedBox(height: 5),
             CustomRaisedButton(
               child: const Text(
-                'go anonymous',
+                'Continue without an account',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
