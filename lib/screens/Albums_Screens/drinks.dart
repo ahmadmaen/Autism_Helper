@@ -32,7 +32,7 @@ class Drinks extends StatelessWidget {
             children: [
               GestureDetector(
                 child: Image.network(
-                  images[index].pictureUrl,
+                  pictures[index].pictureUrl,
                   width: 400,
                   height:120,
                 ),
