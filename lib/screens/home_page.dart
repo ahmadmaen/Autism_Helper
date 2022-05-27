@@ -2,7 +2,6 @@
 
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/services/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
