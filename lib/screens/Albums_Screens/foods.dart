@@ -1,16 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
+<<<<<<< Updated upstream
 import 'package:autism_helper_project/database.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/profile_picture.dart';
 
+=======
+import 'package:flutter/material.dart';
+
+>>>>>>> Stashed changes
 class Foods extends StatelessWidget {
   const Foods({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< Updated upstream
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
         leading: IconButton(
@@ -45,11 +51,18 @@ class Foods extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: _buildContent(),
+=======
+      body: SafeArea(child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Foods'),
+>>>>>>> Stashed changes
         ),
       )),
     );
 
   }
+<<<<<<< Updated upstream
   Widget _buildContent() {
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -72,5 +85,8 @@ class Foods extends StatelessWidget {
           );
         });
   }
+=======
+
+>>>>>>> Stashed changes
 
 }

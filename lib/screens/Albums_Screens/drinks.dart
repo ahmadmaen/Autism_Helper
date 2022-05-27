@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+<<<<<<< Updated upstream
 import 'package:autism_helper_project/database.dart';
+=======
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 
 class Drinks extends StatelessWidget {
@@ -12,7 +15,11 @@ class Drinks extends StatelessWidget {
       body: SafeArea(child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
+<<<<<<< Updated upstream
           child:_buildContent(),
+=======
+          child: Text('Drinks'),
+>>>>>>> Stashed changes
         ),
       )),
     );
@@ -20,6 +27,7 @@ class Drinks extends StatelessWidget {
   }
 
 
+<<<<<<< Updated upstream
   Widget _buildContent() {
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -44,4 +52,6 @@ class Drinks extends StatelessWidget {
   }
 
 
+=======
+>>>>>>> Stashed changes
 }
