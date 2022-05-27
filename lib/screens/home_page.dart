@@ -12,7 +12,8 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 
-import '../firebase/Auth.dart';
+
+import '../service/Auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.auth}) : super(key: key);

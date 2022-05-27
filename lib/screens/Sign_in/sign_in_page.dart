@@ -1,12 +1,12 @@
 
 
-import 'package:autism_helper_project/firebase/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../firebase/Validator.dart';
+import '../../service/Validator.dart';
+import '../../service/Auth.dart';
 import 'sign_up_page.dart';
 
 class SignInPage extends StatelessWidget with EmailAndPasswordValidators {

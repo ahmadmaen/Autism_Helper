@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../firebase/Auth.dart';
+import '../../service/Auth.dart';
+
+
 
 class SignUpPage extends StatelessWidget {
    SignUpPage({Key? key, required this.auth}) : super(key: key);
