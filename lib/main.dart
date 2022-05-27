@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-<<<<<<< Updated upstream
 import 'package:autism_helper_project/screens/Landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,27 +7,24 @@ import 'constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'models/Auth.dart';
+import 'package:autism_helper_project/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
-
-=======
-import 'package:autism_helper_project/screens/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'constants.dart';
-
+}
 void main() {
   runApp(const MyApp());
->>>>>>> Stashed changes
 }
 
+
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -39,7 +35,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: kAppbarBackground),
         scaffoldBackgroundColor: kScaffoldBackground,
-<<<<<<< Updated upstream
         iconTheme: IconThemeData(color: Colors.black, size: 30),
         fontFamily: GoogleFonts.montserrat().fontFamily,
         textTheme: GoogleFonts.montserratTextTheme(),
@@ -47,13 +42,10 @@ class MyApp extends StatelessWidget {
       home: LandingPage(
           auth: Auth(),
       ),
-=======
         iconTheme: IconThemeData(color: Colors.black,size: 30),
         fontFamily: GoogleFonts.montserrat().fontFamily,
         textTheme: GoogleFonts.montserratTextTheme(),
-      ),
       home: HomeScreen(),
->>>>>>> Stashed changes
     );
   }
 }
