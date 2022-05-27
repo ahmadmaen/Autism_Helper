@@ -12,7 +12,7 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 
-import '../models/Auth.dart';
+import '../Services/Auth.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key,  required this.auth}) : super(key: key);
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  pictureUrl: defaultUser.profilePictureUrl,
+                  pictureUrl: defaultUser.userProfilePictureUrl,
                   pictureSize: 30,
                 ),
               ),
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                     child: Padding (
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset (
-                        albums[index].picture,
+                        albums[index].albumPictureUrl,
                         width: 165,
                         height: 170,
                       ),

@@ -34,7 +34,7 @@ class Foods extends StatelessWidget {
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.profilePictureUrl,
+                pictureUrl: defaultUser.userProfilePictureUrl,
                 pictureSize: 30,
               ),
             ),
@@ -63,7 +63,7 @@ class Foods extends StatelessWidget {
             children: [
               GestureDetector(
                 child: Image.network(
-                  images[index].url,
+                  images[index].pictureUrl,
                   width: 400,
                   height:120,
                 ),

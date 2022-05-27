@@ -38,7 +38,7 @@ class GridAlbums extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index].picture,
+                        albums[index].albumPictureUrl,
                         width: 165,
                         height: 170,
                       ),
