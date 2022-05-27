@@ -1,6 +1,6 @@
+import 'package:autism_helper_project/services/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../common_widgets/Buttons/RaisedButton.dart';
 import '../../services/Auth.dart';
 
