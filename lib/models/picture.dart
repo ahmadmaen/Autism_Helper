@@ -1,14 +1,13 @@
 
 
 class Picture {
-  final String pictureLabel;
-  final String pictureUrl;
-  final int pictureId;
-
+  final String label;
+  final String url;
+  final int albumId;
 
   const Picture({
-    required this.pictureLabel,
-    required this.pictureUrl,
-    required this.pictureId,
+    required this.label,
+    required this.url,
+    required this.albumId,
   });
 }

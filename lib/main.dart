@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'firebase/Auth.dart';
+import 'models/Auth.dart';
 import 'package:autism_helper_project/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

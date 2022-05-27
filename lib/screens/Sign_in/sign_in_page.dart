@@ -1,13 +1,13 @@
 
 
-import 'package:autism_helper_project/firebase/Auth.dart';
+import 'package:autism_helper_project/models/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../firebase/Validator.dart';
-import 'sign_up_page.dart';
+import '../../models/Validator.dart';
+import 'SignUpPage.dart';
 
 class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
    SignInPage({Key? key, required this.auth}) : super(key: key);
@@ -76,11 +76,11 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             const SizedBox(height: 5),
             CustomRaisedButton(
               child: const Text(
-                'Continue without an account',
+                'go anonymous',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 17,
                 ),
               ),
               onPressed: _signInwWthAnonymous,

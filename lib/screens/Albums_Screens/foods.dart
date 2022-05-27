@@ -29,28 +29,27 @@ class Foods extends StatelessWidget {
             onPressed: () {},
           ),
           GestureDetector(
-            onTap: () {} /*_signOut*/,
+            onTap:(){} /*_signOut*/,
             child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+              padding: const EdgeInsets.only(
+                  top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.userProfilePictureUrl,
+                pictureUrl: defaultUser.profilePictureUrl,
                 pictureSize: 30,
               ),
             ),
-          ), //(ProfilePicture)
+          ),//(ProfilePicture)
         ],
       ),
-      body: SafeArea(
-          child: Center(
+      body: SafeArea(child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: _buildContent(),
         ),
       )),
     );
-  }
 
+  }
   Widget _buildContent() {
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -64,13 +63,14 @@ class Foods extends StatelessWidget {
             children: [
               GestureDetector(
                 child: Image.network(
-                  pictures[index].pictureUrl,
+                  images[index].url,
                   width: 400,
-                  height: 120,
+                  height:120,
                 ),
               ), //(Picture)
             ],
           );
         });
   }
+
 }
