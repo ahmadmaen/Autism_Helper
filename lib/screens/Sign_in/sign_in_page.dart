@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../service/Validator.dart';
-import '../../service/Auth.dart';
+import '../../services/Validator.dart';
+import '../../services/Auth.dart';
 import 'sign_up_page.dart';
 
 class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
@@ -51,15 +51,8 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             buildPasswordCard(),
             const SizedBox(height: 20),
             CustomRaisedButton(
-              child: const Text(
-                'Sign in',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              onPressed: (){ submitEnabled ? _signInButton : null; },
+              child: signInButtonLabel(),
+              onPressed: (){ submitEnabled ? _signInButton(context) : null; },
             ),
             const SizedBox(height: 10),
             signInWithText(),
@@ -173,12 +166,31 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
      );
   }
 
-  Future<void> _signInButton() async {
+  Future<void> _signInButton(BuildContext context) async {
      try {
        await auth.signInWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
-       print(e.toString());
+       showDialog(
+           context: context,
+           builder: (context) {
+             return AlertDialog(
+               title: const Text('Sign in failed'),
+               content: Text(e.toString()),
+             );
+           }
+       );
      }
+  }
+
+  Text signInButtonLabel() {
+     return const Text(
+       'Sign in',
+       style: TextStyle(
+         color: Colors.white,
+         fontWeight: FontWeight.bold,
+         fontSize: 17,
+       ),
+     );
    }
 
   Text signInWithText() {

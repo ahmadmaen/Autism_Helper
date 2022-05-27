@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../service/Auth.dart';
+import '../../services/Auth.dart';
 
 
 
