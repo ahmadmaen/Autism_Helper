@@ -51,15 +51,8 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             buildPasswordCard(),
             const SizedBox(height: 20),
             CustomRaisedButton(
-              child: const Text(
-                'Sign in',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              onPressed: (){ submitEnabled ? _signInButton : null; },
+              child: signInButtonLabel(),
+              onPressed: (){ submitEnabled ? _signInButton(context) : null; },
             ),
             const SizedBox(height: 10),
             signInWithText(),
@@ -88,6 +81,8 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
           ],
         ));
   }
+
+
 
   SizedBox logoBox() {
     return SizedBox(
@@ -173,11 +168,30 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
      );
   }
 
-  Future<void> _signInButton() async {
+  Text signInButtonLabel() {
+     return const Text(
+       'Sign in',
+       style: TextStyle(
+         color: Colors.white,
+         fontWeight: FontWeight.bold,
+         fontSize: 17,
+       ),
+     );
+   }
+
+  Future<void> _signInButton(BuildContext context) async {
      try {
        await auth.signInWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
-       print(e.toString());
+       showDialog(
+           context: context,
+           builder: (context) {
+             return AlertDialog(
+               title: const Text('Sign in failed'),
+               content: Text(e.toString()),
+             );
+           }
+       );
      }
    }
 
