@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 import '../../Services/Auth.dart';
-import '../../Services/ShowAlertDialog.dart';
+import '../../common_widgets/ShowAlertDialog.dart';
 
 class SignUpPage extends StatelessWidget {
-   SignUpPage({Key? key, required this.auth}) : super(key: key);
+   SignUpPage({Key? key}) : super(key: key);
 
-  final AuthBase auth;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -17,9 +16,9 @@ class SignUpPage extends StatelessWidget {
 
 
    Future<void> _signUpButton(BuildContext context) async {
-
-     try {
-       await auth.createUserWithEmailAndPassword(_email, _password);
+     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
+     try{
+       await auth?.createUserWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
        showAlertDialog (
          context,
@@ -30,7 +29,6 @@ class SignUpPage extends StatelessWidget {
        );
      }
    }
-
 
   @override
   Widget build(BuildContext context) {

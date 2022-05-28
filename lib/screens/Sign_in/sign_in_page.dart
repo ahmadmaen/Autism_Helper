@@ -1,26 +1,29 @@
 
 
-import 'dart:io';
 
 import 'package:autism_helper_project/Services/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../Services/ShowAlertDialog.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../Services/Validator.dart';
+import '../../common_widgets/ShowAlertDialog.dart';
 import 'SignUpPage.dart';
+import 'Validator.dart';
+
 
 class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
-   SignInPage({Key? key, required this.auth}) : super(key: key);
+   SignInPage({Key? key}) : super(key: key);
 
 
-  final AuthBase auth;
+
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+
 
   String get _email => _emailController.text;
   String get _password => _passwordController.text;
@@ -61,7 +64,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: signInWithRowChildren(),
+              children: signInWithRowChildren(context),
             ),
             const SizedBox(height: 5),
             Row(
@@ -78,7 +81,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
                   fontSize: 17,
                 ),
               ),
-              onPressed: _signInwWthAnonymous,
+              onPressed: (){_signInwWthAnonymous(context);},
             ),
           ],
         ));
@@ -182,8 +185,9 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
    }
 
   Future<void> _signInButton(BuildContext context) async {
+    final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
     try {
-       await auth.signInWithEmailAndPassword(_email, _password);
+       await auth?.signInWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
       showAlertDialog (
         context,
@@ -235,7 +239,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
             ];
   }
 
-  List<Widget> signInWithRowChildren() {
+  List<Widget> signInWithRowChildren(BuildContext context) {
     return <Widget>[
               //const SizedBox(width: 30),
               CustomRaisedButton(
@@ -257,7 +261,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
               ),
               const SizedBox(width: 35),
               CustomRaisedButton(
-                  onPressed: _signInWithGoogle,
+                  onPressed: (){_signInWithGoogle(context);},
                   color: Colors.white,
                   child: SizedBox(
                     height: 25,
@@ -269,28 +273,29 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
 
   ////////////////////////////////////////////////////////
 
-  Future<void> _signInwWthAnonymous() async {
+  Future<void> _signInwWthAnonymous(BuildContext context) async {
+    final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
      try {
-       await auth.signInAnonymously();
+       await auth?.signInAnonymously();
      } on FirebaseAuthException catch (e) {
        print(e.toString());
      }
   }
 
-  Future<void> _signInWithGoogle() async {
-     try {
-       await auth.signInWithGoogle();
-     } on FirebaseAuthException catch (e) {
-       print(e.toString());
-     }
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
+    try {
+      await auth?.signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+    }
   }
 
   void _signUpButton(BuildContext context) {
-     Navigator.of(context).push(MaterialPageRoute<void>(
-       fullscreenDialog: true,
-       builder: (context) =>  SignUpPage(auth: auth),
-     ),
-     );
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      fullscreenDialog: true,
+      builder: (context) =>  SignUpPage(),
+    ),);
    }
 
 

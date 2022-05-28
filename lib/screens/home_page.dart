@@ -1,27 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
 
-
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../Services/ShowAlertDialog.dart';
+import 'package:provider/provider.dart';
+import '../common_widgets/ShowAlertDialog.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
-
 import '../Services/Auth.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key,  required this.auth}) : super(key: key);
-
-
-
-  final AuthBase auth;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +107,9 @@ class HomePage extends StatelessWidget {
   }
 
   Future<void> _signOut(BuildContext context) async {
+    final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
     try {
-      await auth.signOut();
+      await auth?.signOut();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":
