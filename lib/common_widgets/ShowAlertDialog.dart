@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 Future showAlertDialog( BuildContext context, {
       required String title,
-      required String content,
+      required String? content,
       required String? cancelActionText,
       required String defaultActionText,
     })
@@ -16,7 +16,7 @@ Future showAlertDialog( BuildContext context, {
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: Text(content),
+        content: Text(content ??= "none"),
         actions: <Widget>[
           if (cancelActionText != null)
             FlatButton(
@@ -35,7 +35,7 @@ Future showAlertDialog( BuildContext context, {
     context: context,
     builder: (context) => CupertinoAlertDialog(
       title: Text(title),
-      content: Text(content),
+      content: Text(content ??= "none"),
       actions: <Widget>[
         if (cancelActionText != null)
           CupertinoDialogAction(

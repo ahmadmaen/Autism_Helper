@@ -13,20 +13,34 @@ import 'SignUpPage.dart';
 import 'Validator.dart';
 
 
-class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
+class SignInPage extends StatefulWidget with EmailAndPasswordValidators {
    SignInPage({Key? key}) : super(key: key);
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
 
+class _SignInPageState extends State<SignInPage> {
 
+   bool _isLoading = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
-
   String get _email => _emailController.text;
   String get _password => _passwordController.text;
+
+   @override
+   void dispose() {
+     _emailController.dispose();
+     _passwordController.dispose();
+     _emailFocusNode.dispose();
+     _passwordFocusNode.dispose();
+     super.dispose();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +101,6 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
         ));
   }
 
-
-
   SizedBox logoBox() {
     return SizedBox(
             child: Image.asset('images/Logo2.png'),
@@ -128,7 +140,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
   }
 
   Card buildEmailCard(BuildContext context) {
-    bool emailValid = emailValidator.isValid(_email);
+
     return Card(
             elevation: 2,
             child:  Padding(
@@ -136,10 +148,9 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
               child : TextField(
                 controller: _emailController,
                 textAlign: TextAlign.start,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText:'Email',
-                  errorText: true ? null  : invalidEmailErrorText,
                 ),
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
@@ -152,7 +163,6 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
   }
 
   Card buildPasswordCard() {
-    bool passwordValid = passwordValidator.isValid(_password);
      return Card(
        elevation: 2,
        child: Padding(
@@ -160,10 +170,9 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
          child : TextField(
            controller: _passwordController,
            textAlign: TextAlign.start,
-           decoration:  InputDecoration(
+           decoration:  const InputDecoration(
              border: InputBorder.none,
              hintText:'Password',
-             errorText: true ? null  : invalidPasswordErrorText,
            ),
            obscureText: true,
            focusNode: _passwordFocusNode,
@@ -191,7 +200,7 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
      } on FirebaseAuthException catch (e) {
       showAlertDialog (
         context,
-        content: e.toString(),
+        content: e.message,
         title: "Sign in failed",
         cancelActionText: "",
         defaultActionText: "OK",
@@ -276,18 +285,39 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
   Future<void> _signInwWthAnonymous(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
      try {
+       setState(() => _isLoading = true );
        await auth?.signInAnonymously();
+
      } on FirebaseAuthException catch (e) {
-       print(e.toString());
+       showAlertDialog (
+         context,
+         content: e.message,
+         title: "Sign in failed",
+         cancelActionText: "",
+         defaultActionText: "OK",
+       );
+     }
+     finally{
+       setState(() => _isLoading = false );
      }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
     try {
+      setState(() => _isLoading = true );
       await auth?.signInWithGoogle();
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
+      showAlertDialog (
+        context,
+        content: e.message,
+        title: "Sign in failed",
+        cancelActionText: "",
+        defaultActionText: "OK",
+      );
+    }
+    finally{
+      setState(() => _isLoading = false );
     }
   }
 
@@ -296,8 +326,6 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
       fullscreenDialog: true,
       builder: (context) =>  SignUpPage(),
     ),);
-   }
-
-
+  }
 
 }
