@@ -1,10 +1,13 @@
 
 
+import 'dart:io';
+
 import 'package:autism_helper_project/Services/Auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../Services/ShowAlertDialog.dart';
 import '../../common_widgets/Buttons/RaisedButton.dart';
 import '../../Services/Validator.dart';
 import 'SignUpPage.dart';
@@ -182,20 +185,13 @@ class SignInPage extends StatelessWidget with EmailAndPasswordValidators {
     try {
        await auth.signInWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
-       showDialog(
-           context: context,
-           builder: (context) {
-             return AlertDialog(
-               title: const Text('Sign in failed'),
-               content: const Text('Please try again'),
-               actions: [
-                 FlatButton(
-                     onPressed: () => Navigator.of(context).pop(),
-                     child: const Text('OK'))
-               ],
-             );
-           }
-       );
+      showAlertDialog (
+        context,
+        content: e.toString(),
+        title: "Sign in failed",
+        cancelActionText: "",
+        defaultActionText: "OK",
+      );
      }
    }
 

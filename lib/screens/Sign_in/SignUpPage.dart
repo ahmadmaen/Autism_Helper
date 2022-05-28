@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../common_widgets/Buttons/RaisedButton.dart';
 import '../../Services/Auth.dart';
+import '../../Services/ShowAlertDialog.dart';
 
 class SignUpPage extends StatelessWidget {
    SignUpPage({Key? key, required this.auth}) : super(key: key);
@@ -20,19 +21,12 @@ class SignUpPage extends StatelessWidget {
      try {
        await auth.createUserWithEmailAndPassword(_email, _password);
      } on FirebaseAuthException catch (e) {
-       showDialog(
-           context: context,
-           builder: (context) {
-             return AlertDialog(
-               title: const Text('Sign in failed'),
-               content: Text(e.toString()),
-               actions: [
-                 FlatButton(
-                     onPressed: () => Navigator.of(context).pop(),
-                     child: const Text('OK'))
-               ],
-             );
-           }
+       showAlertDialog (
+         context,
+         content: e.toString(),
+         title: "Sign in failed",
+         cancelActionText: "",
+         defaultActionText: "OK",
        );
      }
    }
