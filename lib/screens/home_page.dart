@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,13 +22,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Image.asset('images/title.png', scale: 18)),
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-            onPressed: (){_confirmSignOut(context);},
-          ),
+          leading: _menu(),
           actions: [
             GestureDetector(
               onTap: (){_confirmSignOut(context);},
@@ -132,5 +125,37 @@ class HomePage extends StatelessWidget {
     if (didRequestSignOut == true) {
       _signOut(context);
     }
+  }
+
+
+  PopupMenuButton _menu(){
+    return PopupMenuButton(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0,),
+        elevation: 20,
+        offset: Offset(0, 10),
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        icon: Icon(
+          Icons.menu,
+          color: Colors.black,
+        ),
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: Text("Help Center"),
+            value: 1,
+            onTap: () {
+            },
+          ),
+          PopupMenuItem(
+            child: Text("Sign Out"),
+            value: 2,
+            onTap: (){
+              _confirmSignOut(context);
+              },
+          )
+        ]
+    );
   }
 }
