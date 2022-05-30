@@ -2,6 +2,7 @@
 
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
+import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -43,12 +44,30 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20 ),
+            SizedBox(height: 30),
             Text(
               defaultUser.userName,
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(
+                  alignment: Alignment.centerRight,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.orange,
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                fullscreenDialog: true,
+                                builder: (context) => EditProfile()));
+                          },
+                          icon: Icon(
+                            Icons.edit_outlined,
+                            size: 25,
+                          )))),
+            ),
+            SizedBox(height: 15),
             buildNameField(),
             SizedBox(height: 20),
             buildEmailField(),
@@ -65,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = '\n'+defaultUser.userName,
+        controller: TextEditingController()..text = '\n' + defaultUser.userName,
         onChanged: (text) => {},
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -78,11 +97,13 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
   Padding buildEmailField() {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = '\n'+ defaultUser.userEmail,
+        controller: TextEditingController()
+          ..text = '\n' + defaultUser.userEmail,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -95,6 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
   Padding buildPasswordField() {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
@@ -108,12 +130,11 @@ class _ProfilePageState extends State<ProfilePage> {
           labelStyle: TextStyle(fontSize: 20),
         ),
         obscureText: true,
-
       ),
     );
   }
 
- /* void _updateState() {
+  /* void _updateState() {
     setState(() {});
   }
   */

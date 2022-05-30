@@ -2,7 +2,8 @@
 
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/screens/profile_page.dart';
+import 'package:autism_helper_project/screens/help_center_page.dart';
+import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +166,11 @@ class _HomePageState extends State<HomePage> {
               )
             ],
         onSelected: (result) {
-      if (result == 1) {
+          if (result == 0) { Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => HelpCenter()));
+          }
+      else if (result == 1) {
         _confirmSignOut(context);
       }
       }
