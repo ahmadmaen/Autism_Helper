@@ -1,16 +1,16 @@
 
 
 
-import 'package:autism_helper_project/Services/Auth.dart';
+import 'package:autism_helper_project/Services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../common_widgets/ShowAlertDialog.dart';
-import 'SignUpPage.dart';
-import 'Validator.dart';
+import '../../common_widgets/Buttons/raised_button.dart';
+import '../../common_widgets/show_alert_dialog.dart';
+import 'sign_up_page.dart';
+import 'validator.dart';
 
 
 class SignInPage extends StatefulWidget with EmailAndPasswordValidators {
@@ -22,7 +22,6 @@ class SignInPage extends StatefulWidget with EmailAndPasswordValidators {
 
 class _SignInPageState extends State<SignInPage> {
 
-   bool _isLoading = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -233,7 +232,7 @@ class _SignInPageState extends State<SignInPage> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              FlatButton(
+              TextButton(
                   onPressed: () {_signUpButton(context); },
                   child: const Text(
                     'Sign up here',
@@ -285,7 +284,6 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _signInwWthAnonymous(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
      try {
-       setState(() => _isLoading = true );
        await auth?.signInAnonymously();
 
      } on FirebaseAuthException catch (e) {
@@ -298,14 +296,12 @@ class _SignInPageState extends State<SignInPage> {
        );
      }
      finally{
-       setState(() => _isLoading = false );
      }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
     try {
-      setState(() => _isLoading = true );
       await auth?.signInWithGoogle();
     } on FirebaseAuthException catch (e) {
       showAlertDialog (
@@ -317,7 +313,6 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
     finally{
-      setState(() => _isLoading = false );
     }
   }
 

@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../common_widgets/Buttons/RaisedButton.dart';
-import '../../Services/Auth.dart';
-import '../../common_widgets/ShowAlertDialog.dart';
+import '../../common_widgets/Buttons/raised_button.dart';
+import '../../Services/auth.dart';
+import '../../common_widgets/show_alert_dialog.dart';
 
 class SignUpPage extends StatelessWidget {
    SignUpPage({Key? key}) : super(key: key);
@@ -144,7 +144,7 @@ class SignUpPage extends StatelessWidget {
            fontWeight: FontWeight.normal,
          ),
        ),
-       FlatButton(
+       TextButton(
            onPressed: () {
              Navigator.of(context).pop();
            },

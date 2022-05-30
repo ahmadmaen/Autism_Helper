@@ -1,5 +1,4 @@
 import 'package:autism_helper_project/models/picture.dart';
-import 'package:autism_helper_project/models/role.dart';
 
 class User {
   final String userName;

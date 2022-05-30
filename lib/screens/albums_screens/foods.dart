@@ -3,7 +3,6 @@
 import 'package:autism_helper_project/database.dart';
 import 'package:flutter/material.dart';
 import '../../common_widgets/profile_picture.dart';
-import 'package:flutter/material.dart';
 
 class Foods extends StatelessWidget {
   const Foods({Key? key}) : super(key: key);

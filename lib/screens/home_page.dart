@@ -2,42 +2,52 @@
 
 import 'package:autism_helper_project/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/database.dart';
+import 'package:autism_helper_project/screens/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../common_widgets/ShowAlertDialog.dart';
+import '../common_widgets/show_alert_dialog.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
-import '../Services/Auth.dart';
+import '../Services/auth.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var _icon = Icons.toggle_off_outlined;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Center(child: Image.asset('images/title.png', scale: 18)),
-          leading: _menu(),
-          actions: [
-            GestureDetector(
-              onTap: (){_confirmSignOut(context);},
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 12, bottom: 12, right: 5, left: 5),
-                child: ProfilePicture(
-                  pictureUrl: defaultUser.userProfilePictureUrl,
-                  pictureSize: 30,
-                ),
+      appBar: AppBar(
+        title: Center(child: Image.asset('images/title.png', scale: 18)),
+        leading: _menu(),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (_) => ProfilePage())),
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+              child: ProfilePicture(
+                pictureUrl: defaultUser.userProfilePictureUrl,
+                pictureSize: 30,
               ),
-            ),//(ProfilePicture)
-          ],
-        ),
-        body: _buildContent(),
+            ),
+          ), //(ProfilePicture)
+        ],
+      ),
+      body: _buildContent(),
     );
   }
 
@@ -57,16 +67,14 @@ class HomePage extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       fullscreenDialog: true,
-                      builder: (_) => getScreen(index)
-                  )),
+                      builder: (_) => getScreen(index))),
                   child: Card(
                     color: albums[index].albumColor,
-                    shape: RoundedRectangleBorder (
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    child: Padding (
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Image.asset (
+                      child: Image.asset(
                         albums[index].albumPictureUrl,
                         width: 165,
                         height: 170,
@@ -81,7 +89,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getScreen(int index) {
-    switch(index) {
+    switch (index) {
       case 0:
         return Foods();
       case 1:
@@ -100,16 +108,20 @@ class HomePage extends StatelessWidget {
   }
 
   Future<void> _signOut(BuildContext context) async {
-    final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
+    final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth?.signOut();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":
-          print("Anonymous auth hasn't been enabled for this project.");
+          if (kDebugMode) {
+            print("Anonymous auth hasn't been enabled for this project.");
+          }
           break;
         default:
-          print("Unknown error.");
+          if (kDebugMode) {
+            print("Unknown error.");
+          }
       }
     }
   }
@@ -127,13 +139,14 @@ class HomePage extends StatelessWidget {
     }
   }
 
-
-  PopupMenuButton _menu(){
+  PopupMenuButton _menu() {
     return PopupMenuButton(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0,),
+        padding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 4.0,
+        ),
         elevation: 20,
         offset: Offset(0, 10),
-
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -142,20 +155,41 @@ class HomePage extends StatelessWidget {
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text("Help Center"),
-            value: 1,
-            onTap: () {
-            },
-          ),
-          PopupMenuItem(
-            child: Text("Sign Out"),
-            value: 2,
-            onTap: (){
-              _confirmSignOut(context);
-              },
-          )
-        ]
+              PopupMenuItem(
+                child: Text("Help Center"),
+                value: 0,
+              ),
+              PopupMenuItem(
+                child: Text("Sign Out"),
+                value: 1,
+              )
+            ],
+        onSelected: (result) {
+      if (result == 1) {
+        _confirmSignOut(context);
+      }
+      }
+    );
+  }
+
+  IconButton buildDarkModeButton() {
+    return IconButton(
+      icon: Icon(
+        _icon,
+        color: Colors.black,
+        size: 50,
+      ),
+      onPressed: () {
+        setState(() {
+          if (_icon == Icons.toggle_off_outlined) {
+            _icon = Icons.toggle_on_outlined;
+            //themeChange.darkTheme = true;
+          } else {
+            _icon = Icons.toggle_off_outlined;
+            //themeChange.darkTheme = false;
+          }
+        });
+      },
     );
   }
 }
