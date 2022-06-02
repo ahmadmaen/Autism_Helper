@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:autism_helper_project/models/user.dart';
 
 import 'api_path.dart';
+import 'firestore_service.dart';
 
 abstract class Database {
 
@@ -21,15 +22,15 @@ abstract class Database {
 
 class FirestoreDatabase implements Database {
   FirestoreDatabase({required this.uid}) : assert(uid != null);
+
   final String? uid;
+  final _service = FirestoreService.instance;
 
   @override
-  Future<void> setUserData(User1 user) async {
-    final path = APIPath.user(uid);
-    final documentReference = FirebaseFirestore.instance.doc(path);
-    await documentReference.set(user.toMap());
-
-  }
+  Future<void> setUserData(User1 user) async => _service.setData(
+      path: APIPath.user(uid),
+      data: user.toMap(),
+  );
 
 
 }
