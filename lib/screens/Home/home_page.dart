@@ -23,26 +23,33 @@ import 'contact_us_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+
+
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
   var _icon = Icons.toggle_off_outlined;
+
   User1 user = User1(
       name: 'Ahmad Maen',
       userProfilePictureUrl:
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
+
   List<Album> albums = <Album>[];
 
   Future<void> getAlbum()  async {
     final Database database = Provider.of<Database>(context, listen: true);
 
-    var albums =  await database.readAlbums().first;
-    final allURL =  albums.map((album) =>album).toList();
+    var albums1 =  await database.readAlbums().first;
+    final allURL =  albums1.map((album) => album).toList();
     setState(() {
       albums = allURL;
     });
+    print(albums.length);
   }
 
   @override
@@ -103,10 +110,10 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(30.0)),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
+                    child: Image.network(
                       albums[index].url,
-                      width: 165,
-                      height: 170,
+                      width: 150,
+                      height: 150,
                     ),
                   ),
                 ),
