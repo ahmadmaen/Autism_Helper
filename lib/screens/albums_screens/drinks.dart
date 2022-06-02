@@ -5,6 +5,7 @@ import 'package:autism_helper_project/screens/Home/home_page.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Drinks extends StatelessWidget {
   const Drinks({Key? key}) : super(key: key);
@@ -13,15 +14,22 @@ class Drinks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Image.asset('images/title.png', scale: 18)),
+        title: Center(child: Center(child: Center(
+          child: Text(
+            'Add a new image',
+            style: GoogleFonts.abel(
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+        ),),),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => HomePage()));
+              Navigator.pop(context);
             }),
         actions: [
           GestureDetector(

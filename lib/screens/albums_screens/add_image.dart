@@ -1,14 +1,12 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/Home/home_page.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
-class Feelings extends StatelessWidget {
-  const Feelings({Key? key}) : super(key: key);
-
+class AddImage extends StatelessWidget {
+  const AddImage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,15 +35,6 @@ class Feelings extends StatelessWidget {
           ), //(ProfilePicture)
         ],
       ),
-      body: SafeArea(child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Feelings'),
-        ),
-      )),
     );
-
   }
-
-
 }

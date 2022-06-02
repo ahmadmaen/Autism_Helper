@@ -19,7 +19,6 @@ import 'package:autism_helper_project/models/user.dart';
 import '../common_widgets/show_alert_dialog.dart';
 import 'contact_us_page.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -31,12 +30,10 @@ class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
 
-
   User1 user = User1(
       name : 'Ahmad Maen',
       userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
   );
-
 
    List<Album> albums = <Album>[] ;
 
@@ -44,7 +41,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     final database = Provider.of<Database>(context, listen: false);
-
     //albums = database.readAlbums();
 
     return Scaffold(
@@ -179,7 +175,7 @@ class _HomePageState extends State<HomePage> {
           else if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true,
-                builder: (context) => ContactUs()));
+                builder: (context) => ContactUsPage()));
           } else if (result == 2) {
             _confirmSignOut();
           }

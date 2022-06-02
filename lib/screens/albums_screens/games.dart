@@ -21,8 +21,7 @@ class Games extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => HomePage()));
+              Navigator.pop(context);
             }),
         actions: [
           GestureDetector(
