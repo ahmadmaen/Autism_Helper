@@ -43,7 +43,10 @@ class _HomePageState extends State<HomePage> {
 
     final database = Provider.of<Database>(context, listen: false);
 
-    albums = database.readAlbums();
+    albums = [];
+    database.readAlbums();
+
+
 
     return Scaffold(
       appBar: AppBar(
