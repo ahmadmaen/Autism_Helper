@@ -41,7 +41,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     final database = Provider.of<Database>(context, listen: false);
-    //albums = database.readAlbums();
+
+    database.readAlbums().listen((event) {
+      for (Album album in event!) {
+        albums.add(album);
+      }
+    }
+    );
 
     return Scaffold(
       appBar: AppBar(
