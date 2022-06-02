@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/database.dart';
+import 'package:autism_helper_project/screens/Home/home_page.dart';
+import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import '../common_widgets/profile_picture.dart';
@@ -17,22 +19,18 @@ class Foods extends StatelessWidget {
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
         leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
             icon: Icon(
-              Icons.add_box_outlined,
+              Icons.arrow_back,
               color: Colors.black,
             ),
-            onPressed: () {},
-          ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true, builder: (_) => HomePage()));
+            }),
+        actions: [
           GestureDetector(
-            onTap:(){} /*_signOut*/,
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (_) => const ProfilePage())),
             child: Padding(
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 5, left: 5),
@@ -41,7 +39,7 @@ class Foods extends StatelessWidget {
                 pictureSize: 30,
               ),
             ),
-          ),//(ProfilePicture)
+          ), //(ProfilePicture)
         ],
       ),
       body: SafeArea(child: Center(
