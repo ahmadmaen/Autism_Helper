@@ -7,14 +7,22 @@ import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HelpCenter extends StatelessWidget {
-  const HelpCenter({Key? key}) : super(key: key);
+class ContactUs extends StatelessWidget {
+  const ContactUs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Image.asset('images/title.png', scale: 18)),
+          title: Center(child: Center(
+            child: Text(
+              'Contact Us',
+              style: GoogleFonts.abel(
+                  fontSize: 30,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -44,25 +52,8 @@ class HelpCenter extends StatelessWidget {
             padding: const EdgeInsets.only(top: 15.0),
             child: Column(
               children: [
-                Center(
-                  child: Text(
-                    'Autism Helper',
-                    style: GoogleFonts.abel(
-                        fontSize: 30,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem veniam nobis, nisi ut expedita, doloribus reprehenderit explicabo non velit repellat alias saepe inventore repellendus? Molestias suscipit eos tempora? Quae quaerat cumque in veritatis.',
-                    style: GoogleFonts.abel(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                Image.asset('images/logo.png',scale: 4),
+                SizedBox(height: 20),
                 Center(
                   child: Text(
                     'Contact Us',
@@ -104,6 +95,7 @@ class HelpCenter extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ))),
+
               ],
             ),
           ),

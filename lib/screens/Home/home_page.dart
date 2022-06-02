@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-
-
 import 'package:autism_helper_project/database.dart';
+import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -17,9 +16,8 @@ import '../../Services/auth.dart';
 import '../../services/database.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
-
 import '../common_widgets/show_alert_dialog.dart';
-import 'help_center_page.dart';
+import 'contact_us_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -155,20 +153,27 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context) => [
           PopupMenuItem(
-            child: Text("Help Center"),
+            child: Text("About Us"),
             value: 0,
+          ),PopupMenuItem(
+            child: Text("Contact Us"),
+            value: 1,
           ),
           PopupMenuItem(
             child: Text("Sign Out"),
-            value: 1,
+            value: 2,
           )
         ],
         onSelected: (result) {
           if (result == 0) { Navigator.of(context).push(MaterialPageRoute(
               fullscreenDialog: true,
-              builder: (context) => HelpCenter()));
+              builder: (context) => AboutUs()));
           }
           else if (result == 1) {
+            Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => ContactUs()));
+          } else if (result == 2) {
             _confirmSignOut();
           }
         }
