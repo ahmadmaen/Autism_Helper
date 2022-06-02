@@ -12,6 +12,8 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
+import '../../models/about_us.dart';
+import '../../models/album.dart';
 import '../../services/database.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
@@ -37,8 +39,15 @@ class _HomePageState extends State<HomePage> {
   );
 
 
+   List<Album> albums = <Album>[] ;
+
   @override
   Widget build(BuildContext context) {
+
+    final database = Provider.of<Database>(context, listen: false);
+
+    //albums = database.readAlbums();
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -80,13 +89,13 @@ class _HomePageState extends State<HomePage> {
                       fullscreenDialog: true,
                       builder: (_) => getScreen(index))),
                   child: Card(
-                    color: albums[index].albumColor,
+                    color: Color(albums[index].albumColor),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index].albumPictureUrl,
+                        albums[index].url,
                         width: 165,
                         height: 170,
                       ),
@@ -166,7 +175,7 @@ class _HomePageState extends State<HomePage> {
         onSelected: (result) {
           if (result == 0) { Navigator.of(context).push(MaterialPageRoute(
               fullscreenDialog: true,
-              builder: (context) => AboutUs()));
+              builder: (context) => AboutUs(email: '', phoneNumber: 1,text: '')));
           }
           else if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(

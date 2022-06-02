@@ -9,11 +9,14 @@ import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/album.dart';
+
 class GridAlbums extends StatelessWidget {
   const GridAlbums({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    late List<Album> albums =[];
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 7, 2, 7),
       child: GridView.builder(

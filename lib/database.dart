@@ -29,37 +29,3 @@ const List<Picture> pictures = [
       'https://images.unsplash.com/photo-1633896949673-1eb9d131a9b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hhd2FybWF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
       pictureId: 1),
 ];
-
-List<Album> albums = [
-  /*Album(
-      albumId: albumId++,
-      albumName: 'Foods',
-      albumPictureUrl: 'images/foods.png',
-      albumColor: const Color(0xFFFFFF6F)),
-  Album(
-      albumId: albumId++,
-      albumName: 'Games',
-      albumPictureUrl: 'images/games.png',
-      albumColor: const Color(0xFF28FE6F)),
-  Album(
-      albumId: albumId++,
-      albumName: 'Persons',
-      albumPictureUrl: 'images/persons.png',
-      albumColor: const Color(0xFFE4E4E4)),
-  Album(
-      albumId: albumId++,
-      albumName: 'Feelings',
-      albumPictureUrl: 'images/feelings.png',
-      albumColor: const Color(0xFFFE9F00)),
-  Album(
-    albumId: albumId++,
-    albumName: 'Drinks',
-    albumPictureUrl: 'images/drinks.png',
-    albumColor: const Color(0xFFFFFFFF)
-  ),
-  Album(
-      albumId: albumId++,
-      albumName: 'Places',
-      albumPictureUrl: 'images/places.png',
-      albumColor: const Color(0xFFE4E4E4)),*/
-];
