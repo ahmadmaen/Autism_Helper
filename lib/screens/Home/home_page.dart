@@ -2,7 +2,6 @@
 
 
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/public_widget.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -129,7 +128,7 @@ class _HomePageState extends State<HomePage> {
     await database.setUserData(user);
   }
 
-  static PopupMenuButton menu(BuildContext context) {
+   PopupMenuButton menu(BuildContext context) {
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,
@@ -160,14 +159,14 @@ class _HomePageState extends State<HomePage> {
               builder: (context) => HelpCenter()));
           }
           else if (result == 1) {
-            _confirmSignOut(context);
+            _confirmSignOut();
           }
         }
     );
   }
 
 
-  static Future<void>  _confirmSignOut(BuildContext context) async {
+   Future<void>  _confirmSignOut() async {
     final didRequestSignOut = await showAlertDialog(
       context,
       title: 'Logout',
@@ -176,11 +175,11 @@ class _HomePageState extends State<HomePage> {
       defaultActionText: 'Logout',
     );
     if (didRequestSignOut == true) {
-      _signOut(context);
+      _signOut();
     }
   }
 
-  static Future<void> _signOut(BuildContext context) async {
+   Future<void> _signOut() async {
     final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth?.signOut();
