@@ -124,8 +124,18 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> _setUserData(BuildContext context) async {
-    final database = Provider.of<Database>(context, listen: false);
-    await database.setUserData(user);
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      await database.setUserData(user);
+    } on FirebaseAuthException catch (e) {
+      showAlertDialog (
+        context,
+        content: e.message,
+        title: "failed",
+        cancelActionText: "",
+        defaultActionText: "OK",
+      );
+    }
   }
 
    PopupMenuButton menu(BuildContext context) {
@@ -165,7 +175,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
    Future<void>  _confirmSignOut() async {
     final didRequestSignOut = await showAlertDialog(
       context,
@@ -197,9 +206,6 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
-
-
-
 
 
   IconButton buildDarkModeButton() {
