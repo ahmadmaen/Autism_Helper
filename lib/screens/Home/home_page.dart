@@ -14,12 +14,8 @@ import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../services/database.dart';
 import '../common_widgets/profile_picture.dart';
-<<<<<<< Updated upstream
-import '../common_widgets/show_alert_dialog.dart';
-import 'help_center_page.dart';
 import 'package:autism_helper_project/models/user.dart';
-=======
->>>>>>> Stashed changes
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

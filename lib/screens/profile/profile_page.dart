@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  defaultUser.userName,
+                  defaultUser.name,
                   style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                 ),
                 SizedBox(height: 15),
