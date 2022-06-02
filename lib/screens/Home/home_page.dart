@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
   List<Album> albums = <Album>[];
 
-  Future<List<String>> getAlbum() async {
+  List<String> getAlbum()  {
     final Database database = Provider.of<Database>(context, listen: true);
 
-    final albums = await database.readAlbums().first;
+    final albums =  database.readAlbums().asyncMap((album) => album.first);
     final allURL = albums.map((album) => album.url).toList();
 
     print(allURL.length);
