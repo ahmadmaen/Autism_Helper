@@ -10,7 +10,7 @@ import 'firestore_service.dart';
 
 abstract class Database {
   Future<void> setUserData(User1 user);
-  Stream<List<Album>?> readAlbums();
+  Stream<List<Album>> readAlbums();
 }
 
 class FirestoreDatabase implements Database {
@@ -26,27 +26,14 @@ class FirestoreDatabase implements Database {
       );
 
   @override
-  Stream<List<Album>?> readAlbums() {
+  Stream<List<Album>> readAlbums() {
     final path = APIPath.album();
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
 
-    String word='aa';
-
-    print(word);
-
-    snapshots.listen((snapshot) {
-      for (var snapshot in snapshot.docs) {
-        word = snapshot.data()['Label'];
-        print(word);
-      }
-    });
-
-
-    Stream<List<Album>> albums = snapshots.map((snapshot) => snapshot.docs.map(
+    return snapshots.map((snapshot) => snapshot.docs.map(
           (snapshot) {
           var data = snapshot.data();
-          word = data['Label'];
           return Album(
             label: data['Label'],
             url: data['URL'],
@@ -55,17 +42,5 @@ class FirestoreDatabase implements Database {
         },
       ).toList());
 
-
-    albums.listen((event) {
-      for (Album albums in event) {
-        if(event.isEmpty) {
-          print('suii');
-        }
-      }
-    });
-
-    print(word);
-
-    return albums;
   }
 }

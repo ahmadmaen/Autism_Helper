@@ -35,19 +35,24 @@ class _HomePageState extends State<HomePage> {
       userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
   );
 
-   List<Album> albums = <Album>[] ;
+   List<Album> albums =<Album>[];
 
   @override
   Widget build(BuildContext context) {
 
-    final database = Provider.of<Database>(context, listen: false);
+    final Database database = Provider.of<Database>(context, listen: false);
 
+    var Count;
     database.readAlbums().listen((event) {
-      for (Album album in event!) {
+      if(event.isEmpty) print('sui');
+      Count = event.length;
+      for (Album album in event) {
         albums.add(album);
+        print(Count);
       }
     }
     );
+    print(Count);
 
     return Scaffold(
       appBar: AppBar(

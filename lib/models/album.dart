@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class Album {
   Album({ required this.label,  required this.url,  required this.albumColor, this.pictures = const [],});
 
-  String label;
-  String url;
-  int albumColor = 0xFFFFFFFF;
+  final String label;
+  final String url;
+  final int albumColor;
 
   final List<Picture> pictures;
 
