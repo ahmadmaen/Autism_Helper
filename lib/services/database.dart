@@ -10,8 +10,7 @@ import 'firestore_service.dart';
 
 abstract class Database {
   Future<void> setUserData(User1 user);
-  Stream<List<Album>> readAlbums();
-
+  Stream<List<Album>?> readAlbums();
 }
 
 class FirestoreDatabase implements Database {
@@ -26,22 +25,47 @@ class FirestoreDatabase implements Database {
         data: user.toMap(),
       );
 
-  Stream<List<Album>> readAlbums() {
+  @override
+  Stream<List<Album>?> readAlbums() {
     final path = APIPath.album();
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
-    return snapshots.map((snapshot) {
-      snapshot.docs.map(
-            (snapshot) {
-          final data = snapshot.data();
+
+    String word='aa';
+
+    print(word);
+
+    snapshots.listen((snapshot) {
+      for (var snapshot in snapshot.docs) {
+        word = snapshot.data()['Label'];
+        print(word);
+      }
+    });
+
+
+    Stream<List<Album>> albums = snapshots.map((snapshot) => snapshot.docs.map(
+          (snapshot) {
+          var data = snapshot.data();
+          word = data['Label'];
           return Album(
             label: data['Label'],
-            url: 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/Drink.png?alt=media&token=23e1fae2-72c8-4cbf-aeaa-e61383c55762',
+            url: data['URL'],
             albumColor: int.parse(data['Color']),
           );
         },
-      );
-      return <Album>[];
+      ).toList());
+
+
+    albums.listen((event) {
+      for (Album albums in event) {
+        if(event.isEmpty) {
+          print('suii');
+        }
+      }
     });
-    }
+
+    print(word);
+
+    return albums;
+  }
 }
