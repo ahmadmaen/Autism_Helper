@@ -3,6 +3,8 @@ import  'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:autism_helper_project/models/user.dart';
 
+import 'api_path.dart';
+
 abstract class Database {
 
   Future<void> setUserData(User1 user);
@@ -23,7 +25,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setUserData(User1 user) async {
-    final path = '/User/$uid';
+    final path = APIPath.user(uid);
     final documentReference = FirebaseFirestore.instance.doc(path);
     await documentReference.set(user.toMap());
 
