@@ -45,15 +45,15 @@ class FirestoreDatabase implements Database {
       for (var snapshot in snapshot.docs) {
         if (kDebugMode) {
           print(snapshot.data());
+          final data = snapshot.data();
+          albums.add(
+              Album(
+                label: 'Label',
+                url: 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/Person.png?alt=media&token=7e39bde4-fda0-4594-9cf0-2f5d496190e9',
+                albumColor: int.parse('0xFFE4E4E4'),
+              )
+          );
         }
-        final data = snapshot.data();
-        albums.add(
-            Album(
-              label: data['Label'],
-              url: data['URL'],
-              albumColor: int.parse(data['Color']),
-            )
-        );
       }
     });
 
@@ -61,11 +61,11 @@ class FirestoreDatabase implements Database {
       snapshot.docs.map(
             (snapshot) {
           final data = snapshot.data();
-          return  Album(
+          albums.add(  Album(
             label: data['Label'],
-            url: data['URL'],
+            url: 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/Drink.png?alt=media&token=23e1fae2-72c8-4cbf-aeaa-e61383c55762',
             albumColor: int.parse(data['Color']),
-          );
+          ));
         },
       );
     });
