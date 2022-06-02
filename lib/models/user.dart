@@ -1,21 +1,23 @@
 import 'package:autism_helper_project/models/picture.dart';
 
-class User {
-  final String userName;
-  final int userId;
-  final String userEmail;
-  final String userPassword;
+class User1 {
+  final int userId=111;
+  final String name;
+  final String userEmail='suii';
+  final String userPassword='suii';
   final String userProfilePictureUrl;
-  //final Role userRole;
   final List<Picture> pictures;
 
-  const User({
-    required this.userName,
-    required this.userId,
-    required this.userEmail,
-    required this.userPassword,
-    //this.userRole,
-    this.userProfilePictureUrl = 'images/defaultProfile.png',
+  User1({
+    required this.name,
+    required this.userProfilePictureUrl,
     this.pictures = const [],
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'Name': name,
+      'ProfilePictureURL': userProfilePictureUrl,
+    };
+  }
 }

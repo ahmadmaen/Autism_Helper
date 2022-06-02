@@ -7,13 +7,10 @@ import 'dart:math';
 
 int albumId = 0;
 var rand = Random();
-const User defaultUser = User(
-    userName: 'Fawwaz Tobasi',
-    userId: 135209,
-    userEmail: 'fawwaz@gmail.com',
-    userPassword: '123',
-    userProfilePictureUrl:
-    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80');
+User1 defaultUser = User1(
+    name: 'Fawwaz',
+    userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
+);
 
 const List<Picture> pictures = [
   Picture(

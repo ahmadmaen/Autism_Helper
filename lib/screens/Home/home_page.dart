@@ -19,7 +19,7 @@ import '../../services/Database.dart';
 import '../common_widgets/profile_picture.dart';
 import '../common_widgets/show_alert_dialog.dart';
 import 'help_center_page.dart';
-
+import 'package:autism_helper_project/models/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return Feelings();
       case 4:
-         _createJob(context);
+         _setUserData(context);
          return Drinks();
       case 5:
         return Places();
@@ -114,9 +114,13 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  Future<void> _createJob(BuildContext context) async {
+  Future<void> _setUserData(BuildContext context) async {
     final database = Provider.of<Database>(context, listen: false);
-    await database.createJob( {'name': 'Blogging', 'ratePerSecond': 5,} );
+    User1 user = User1(
+        name : 'Ahmad Maen',
+        userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
+    );
+    await database.setUserData(user);
   }
 
   Future<void> _signOut(BuildContext context) async {

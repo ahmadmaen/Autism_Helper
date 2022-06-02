@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(height: 30),
             Text(
-              defaultUser.userName,
+              defaultUser.name,
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
             ),
             SizedBox(height: 15),
@@ -86,7 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = '\n' + defaultUser.userName,
+        controller: TextEditingController()..text = '\n' + defaultUser.name,
         onChanged: (text) => {},
         decoration: InputDecoration(
           border: InputBorder.none,
