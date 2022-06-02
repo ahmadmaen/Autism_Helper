@@ -15,6 +15,7 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
+import '../../services/Database.dart';
 import '../common_widgets/profile_picture.dart';
 import '../common_widgets/show_alert_dialog.dart';
 import 'help_center_page.dart';
@@ -103,12 +104,19 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return Feelings();
       case 4:
-        return Drinks();
+         _createJob(context);
+         return Drinks();
       case 5:
         return Places();
       default:
         return Places();
     }
+  }
+
+
+  Future<void> _createJob(BuildContext context) async {
+    final database = Provider.of<Database>(context, listen: false);
+    await database.createJob( {'name': 'Blogging', 'ratePerSecond': 5,} );
   }
 
   Future<void> _signOut(BuildContext context) async {
