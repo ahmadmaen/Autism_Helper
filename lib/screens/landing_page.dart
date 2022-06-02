@@ -1,5 +1,5 @@
 import 'package:autism_helper_project/screens/sign_in/sign_in_page.dart';
-import 'package:autism_helper_project/services/Database.dart';
+import 'package:autism_helper_project/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

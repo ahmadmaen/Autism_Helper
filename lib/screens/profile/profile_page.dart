@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-
-import 'package:autism_helper_project/database.dart';
+import 'package:autism_helper_project/database.dart'; 
+import 'package:autism_helper_project/screens/Home/home_page.dart';
 import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,68 +27,94 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(top: 50),
-      child: Center(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ProfilePicture(
+        appBar: AppBar(
+          title: Center(child: Image.asset('images/title.png', scale: 18)),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true, builder: (_) => HomePage()));
+              }),
+          actions: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true, builder: (_) => const ProfilePage())),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, bottom: 12, right: 5, left: 5),
+                child: ProfilePicture(
                   pictureUrl: user.userProfilePictureUrl,
-                  pictureSize: 130,
+                  pictureSize: 30,
                 ),
-                Positioned(
-                  bottom: 1,
-                  right: 1,
-                  child: CircleAvatar(
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.photo_camera_outlined,
-                        color: Colors.white70,
-                        size: 25,
-                      ),
-                      onPressed: () {},
-                    ),
-                    backgroundColor: Colors.orange,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30),
-            Text(
-              user.name,
-              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Container(
-                  alignment: Alignment.centerRight,
-                  child: CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                fullscreenDialog: true,
-                                builder: (context) => EditProfile()));
-                          },
-                          icon: Icon(
-                            Icons.edit_outlined,
-                            size: 25,
-                          )))),
-            ),
-            SizedBox(height: 15),
-            buildNameField(),
-            SizedBox(height: 20),
-            buildEmailField(),
-            SizedBox(height: 20),
-            buildPasswordField(),
-            SizedBox(height: 20),
+              ),
+            ), //(ProfilePicture)
           ],
         ),
-      ),
-    ));
+        body: Padding(
+          padding: const EdgeInsets.only(top: 50),
+          child: Center(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    ProfilePicture(
+                      pictureUrl: defaultUser.userProfilePictureUrl,
+                      pictureSize: 130,
+                    ),
+                    Positioned(
+                      bottom: 1,
+                      right: 1,
+                      child: CircleAvatar(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.photo_camera_outlined,
+                            color: Colors.white70,
+                            size: 25,
+                          ),
+                          onPressed: () {},
+                        ),
+                        backgroundColor: Colors.orange,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Text(
+                  defaultUser.userName,
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Container(
+                      alignment: Alignment.centerRight,
+                      child: CircleAvatar(
+                          backgroundColor: Colors.orange,
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    fullscreenDialog: true,
+                                    builder: (context) => EditProfile()));
+                              },
+                              icon: Icon(
+                                Icons.edit_outlined,
+                                size: 25,
+                              )))),
+                ),
+                SizedBox(height: 15),
+                buildNameField(),
+                SizedBox(height: 20),
+                buildEmailField(),
+                SizedBox(height: 20),
+                buildPasswordField(),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ));
   }
 
   Padding buildNameField() {
