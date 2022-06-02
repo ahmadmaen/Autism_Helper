@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,13 +13,13 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
+import '../../models/album.dart';
 import '../../services/database.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
 
 import '../common_widgets/show_alert_dialog.dart';
 import 'help_center_page.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,18 +29,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   var _icon = Icons.toggle_off_outlined;
 
-
   User1 user = User1(
-      name : 'Ahmad Maen',
-      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
-  );
+      name: 'Ahmad Maen',
+      userProfilePictureUrl:
+          'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
+
+  late List<Album?> albums ;
+
 
 
   @override
   Widget build(BuildContext context) {
+
+    final database = Provider.of<Database>(context, listen: false);
+
+    albums = database.readAlbums() as List<Album?>;
+
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -52,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 fullscreenDialog: true, builder: (_) => const ProfilePage())),
             child: Padding(
               padding:
-              const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
                 pictureUrl: user.userProfilePictureUrl,
                 pictureSize: 30,
@@ -76,6 +82,7 @@ class _HomePageState extends State<HomePage> {
           ),
           itemCount: albums.length,
           itemBuilder: (context, index) {
+
             return Column(
               children: [
                 GestureDetector(
@@ -83,13 +90,13 @@ class _HomePageState extends State<HomePage> {
                       fullscreenDialog: true,
                       builder: (_) => getScreen(index))),
                   child: Card(
-                    color: albums[index].albumColor,
+                    color: Color(),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index].albumPictureUrl,
+                        albums[index]?.url,
                         width: 165,
                         height: 170,
                       ),
@@ -113,8 +120,8 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return Feelings();
       case 4:
-         _setUserData(context);
-         return Drinks();
+        _setUserData(context);
+        return Drinks();
       case 5:
         return Places();
       default:
@@ -122,13 +129,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   Future<void> _setUserData(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context, listen: false);
-      await database.setUserData(user);
+      //database.readJobs();
     } on FirebaseAuthException catch (e) {
-      showAlertDialog (
+      showAlertDialog(
         context,
         content: e.message,
         title: "failed",
@@ -138,7 +144,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-   PopupMenuButton menu(BuildContext context) {
+  PopupMenuButton menu(BuildContext context) {
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,
@@ -154,28 +160,26 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text("Help Center"),
-            value: 0,
-          ),
-          PopupMenuItem(
-            child: Text("Sign Out"),
-            value: 1,
-          )
-        ],
+              PopupMenuItem(
+                child: Text("Help Center"),
+                value: 0,
+              ),
+              PopupMenuItem(
+                child: Text("Sign Out"),
+                value: 1,
+              )
+            ],
         onSelected: (result) {
-          if (result == 0) { Navigator.of(context).push(MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (context) => HelpCenter()));
-          }
-          else if (result == 1) {
+          if (result == 0) {
+            Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (context) => HelpCenter()));
+          } else if (result == 1) {
             _confirmSignOut();
           }
-        }
-    );
+        });
   }
 
-   Future<void>  _confirmSignOut() async {
+  Future<void> _confirmSignOut() async {
     final didRequestSignOut = await showAlertDialog(
       context,
       title: 'Logout',
@@ -188,7 +192,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-   Future<void> _signOut() async {
+  Future<void> _signOut() async {
     final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth?.signOut();
@@ -206,7 +210,6 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
-
 
   IconButton buildDarkModeButton() {
     return IconButton(
