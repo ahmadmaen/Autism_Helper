@@ -34,20 +34,20 @@ class _HomePageState extends State<HomePage> {
       userProfilePictureUrl:
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
   List<Album> albums = <Album>[];
+  List<String> URLs = <String>[];
 
-  List<String> getAlbum()  {
+  Future<void> getAlbum()  async {
     final Database database = Provider.of<Database>(context, listen: true);
 
-    final albums =  database.readAlbums().asyncMap((album) => album.first);
-    final allURL = albums.map((album) => album.url).toList();
+    final albums =  await database.readAlbums().first;
+    final allURL =  albums.map((album) => album.url).toList();
 
-    print(allURL.length);
-    return allURL;
   }
 
   @override
   Widget build(BuildContext context) {
     getAlbum();
+    print(URLs.length);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
