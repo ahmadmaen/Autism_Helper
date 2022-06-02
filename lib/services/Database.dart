@@ -1,8 +1,6 @@
 import  'dart:core';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:autism_helper_project/models/user.dart';
-
 import 'api_path.dart';
 import 'firestore_service.dart';
 

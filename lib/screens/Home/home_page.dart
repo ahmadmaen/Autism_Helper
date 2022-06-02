@@ -29,7 +29,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   var _icon = Icons.toggle_off_outlined;
+
+
+  User1 user = User1(
+      name : 'Ahmad Maen',
+      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
+  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               padding:
                   const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.userProfilePictureUrl,
+                pictureUrl: user.userProfilePictureUrl,
                 pictureSize: 30,
               ),
             ),
@@ -116,10 +124,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _setUserData(BuildContext context) async {
     final database = Provider.of<Database>(context, listen: false);
-    User1 user = User1(
-        name : 'Ahmad Maen',
-        userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
-    );
     await database.setUserData(user);
   }
 

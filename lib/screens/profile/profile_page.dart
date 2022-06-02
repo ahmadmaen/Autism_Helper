@@ -5,6 +5,7 @@ import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,6 +16,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+
+  User1 user = User1(
+      name : 'Ahmad Maen',
+      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Stack(
               children: [
                 ProfilePicture(
-                  pictureUrl: defaultUser.userProfilePictureUrl,
+                  pictureUrl: user.userProfilePictureUrl,
                   pictureSize: 130,
                 ),
                 Positioned(
@@ -48,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(height: 30),
             Text(
-              defaultUser.name,
+              user.name,
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
             ),
             SizedBox(height: 15),
@@ -86,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = '\n' + defaultUser.name,
+        controller: TextEditingController()..text = '\n' + user.name,
         onChanged: (text) => {},
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -105,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
         controller: TextEditingController()
-          ..text = '\n' + defaultUser.userEmail,
+          ..text = '\n' + user.userEmail,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -123,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = defaultUser.userPassword,
+        controller: TextEditingController()..text = user.userPassword,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
