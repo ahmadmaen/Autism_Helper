@@ -34,20 +34,31 @@ class _HomePageState extends State<HomePage> {
       userProfilePictureUrl:
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
   List<Album> albums = <Album>[];
-  List<String> URLs = <String>[];
 
   Future<void> getAlbum()  async {
     final Database database = Provider.of<Database>(context, listen: true);
 
-    final albums =  await database.readAlbums().first;
-    final allURL =  albums.map((album) => album.url).toList();
+    var albums =  await database.readAlbums().first;
+    final allURL =  albums.map((album) =>album).toList();
+    setState(() {
+      albums = allURL;
+    });
+  }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
-    getAlbum();
-    print(URLs.length);
+    print(albums.length);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -72,7 +83,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContent() {
-    final Database database = Provider.of<Database>(context, listen: false);
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 0,
@@ -88,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                     fullscreenDialog: true,
                     builder: (_) => getScreen(index))),
                 child: Card(
-                  color: Color(albums[index].albumColor),
+                  color: Color( albums[index].albumColor),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
                   child: Padding(
