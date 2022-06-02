@@ -10,7 +10,7 @@ import 'firestore_service.dart';
 
 abstract class Database {
   Future<void> setUserData(User1 user);
-  Stream<List<Album>?> readAlbums();
+  List<Album> readAlbums();
   /*Future<void> setJob(Job job);
   Future<void> deleteJob(Job job);
   Stream<List<Job>> jobsStream();
@@ -34,31 +34,44 @@ class FirestoreDatabase implements Database {
       );
 
   @override
-  Stream<List<Album>?> readAlbums() {
+  List<Album> readAlbums() {
     final path = APIPath.album();
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
+
+    List<Album> albums=[];
 
     snapshots.listen((snapshot) {
       for (var snapshot in snapshot.docs) {
         if (kDebugMode) {
           print(snapshot.data());
         }
+        final data = snapshot.data();
+        albums.add(
+            Album(
+              label: data['Label'],
+              url: data['URL'],
+              albumColor: int.parse(data['Color']),
+            )
+        );
       }
     });
 
-    return snapshots.map((snapshot) {
+    snapshots.map((snapshot) {
       snapshot.docs.map(
-        (snapshot) {
+            (snapshot) {
           final data = snapshot.data();
-          return Album(
+          return  Album(
             label: data['Label'],
             url: data['URL'],
             albumColor: int.parse(data['Color']),
           );
         },
       );
-      return null;
     });
+
+    return albums;
+
+
   }
 }

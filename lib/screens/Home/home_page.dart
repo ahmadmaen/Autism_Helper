@@ -36,17 +36,14 @@ class _HomePageState extends State<HomePage> {
       userProfilePictureUrl:
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
 
-  late List<Album?> albums ;
-
-
+   late List<Album> albums ;
 
   @override
   Widget build(BuildContext context) {
 
     final database = Provider.of<Database>(context, listen: false);
 
-    albums = database.readAlbums() as List<Album?>;
-
+    albums = database.readAlbums();
 
     return Scaffold(
       appBar: AppBar(
@@ -82,7 +79,6 @@ class _HomePageState extends State<HomePage> {
           ),
           itemCount: albums.length,
           itemBuilder: (context, index) {
-
             return Column(
               children: [
                 GestureDetector(
@@ -90,13 +86,13 @@ class _HomePageState extends State<HomePage> {
                       fullscreenDialog: true,
                       builder: (_) => getScreen(index))),
                   child: Card(
-                    color: Color(),
+                    color: Color(albums[index].albumColor),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index]?.url,
+                        albums[index].url,
                         width: 165,
                         height: 170,
                       ),
