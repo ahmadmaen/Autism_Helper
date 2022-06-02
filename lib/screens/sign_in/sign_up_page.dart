@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../common_widgets/Buttons/raised_button.dart';
+
 import '../../Services/auth.dart';
-import '../../common_widgets/show_alert_dialog.dart';
+import '../common_widgets/buttons/raised_button.dart';
+import '../common_widgets/show_alert_dialog.dart';
 
 class SignUpPage extends StatelessWidget {
    SignUpPage({Key? key}) : super(key: key);

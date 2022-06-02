@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/common_widgets/profile_picture.dart';
+
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/help_center_page.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../common_widgets/show_alert_dialog.dart';
+
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
@@ -16,6 +16,9 @@ import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../Services/auth.dart';
+import 'common_widgets/profile_picture.dart';
+import 'common_widgets/show_alert_dialog.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

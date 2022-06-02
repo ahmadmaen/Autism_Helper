@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/common_widgets/profile_picture.dart';
+
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
+
+import '../common_widgets/profile_picture.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
