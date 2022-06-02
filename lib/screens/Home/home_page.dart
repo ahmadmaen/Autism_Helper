@@ -27,32 +27,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   var _icon = Icons.toggle_off_outlined;
-
   User1 user = User1(
-      name : 'Ahmad Maen',
-      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
-  );
+      name: 'Ahmad Maen',
+      userProfilePictureUrl:
+          'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
+  List<Album> albums = <Album>[];
 
-   List<Album> albums =<Album>[];
+  @override
+  void initState() {
+    final Database database = Provider.of<Database>(context, listen: false);
+    database.readAlbums().listen((event) {
+      for (Album album in event) {
+        albums.add(album);
+        if (kDebugMode) {
+          print(album.url);
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    final Database database = Provider.of<Database>(context, listen: false);
-
-    var Count;
-    database.readAlbums().listen((event) {
-      if(event.isEmpty) print('sui');
-      Count = event.length;
-      for (Album album in event) {
-        albums.add(album);
-        print(Count);
-      }
-    }
-    );
-    print(Count);
+    print(albums.length);
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 fullscreenDialog: true, builder: (_) => const ProfilePage())),
             child: Padding(
               padding:
-              const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
                 pictureUrl: user.userProfilePictureUrl,
                 pictureSize: 30,
@@ -78,40 +76,38 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContent() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(2, 7, 2, 7),
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 0,
-            mainAxisSpacing: 0,
-            crossAxisCount: 2,
-          ),
-          itemCount: albums.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (_) => getScreen(index))),
-                  child: Card(
-                    color: Color(albums[index].albumColor),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        albums[index].url,
-                        width: 165,
-                        height: 170,
-                      ),
+    final Database database = Provider.of<Database>(context, listen: false);
+    return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 0,
+          crossAxisCount: 2,
+        ),
+        itemCount: albums.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (_) => getScreen(index))),
+                child: Card(
+                  color: Color(albums[index].albumColor),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                      albums[index].url,
+                      width: 165,
+                      height: 170,
                     ),
                   ),
-                ), //(Picture)
-              ],
-            );
-          }),
-    );
+                ),
+              ), //(Picture)
+            ],
+          );
+        });
   }
 
   Widget getScreen(int index) {
@@ -125,8 +121,8 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return Feelings();
       case 4:
-         _setUserData(context);
-         return Drinks();
+        _setUserData(context);
+        return Drinks();
       case 5:
         return Places();
       default:
@@ -134,13 +130,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   Future<void> _setUserData(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context, listen: false);
       await database.setUserData(user);
     } on FirebaseAuthException catch (e) {
-      showAlertDialog (
+      showAlertDialog(
         context,
         content: e.message,
         title: "failed",
@@ -150,7 +145,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-   PopupMenuButton menu(BuildContext context) {
+  PopupMenuButton menu(BuildContext context) {
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,
@@ -166,35 +161,33 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text("About Us"),
-            value: 0,
-          ),PopupMenuItem(
-            child: Text("Contact Us"),
-            value: 1,
-          ),
-          PopupMenuItem(
-            child: Text("Sign Out"),
-            value: 2,
-          )
-        ],
+              PopupMenuItem(
+                child: Text("About Us"),
+                value: 0,
+              ),
+              PopupMenuItem(
+                child: Text("Contact Us"),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text("Sign Out"),
+                value: 2,
+              )
+            ],
         onSelected: (result) {
-          if (result == 0) { Navigator.of(context).push(MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (context) => AboutUsPage()));
-          }
-          else if (result == 1) {
+          if (result == 0) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (context) => ContactUsPage()));
+                fullscreenDialog: true, builder: (context) => AboutUsPage()));
+          } else if (result == 1) {
+            Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (context) => ContactUsPage()));
           } else if (result == 2) {
             _confirmSignOut();
           }
-        }
-    );
+        });
   }
 
-   Future<void>  _confirmSignOut() async {
+  Future<void> _confirmSignOut() async {
     final didRequestSignOut = await showAlertDialog(
       context,
       title: 'Logout',
@@ -207,7 +200,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-   Future<void> _signOut() async {
+  Future<void> _signOut() async {
     final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth?.signOut();
@@ -225,7 +218,6 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
-
 
   IconButton buildDarkModeButton() {
     return IconButton(
