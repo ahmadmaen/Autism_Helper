@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';

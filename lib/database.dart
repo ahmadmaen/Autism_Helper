@@ -31,7 +31,7 @@ const List<Picture> pictures = [
 ];
 
 List<Album> albums = [
-  Album(
+  /*Album(
       albumId: albumId++,
       albumName: 'Foods',
       albumPictureUrl: 'images/foods.png',
@@ -55,20 +55,11 @@ List<Album> albums = [
     albumId: albumId++,
     albumName: 'Drinks',
     albumPictureUrl: 'images/drinks.png',
+    albumColor: const Color(0xFFFFFFFF)
   ),
   Album(
       albumId: albumId++,
       albumName: 'Places',
       albumPictureUrl: 'images/places.png',
-      albumColor: const Color(0xFFE4E4E4)),
-  Album(
-    albumId: albumId++,
-    albumName: 'Others',
-    albumPictureUrl: 'images/others.png',
-  ),
-  Album(
-    albumId: albumId++,
-    albumName: 'Others',
-    albumPictureUrl: 'images/others.png',
-  ),
+      albumColor: const Color(0xFFE4E4E4)),*/
 ];

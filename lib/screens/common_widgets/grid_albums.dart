@@ -32,13 +32,13 @@ class GridAlbums extends StatelessWidget {
                     builder: (_) => getScreen(index)
                   )),
                   child: Card(
-                    color: albums[index].albumColor,
+                    color: Color(albums[index].albumColor),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        albums[index].albumPictureUrl,
+                        albums[index].url,
                         width: 165,
                         height: 170,
                       ),
