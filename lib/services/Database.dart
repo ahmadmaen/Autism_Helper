@@ -19,6 +19,8 @@ class FirestoreDatabase implements Database {
   final String? uid;
   final _service = FirestoreService.instance;
 
+  String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+
   @override
   Future<void> setUserData(User1 user) async => _service.setData(
         path: APIPath.user(uid),

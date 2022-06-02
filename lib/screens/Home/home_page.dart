@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
+import 'package:autism_helper_project/screens/common_widgets/grid_albums.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -34,19 +35,19 @@ class _HomePageState extends State<HomePage> {
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
   List<Album> albums = <Album>[];
 
+  Future<List<String>> getAlbum() async {
+    final Database database = Provider.of<Database>(context, listen: true);
+
+    final albums = await database.readAlbums().first;
+    final allURL = albums.map((album) => album.url).toList();
+
+    print(allURL.length);
+    return allURL;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Database database = Provider.of<Database>(context, listen: false);
-    database.readAlbums().listen((event) {
-      for (Album album in event) {
-        albums.add(album);
-        if (kDebugMode) {
-          print(album.url);
-        }
-      }
-    });
-
+    getAlbum();
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
