@@ -26,21 +26,8 @@ class FirestoreDatabase implements Database {
       );
 
   @override
-  Stream<List<Album>> readAlbums() {
-    final path = APIPath.album();
-    final reference = FirebaseFirestore.instance.collection(path);
-    final snapshots = reference.snapshots();
-
-    return snapshots.map((snapshot) => snapshot.docs.map(
-          (snapshot) {
-          var data = snapshot.data();
-          return Album(
-            label: data['Label'],
-            url: data['URL'],
-            albumColor: int.parse(data['Color']),
-          );
-        },
-      ).toList());
-
-  }
+  Stream<List<Album>> readAlbums() => _service.collectionStream
+    (
+      path:  APIPath.album(),
+      builder: (data) => Album.fromMap(data));
 }

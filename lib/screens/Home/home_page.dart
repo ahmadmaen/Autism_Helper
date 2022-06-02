@@ -34,8 +34,9 @@ class _HomePageState extends State<HomePage> {
           'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
   List<Album> albums = <Album>[];
 
+
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     final Database database = Provider.of<Database>(context, listen: false);
     database.readAlbums().listen((event) {
       for (Album album in event) {
@@ -45,12 +46,6 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print(albums.length);
 
     return Scaffold(
       appBar: AppBar(
