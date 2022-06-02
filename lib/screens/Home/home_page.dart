@@ -2,7 +2,6 @@
 
 
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/screens/help_center_page.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -15,9 +14,10 @@ import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
-import '../Services/auth.dart';
-import 'common_widgets/profile_picture.dart';
-import 'common_widgets/show_alert_dialog.dart';
+import '../../Services/auth.dart';
+import '../common_widgets/profile_picture.dart';
+import '../common_widgets/show_alert_dialog.dart';
+import 'help_center_page.dart';
 
 
 class HomePage extends StatefulWidget {

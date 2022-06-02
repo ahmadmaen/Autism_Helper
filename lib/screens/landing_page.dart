@@ -1,9 +1,10 @@
 import 'package:autism_helper_project/screens/sign_in/sign_in_page.dart';
+import 'package:autism_helper_project/services/Database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Services/auth.dart';
-import 'home_page.dart';
+import 'Home/home_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -20,7 +21,10 @@ class LandingPage extends StatelessWidget {
             if (user == null) {
               return SignInPage();
             }
-            return const HomePage();
+            return Provider<Database>(
+                create: (_) => FirestoreDatabase(uid: user.uid),
+                child: const HomePage(),
+            );
           }
           return const Scaffold(
             body: Center(
