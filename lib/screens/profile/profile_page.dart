@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Stack(
                   children: [
                     ProfilePicture(
-                      pictureUrl: defaultUser.userProfilePictureUrl,
+                      pictureUrl: user.userProfilePictureUrl,
                       pictureSize: 130,
                     ),
                     Positioned(
@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  defaultUser.name,
+                  user.name,
                   style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                 ),
                 SizedBox(height: 15),
