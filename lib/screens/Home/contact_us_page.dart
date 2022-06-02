@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/screens/Home/home_page.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class ContactUsPage extends StatelessWidget {
           actions: [
             GestureDetector(
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => const ProfilePage())),
+                  fullscreenDialog: true, builder: (_) => ProfilePage())),
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
