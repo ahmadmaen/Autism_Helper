@@ -143,7 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   )),
                             ),
-                            onPressed: () {},
+                            onPressed: () { saveEntries(); },
                             child: Text(
                               "SAVE",
                               style: TextStyle(
@@ -211,5 +211,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+  void saveEntries() {}
 }
 

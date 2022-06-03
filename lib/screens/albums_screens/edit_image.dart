@@ -24,7 +24,7 @@ class _AddImageState extends State<AddImage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(
-          'Add a new image',
+          'Edit an image',
           style: GoogleFonts.abel(
               fontSize: 25,
               color: Colors.black,
