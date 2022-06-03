@@ -22,9 +22,6 @@ import 'contact_us_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
-
-
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -33,9 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
 
-  User1 user = User1(
-      name: '',
-      userProfilePictureUrl: '');
+  late User1 user ;
 
   List<Album> albums = <Album>[];
 

@@ -10,19 +10,16 @@ import '../common_widgets/profile_picture.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({Key? key, required this.user}) : super(key: key);
 
+  final User1 user;
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final ImagePicker _picker = ImagePicker();
 
-  User1 user = User1(
-      name: 'Ahmad Maen',
-      userProfilePictureUrl:
-          'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -45,23 +42,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onPressed: () {
                 Navigator.pop(context);
               }),
-<<<<<<< Updated upstream
-=======
           actions: [
             GestureDetector(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => const ProfilePage())),
+              onTap: (){},
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  pictureUrl: user.userProfilePictureUrl,
+                  pictureUrl: widget.user.userProfilePictureUrl,
                   pictureSize: 30,
                 ),
               ),
             ), //(ProfilePicture)
           ],
->>>>>>> Stashed changes
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -72,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Stack(
                     children: [
                       ProfilePicture(
-                        pictureUrl: user.userProfilePictureUrl,
+                        pictureUrl: widget.user.userProfilePictureUrl,
                         pictureSize: 130,
                       ),
                       Positioned(
@@ -95,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    user.name,
+                    widget.user.name,
                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
                   SizedBox(height: 25),
@@ -175,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = user.name,
+        controller: TextEditingController()..text = widget.user.name,
         onChanged: (text) => {},
         decoration: InputDecoration(
           fillColor: Colors.white,
@@ -193,7 +186,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = user.userEmail,
+        controller: TextEditingController()..text = widget.user.userEmail,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
@@ -210,7 +203,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = user.userPassword,
+        controller: TextEditingController()..text = widget.user.userPassword,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),

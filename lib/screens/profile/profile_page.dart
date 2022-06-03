@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   onPressed: () {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         fullscreenDialog: true,
-                                        builder: (context) => EditProfilePage()));
+                                        builder: (context) => EditProfilePage(user: widget.user)));
                                   },
                                   icon: Icon(
                                     Icons.edit_outlined,
