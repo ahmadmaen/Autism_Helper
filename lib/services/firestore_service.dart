@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+
+import '../models/user.dart';
 
 class FirestoreService {
   FirestoreService._();
@@ -32,11 +35,22 @@ class FirestoreService {
     );
   }
 
-  Stream<T> documentStream<T>({required String path ,  required T Function(Map<String, dynamic> data , String documentID) builder})  {
+  User1 getUser({required String path, required String documentID })  {
 
-    final reference = FirebaseFirestore.instance.doc(path);
-    final snapshots = reference.snapshots();
-    return snapshots.map((snapshot) => builder(snapshot.data()!, snapshot.id));
+    User1 user=User1();
+    DatabaseReference userName = FirebaseDatabase.instance.ref('User/documentID/Name');
+    userName.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      user.name = data as String;
+    });
+
+    DatabaseReference userProfilePictureURL = FirebaseDatabase.instance.ref('User/documentID/ProfilePictureURL');
+    userProfilePictureURL.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      user.userProfilePictureUrl = data as String;
+    });
+
+    return user;
   }
 
 }

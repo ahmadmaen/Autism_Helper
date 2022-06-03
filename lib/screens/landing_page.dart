@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Services/auth.dart';
+import '../models/user.dart';
 import 'Home/home_page.dart';
 
 class LandingPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class LandingPage extends StatelessWidget {
             }
             return Provider<Database>(
                 create: (_) => FirestoreDatabase(uid: user.uid),
-                child: const HomePage(),
+                child:  HomePage(),
             );
           }
           return const Scaffold(

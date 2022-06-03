@@ -21,7 +21,9 @@ import '../common_widgets/show_alert_dialog.dart';
 import 'contact_us_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage( {Key? key}) : super(key: key);
+
+
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     var albums1 =  await database.readAlbums().first;
     User1 user1;
     try{
-      user1 =  await database.readUser().first;
+      user1 =   database.getUser();
     }
     catch(e){
       user1 = User1(
@@ -48,13 +50,12 @@ class _HomePageState extends State<HomePage> {
           userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
       );
     }
-
-
     setState(() {
       albums = albums1;
       user = user1;
     });
   }
+
 
   @override
   void initState() {
@@ -63,12 +64,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    getData();
     super.didChangeDependencies();
+    getData();
   }
 
   @override
   Widget build(BuildContext context) {
+    Database database = Provider.of<Database>(context, listen: false,);
+    user = database.getUser();
+    print(user.name);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
