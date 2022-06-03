@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Album> albums = <Album>[];
 
-  /*Future<void> getData()  async {
+  Future<void> getData()  async {
     final Database database = Provider.of<Database>(context, listen: false,);
     var albums1 =  await database.readAlbums().first;
     User1 user1;
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     getData();
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
