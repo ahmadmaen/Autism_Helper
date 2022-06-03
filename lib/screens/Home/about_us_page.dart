@@ -47,6 +47,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 child: ProfilePicture(
                   pictureUrl: widget.user.userProfilePictureUrl,
                   pictureSize: 30,
+                  pictureRadius: 60,
                 ),
               ),
             ), //(ProfilePicture)

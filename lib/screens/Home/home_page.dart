@@ -88,6 +88,7 @@ class _HomePageState extends State<HomePage> {
               child: ProfilePicture(
                 pictureUrl: user.userProfilePictureUrl,
                 pictureSize: 30,
+                pictureRadius: 60,
               ),
             ),
           ), //(ProfilePicture)
@@ -211,7 +212,7 @@ class _HomePageState extends State<HomePage> {
             _confirmSignOut();
           }else if (result == 3) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => AddImage()));
+                fullscreenDialog: true, builder: (context) => AddImage(user: user,)));
           }
         });
   }

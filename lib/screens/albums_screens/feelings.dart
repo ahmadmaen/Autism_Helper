@@ -38,6 +38,7 @@ class Feelings extends StatelessWidget {
               child: ProfilePicture(
                 pictureUrl: defaultUser.userProfilePictureUrl,
                 pictureSize: 30,
+                pictureRadius: 60,
               ),
             ),
           ), //(ProfilePicture)

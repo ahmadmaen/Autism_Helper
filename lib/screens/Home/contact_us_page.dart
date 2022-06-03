@@ -9,7 +9,6 @@ import '../../models/user.dart';
 
 class ContactUsPage extends StatefulWidget {
   const ContactUsPage({Key? key, required this.user}) : super(key: key);
-
   final User1 user;
 
 
@@ -47,7 +46,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
                   pictureUrl: widget.user.userProfilePictureUrl,
-                  pictureSize: 30,
+                  pictureSize: 30, pictureRadius: 60,
                 ),
               ),
             ), //(ProfilePicture)

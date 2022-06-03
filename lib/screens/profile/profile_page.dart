@@ -45,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: ProfilePicture(
                   pictureUrl: widget.user.userProfilePictureUrl,
                   pictureSize: 30,
+                  pictureRadius: 60,
                 ),
               ),
             ), //(ProfilePicture)
@@ -59,6 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ProfilePicture(
                     pictureUrl: widget.user.userProfilePictureUrl,
                     pictureSize: 130,
+                    pictureRadius: 200,
                   ),
                   SizedBox(height: 15),
                   Text(

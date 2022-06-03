@@ -7,7 +7,6 @@ import '../common_widgets/profile_picture.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key, required this.user}) : super(key: key);
-
   final User1 user;
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -47,6 +46,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: ProfilePicture(
                   pictureUrl: widget.user.userProfilePictureUrl,
                   pictureSize: 30,
+                  pictureRadius: 20,
                 ),
               ),
             ), //(ProfilePicture)
@@ -63,6 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ProfilePicture(
                         pictureUrl: widget.user.userProfilePictureUrl,
                         pictureSize: 130,
+                        pictureRadius: 200,
                       ),
                       Positioned(
                         bottom: 1,
@@ -210,7 +211,4 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 }
 
-/* void _updateState() {
-    setState(() {});
-  }
-  */
+
