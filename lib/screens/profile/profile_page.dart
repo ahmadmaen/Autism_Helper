@@ -86,14 +86,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Container(child: Text('Name :',style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
-
                   buildNameField(),
                   SizedBox(height: 15),
                   Container(child: Text('Email :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
                   buildEmailField(),
                   SizedBox(height: 15),
                   Container(child: Text('Password :',style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
-
                   buildPasswordField(),
                 ],
               ),

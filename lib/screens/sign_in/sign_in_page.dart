@@ -64,10 +64,11 @@ class _SignInPageState extends State<SignInPage> {
             logoBox(),
             const SizedBox(height: 15),
             welcomeBackText(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             logInToYourAccountText(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             buildEmailCard(context),
+            const SizedBox(height: 10),
             buildPasswordCard(),
             const SizedBox(height: 20),
             CustomRaisedButton(
@@ -76,17 +77,17 @@ class _SignInPageState extends State<SignInPage> {
             ),
             const SizedBox(height: 10),
             signInWithText(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: signInWithRowChildren(context),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:  signUpRowChildren(context),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             CustomRaisedButton(
               child: const Text(
                 'Continue without an account',
@@ -251,11 +252,11 @@ class _SignInPageState extends State<SignInPage> {
 
   List<Widget> signInWithRowChildren(BuildContext context) {
     return <Widget>[
-              //const SizedBox(width: 30),
               CustomRaisedButton(
                   onPressed: () {},
                   color: Colors.white,
                   child: SizedBox(
+                    width: 25,
                     height: 25,
                     child: Image.asset('images/twitter.png'),
                   )
@@ -265,6 +266,7 @@ class _SignInPageState extends State<SignInPage> {
                   onPressed: () {},
                   color: Colors.white,
                   child: SizedBox(
+                    width: 25,
                     height: 25,
                     child: Image.asset('images/Facebook.png'),
                   )
@@ -275,6 +277,7 @@ class _SignInPageState extends State<SignInPage> {
                   color: Colors.white,
                   child: SizedBox(
                     height: 25,
+                    width: 25,
                     child: Image.asset('images/google.png'),
                   )
               ),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 class CustomRaisedButton extends StatelessWidget {
    const CustomRaisedButton({Key? key,
@@ -5,33 +7,32 @@ class CustomRaisedButton extends StatelessWidget {
      required this.child,
      this.color = Colors.blue,
      required this.onPressed,
-     this.padding =15,
+     this.padding =10,
 
   }) : super(key: key);
 
   final Widget child;
   final Color color;
-  final double borderRadius = 23.0 ;
+  final double borderRadius = 15.0 ;
   final VoidCallback onPressed;
   final double padding;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: RaisedButton(
-        padding: EdgeInsets.all(padding),
-        onPressed: onPressed,
-        child: child,
-        color: color,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-                Radius.circular(borderRadius),
-            )
-        ),
-        elevation: 10,
-
-
+      child: SizedBox(
+        child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(color),
+              shape: MaterialStateProperty.all<
+                  RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(borderRadius),
+                  )),
+            ),
+            onPressed: () { onPressed; },
+            child: child,
       ),
-    );
+    ));
   }
 }

@@ -76,7 +76,7 @@ class SignUpPage extends StatelessWidget {
                    fontWeight: FontWeight.normal,
                  ),
                ),
-               const SizedBox(height: 10),
+               const SizedBox(height: 20),
                Card(
                  elevation: 2,
                  child: Padding(
@@ -95,6 +95,7 @@ class SignUpPage extends StatelessWidget {
                  shape: RoundedRectangleBorder(
                      borderRadius: BorderRadius.circular(20.0)),
                ),
+               const SizedBox(height: 10),
                Card(
                  elevation: 2,
                  child: Padding(
@@ -124,7 +125,7 @@ class SignUpPage extends StatelessWidget {
                  ),
                  onPressed: (){_signUpButton(context);},
                ),
-               const SizedBox(height: 5),
+               const SizedBox(height: 10),
                Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children:  signUpRowChildren(context),
@@ -137,7 +138,7 @@ class SignUpPage extends StatelessWidget {
    List<Widget> signUpRowChildren(BuildContext context) {
      return [
        const Text(
-         'already have an account',
+         'already have an account?',
          textAlign: TextAlign.center,
          style: TextStyle(
            color: Colors.black45,

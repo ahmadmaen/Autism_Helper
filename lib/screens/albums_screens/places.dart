@@ -2,7 +2,6 @@
 
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
-import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

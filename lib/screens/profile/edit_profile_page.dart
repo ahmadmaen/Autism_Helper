@@ -18,7 +18,7 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
 
-  final ImagePicker _picker = ImagePicker();
+  //final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +238,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
            // File imageFile = File(image.path);
           });
         }
-      } on Exception catch (e) {
+      } on Exception catch (_) {
         if (kDebugMode) {
           print(Error);
         }
