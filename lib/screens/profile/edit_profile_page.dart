@@ -177,6 +177,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+
   Padding buildEmailField() {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -193,6 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+
   Padding buildPasswordField() {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -210,7 +212,3 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 }
 
-/* void _updateState() {
-    setState(() {});
-  }
-  */
