@@ -7,9 +7,18 @@ import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AboutUsPage extends StatelessWidget {
-  const AboutUsPage({Key? key}) : super(key: key);
+import '../../models/user.dart';
 
+class AboutUsPage extends StatefulWidget {
+  const AboutUsPage({Key? key, required this.user}) : super(key: key);
+
+  final User1 user;
+
+  @override
+  State<AboutUsPage> createState() => _AboutUsPageState();
+}
+
+class _AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +42,12 @@ class AboutUsPage extends StatelessWidget {
               }),
           actions: [
             GestureDetector(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => const EditProfilePage())),
+              onTap: (){},
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  pictureUrl: defaultUser.userProfilePictureUrl,
+                  pictureUrl: widget.user.userProfilePictureUrl,
                   pictureSize: 30,
                 ),
               ),

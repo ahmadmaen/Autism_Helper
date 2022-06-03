@@ -42,9 +42,18 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getData()  async {
     final Database database = Provider.of<Database>(context, listen: false,);
-
     var albums1 =  await database.readAlbums().first;
-    var user1 =  await database.readUser().first;
+    User1 user1;
+    try{
+      user1 =  await database.readUser().first;
+    }
+    catch(e){
+      user1 = User1(
+          name: 'User',
+          userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
+      );
+    }
+
 
     setState(() {
       albums = albums1;
@@ -133,7 +142,6 @@ class _HomePageState extends State<HomePage> {
       case 3:
         return Feelings();
       case 4:
-        _setUserData(context);
         return Drinks();
       case 5:
         return Places();
@@ -145,7 +153,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> _setUserData(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context, listen: false);
-      await database.setUserData(user);
     } on FirebaseAuthException catch (e) {
       showAlertDialog(
         context,
@@ -189,10 +196,10 @@ class _HomePageState extends State<HomePage> {
         onSelected: (result) {
           if (result == 0) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => AboutUsPage()));
+                fullscreenDialog: true, builder: (context) => AboutUsPage(user:user,)));
           } else if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => ContactUsPage()));
+                fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,)));
           } else if (result == 2) {
             _confirmSignOut();
           }

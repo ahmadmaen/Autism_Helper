@@ -36,6 +36,19 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 Navigator.pop(context);
               }),
+          actions: [
+            GestureDetector(
+              onTap: (){},
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, bottom: 12, right: 5, left: 5),
+                child: ProfilePicture(
+                  pictureUrl: widget.user.userProfilePictureUrl,
+                  pictureSize: 30,
+                ),
+              ),
+            ), //(ProfilePicture)
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(

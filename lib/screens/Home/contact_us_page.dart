@@ -6,9 +6,19 @@ import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ContactUsPage extends StatelessWidget {
-  const ContactUsPage({Key? key}) : super(key: key);
+import '../../models/user.dart';
 
+class ContactUsPage extends StatefulWidget {
+  const ContactUsPage({Key? key, required this.user}) : super(key: key);
+
+  final User1 user;
+
+
+  @override
+  State<ContactUsPage> createState() => _ContactUsPageState();
+}
+
+class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +40,19 @@ class ContactUsPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               }),
+          actions: [
+            GestureDetector(
+              onTap: (){},
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, bottom: 12, right: 5, left: 5),
+                child: ProfilePicture(
+                  pictureUrl: widget.user.userProfilePictureUrl,
+                  pictureSize: 30,
+                ),
+              ),
+            ), //(ProfilePicture)
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
