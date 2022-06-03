@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                   fontSize: 17,
                 ),
               ),
-              onPressed: (){_signInwWthAnonymous(context);},
+              onPressed: (){ _signInwWthAnonymous(context);},
             ),
           ],
         ));

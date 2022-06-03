@@ -30,7 +30,7 @@ class CustomRaisedButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(borderRadius),
                   )),
             ),
-            onPressed: () { onPressed; },
+            onPressed: onPressed ,
             child: child,
       ),
     ));
