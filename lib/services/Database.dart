@@ -54,4 +54,5 @@ class FirestoreDatabase implements Database {
     (
       path:  APIPath.albums(),
       builder: (data) => Album.fromMap(data));
+
 }
