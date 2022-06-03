@@ -35,21 +35,21 @@ class _HomePageState extends State<HomePage> {
   var _icon = Icons.toggle_off_outlined;
 
   User1 user = User1(
-      name: 'Ahmad Maen',
-      userProfilePictureUrl:
-          'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
+      name: '',
+      userProfilePictureUrl: '');
 
   List<Album> albums = <Album>[];
 
-  Future<void> getAlbum()  async {
-    final Database database = Provider.of<Database>(context, listen: true);
+  Future<void> getData()  async {
+    final Database database = Provider.of<Database>(context, listen: false,);
 
     var albums1 =  await database.readAlbums().first;
-    final allURL =  albums1.map((album) => album).toList();
+    var user1 =  await database.readUser().first;
+
     setState(() {
-      albums = allURL;
+      albums = albums1;
+      user = user1;
     });
-    print(albums.length);
   }
 
   @override
@@ -59,13 +59,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
+    getData();
     super.didChangeDependencies();
-    getAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(albums.length);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),

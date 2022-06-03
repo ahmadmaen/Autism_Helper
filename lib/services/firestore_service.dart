@@ -26,16 +26,15 @@ class FirestoreService {
     final snapshots = query.snapshots();
 
     return snapshots.map((snapshot) =>
-      snapshot.docs.map((snapshot) => builder(snapshot.data()),).toList()
+      snapshot.docs.map((snapshot) => builder(snapshot.data())).toList(),
     );
   }
 
-  /*Stream<T> documentStream<T>({
-    required String path,
-    required T Function(Map<String, dynamic> data, String documentID) builder,
-  }) {
+  Stream<T> documentStream<T>({required String path ,  required T Function(Map<String, dynamic> data , String documentID) builder})  {
+
     final reference = FirebaseFirestore.instance.doc(path);
     final snapshots = reference.snapshots();
-    return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
-  }*/
+    return snapshots.map((snapshot) => builder(snapshot.data()!, snapshot.id));
+  }
+
 }

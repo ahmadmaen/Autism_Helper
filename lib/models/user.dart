@@ -1,12 +1,12 @@
 import 'package:autism_helper_project/models/picture.dart';
 
 class User1 {
-  final int userId=111;
-  final String name;
-  final String userEmail='suii';
-  final String userPassword='suii';
-  final String userProfilePictureUrl;
-  final List<Picture> pictures;
+   int userId=111;
+   String name;
+   String userEmail='suii';
+   String userPassword='suii';
+   String userProfilePictureUrl;
+   List<Picture> pictures;
 
   User1({
     required this.name,
@@ -20,4 +20,12 @@ class User1 {
       'ProfilePictureURL': userProfilePictureUrl,
     };
   }
+
+  factory User1.fromMap(Map<String,dynamic> data , String Id) {
+    return User1(
+        name: data['Name'],
+        userProfilePictureUrl: data['ProfilePictureURL'],
+    );
+  }
+
 }

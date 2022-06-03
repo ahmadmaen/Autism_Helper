@@ -11,6 +11,7 @@ import 'firestore_service.dart';
 abstract class Database {
   Future<void> setUserData(User1 user);
   Stream<List<Album>> readAlbums();
+  Stream<User1> readUser() ;
 }
 
 class FirestoreDatabase implements Database {
@@ -28,8 +29,14 @@ class FirestoreDatabase implements Database {
       );
 
   @override
+   Stream<User1> readUser() => _service.documentStream(
+      path: APIPath.user(uid),
+      builder: (data,uid) => User1.fromMap(data,uid),
+  );
+
+  @override
   Stream<List<Album>> readAlbums() => _service.collectionStream
     (
-      path:  APIPath.album(),
+      path:  APIPath.albums(),
       builder: (data) => Album.fromMap(data));
 }
