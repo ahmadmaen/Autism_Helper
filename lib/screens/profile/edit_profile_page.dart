@@ -1,12 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key, required this.user}) : super(key: key);
@@ -77,9 +74,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white70,
                               size: 23,
                             ),
-                            onPressed: () {
-                              _getFromGallery();
-                            },
+                            onPressed: () { },
                           ),
                         ),
                       ),
@@ -126,7 +121,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
                             ),
-                            onPressed: () {},
+                            onPressed: () {Navigator.pop(context);},
                             child: Text(
                               "CANCEL",
                               style: TextStyle(
@@ -182,7 +177,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
-
   Padding buildEmailField() {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -199,7 +193,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
-
   Padding buildPasswordField() {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -214,36 +207,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         obscureText: true,
       ),
     );
-  }
-
-  Future _getFromGallery() async {
-    var status = await Permission.storage.status;
-    if (status.isDenied) {
-      if (kDebugMode) {
-        print('You Denied the Permission');
-      }
-    } else if (await Permission.location.isRestricted) {
-      if (kDebugMode) {
-        print('You Restricted the Permission');
-      }
-    } else if (await Permission.contacts.request().isGranted) {
-      try {
-        final image = (await ImagePicker().pickImage(
-          source: ImageSource.gallery,
-          maxWidth: 1800,
-          maxHeight: 1800,
-        ));
-        if (image != null) {
-          setState(() {
-           // File imageFile = File(image.path);
-          });
-        }
-      } on Exception catch (_) {
-        if (kDebugMode) {
-          print(Error);
-        }
-      }
-    }
   }
 }
 

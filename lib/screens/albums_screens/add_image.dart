@@ -14,7 +14,7 @@ class AddImage extends StatelessWidget {
         title: Center(child: Text(
           'Add a new image',
           style: GoogleFonts.abel(
-              fontSize: 30,
+              fontSize: 25,
               color: Colors.black,
               fontWeight: FontWeight.bold),
         ),),
@@ -39,6 +39,54 @@ class AddImage extends StatelessWidget {
             ),
           ), //(ProfilePicture)
         ],
+      ),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 100,
+              height: 40,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<
+                        RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                  onPressed: () {Navigator.pop(context);},
+                  child: Text(
+                    "Reset",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
+            SizedBox(width: 125),
+            SizedBox(
+              width: 100,
+              height: 40,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<
+                        RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    "SAVE",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }

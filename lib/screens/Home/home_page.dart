@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
+import 'package:autism_helper_project/screens/albums_screens/add_image.dart';
 import 'package:autism_helper_project/screens/albums_screens/persons.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -188,7 +189,11 @@ class _HomePageState extends State<HomePage> {
               PopupMenuItem(
                 child: Text("Sign Out"),
                 value: 2,
-              )
+              ),
+          PopupMenuItem(
+            child: Text("Add new image"),
+            value: 3,
+          )
             ],
         onSelected: (result) {
           if (result == 0) {
@@ -199,6 +204,9 @@ class _HomePageState extends State<HomePage> {
                 fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,)));
           } else if (result == 2) {
             _confirmSignOut();
+          }else if (result == 3) {
+            Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (context) => AddImage()));
           }
         });
   }
