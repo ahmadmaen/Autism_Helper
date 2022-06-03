@@ -3,6 +3,7 @@
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../common_widgets/profile_picture.dart';
 
@@ -16,7 +17,15 @@ class Foods extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Image.asset('images/title.png', scale: 18)),
+        title: Center(child: Center(child: Center(
+          child: Text(
+            'Foods',
+            style: GoogleFonts.abel(
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+        ),),),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,

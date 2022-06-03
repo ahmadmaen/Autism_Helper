@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
+import 'package:autism_helper_project/screens/albums_screens/persons.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +10,6 @@ import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/persons.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
 import '../../models/album.dart';
@@ -131,17 +131,17 @@ class _HomePageState extends State<HomePage> {
   Widget getScreen(int index) {
     switch (index) {
       case 0:
-        return Foods();
-      case 1:
-        return Games();
-      case 2:
         return Persons();
-      case 3:
+      case 1:
         return Feelings();
+      case 2:
+        return Places();
+      case 3:
+        return Games();
       case 4:
         return Drinks();
       case 5:
-        return Places();
+        return Foods();
       default:
         return Places();
     }

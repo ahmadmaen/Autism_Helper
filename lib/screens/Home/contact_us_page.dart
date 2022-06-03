@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:autism_helper_project/database.dart';
+
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
-import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -86,29 +85,27 @@ class _ContactUsPageState extends State<ContactUsPage> {
                 buildEmailCard(context),
                 SizedBox(height: 5),
                 buildTextCard(context),
-                SizedBox(height: 10),
-                ButtonTheme(
-                    minWidth: 100.0,
-                    height: 40.0,
-                    child: ButtonTheme(
-                        minWidth: 100.0,
-                        height: 40.0,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  )),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "SEND",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ))),),
+                SizedBox(height: 25),
+                SizedBox(
+                  width: 120,
+                  height: 40,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<
+                            RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "SEND",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      )),
+                ),
 
               ],
             ),

@@ -4,7 +4,6 @@ import 'package:autism_helper_project/screens/common_widgets/profile_picture.dar
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../profile/edit_profile_page.dart';
 
 class AddImage extends StatelessWidget {
   const AddImage({Key? key}) : super(key: key);
