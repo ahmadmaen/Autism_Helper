@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
 
-  late User1 user ;
+  late User1 user;
 
   List<Album> albums = <Album>[];
 
@@ -92,37 +92,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContent() {
-    return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
-          crossAxisCount: 2,
-        ),
-        itemCount: albums.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (_) => getScreen(index))),
-                child: Card(
-                  color: Color( albums[index].albumColor),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.network(
-                      albums[index].url,
-                      width: 150,
-                      height: 150,
+    return Padding(
+      padding: const EdgeInsets.only(top:8.0),
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: 0,
+            mainAxisSpacing: 0,
+            crossAxisCount: 2,
+          ),
+          itemCount: albums.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (_) => getScreen(index))),
+                  child: Card(
+                    color: Color( albums[index].albumColor),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Image.network(
+                        albums[index].url,
+                        width: 150,
+                        height: 150,
+                      ),
                     ),
                   ),
-                ),
-              ), //(Picture)
-            ],
-          );
-        });
+                ), //(Picture)
+              ],
+            );
+          }),
+    );
   }
 
   Widget getScreen(int index) {
