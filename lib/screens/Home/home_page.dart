@@ -33,14 +33,17 @@ class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
 
-  late User1 user;
+   User1 user = User1(
+      name: 'User',
+      userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
+  );
 
   List<Album> albums = <Album>[];
 
   Future<void> getData()  async {
     final Database database = Provider.of<Database>(context, listen: false,);
     var albums1 =  await database.readAlbums().first;
-    User1 user1;
+    /*User1 user1;
     try{
       user1 =   database.getUser();
     }
@@ -49,10 +52,10 @@ class _HomePageState extends State<HomePage> {
           name: 'User',
           userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
       );
-    }
+    }*/
     setState(() {
       albums = albums1;
-      user = user1;
+      //user = user1;
     });
   }
 
@@ -71,8 +74,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Database database = Provider.of<Database>(context, listen: false,);
-    user = database.getUser();
     print(user.name);
     return Scaffold(
       appBar: AppBar(

@@ -213,7 +213,3 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2cf7f3fa5b97f9bcffd76cb8428bf62480fd3d01
