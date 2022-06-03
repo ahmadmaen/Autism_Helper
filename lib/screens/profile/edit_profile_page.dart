@@ -1,8 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
-import 'dart:io';
-
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +20,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final ImagePicker _picker = ImagePicker();
 
   User1 user = User1(
-      name : 'Ahmad Maen',
-      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
-  );
-
+      name: 'Ahmad Maen',
+      userProfilePictureUrl:
+          'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text( 'Edit Profile Page',
-            style: GoogleFonts.abel(
-                fontSize: 25,
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
-          ),),
+          title: Center(
+            child: Text(
+              'Edit Profile Page',
+              style: GoogleFonts.abel(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -46,6 +45,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onPressed: () {
                 Navigator.pop(context);
               }),
+<<<<<<< Updated upstream
+=======
+          actions: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true, builder: (_) => const ProfilePage())),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, bottom: 12, right: 5, left: 5),
+                child: ProfilePicture(
+                  pictureUrl: user.userProfilePictureUrl,
+                  pictureSize: 30,
+                ),
+              ),
+            ), //(ProfilePicture)
+          ],
+>>>>>>> Stashed changes
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -73,7 +89,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               _getFromGallery();
                             },
                           ),
-
                         ),
                       ),
                     ],
@@ -84,13 +99,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
                   SizedBox(height: 25),
-                  Container(child: Text('Name :'),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
+                  Container(
+                    child: Text('Name :'),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(left: 7),
+                  ),
                   buildNameField(),
                   SizedBox(height: 15),
-                  Container(child: Text('Email :'),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
+                  Container(
+                    child: Text('Email :'),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(left: 7),
+                  ),
                   buildEmailField(),
                   SizedBox(height: 15),
-                  Container(child: Text('Password :'),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
+                  Container(
+                    child: Text('Password :'),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(left: 7),
+                  ),
                   buildPasswordField(),
                   SizedBox(height: 50),
                   Row(
@@ -99,7 +126,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ButtonTheme(
                           minWidth: 100.0,
                           height: 40.0,
-                          child: RaisedButton(
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                              ),
                               onPressed: () {},
                               child: Text(
                                 "CANCEL",
@@ -107,15 +141,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ))),
                       SizedBox(width: 100),
                       ButtonTheme(
                           minWidth: 100.0,
                           height: 40.0,
-                          child: RaisedButton(
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    )),
+                              ),
                               onPressed: () {},
                               child: Text(
                                 "SAVE",
@@ -123,15 +161,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ))),
                     ],
                   ),
                 ],
               ),
-
             ),
           ),
         ));
@@ -139,7 +173,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Padding buildNameField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
         controller: TextEditingController()..text = user.name,
         onChanged: (text) => {},
@@ -157,13 +191,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Padding buildEmailField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()
-          ..text = user.userEmail,
+        controller: TextEditingController()..text = user.userEmail,
         onChanged: (text) => {},
         decoration: const InputDecoration(
-          border:  UnderlineInputBorder(),
+          border: UnderlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: TextStyle(fontSize: 20),
         ),
@@ -175,58 +208,52 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Padding buildPasswordField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
         controller: TextEditingController()..text = user.userPassword,
         onChanged: (text) => {},
         decoration: const InputDecoration(
-          border:  UnderlineInputBorder(),
+          border: UnderlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: TextStyle(fontSize: 20),
-
         ),
         obscureText: true,
       ),
     );
   }
 
-   Future _getFromGallery() async {
-     var status = await Permission.storage.status;
-     if (status.isDenied) {
-       if (kDebugMode) {
-         print('You Denied the Permission');
-       }
-     }
-     else if (await Permission.location.isRestricted) {
-       if (kDebugMode) {
-         print('You Restricted the Permission');
-       }
-
-     }
-     else if (await Permission.contacts.request().isGranted) {
-       try {
+  Future _getFromGallery() async {
+    var status = await Permission.storage.status;
+    if (status.isDenied) {
+      if (kDebugMode) {
+        print('You Denied the Permission');
+      }
+    } else if (await Permission.location.isRestricted) {
+      if (kDebugMode) {
+        print('You Restricted the Permission');
+      }
+    } else if (await Permission.contacts.request().isGranted) {
+      try {
         final image = (await ImagePicker().pickImage(
-           source: ImageSource.gallery,
-           maxWidth: 1800,
-           maxHeight: 1800,
-         ));
-         if (image != null) {
-           setState(() {
-             File imageFile = File(image.path);
-           });
-         }
-       } on Exception catch (e) {
-         if (kDebugMode) {
-           print(Error);
-         }
-       }
-       }
-
-     }
+          source: ImageSource.gallery,
+          maxWidth: 1800,
+          maxHeight: 1800,
+        ));
+        if (image != null) {
+          setState(() {
+           // File imageFile = File(image.path);
+          });
+        }
+      } on Exception catch (e) {
+        if (kDebugMode) {
+          print(Error);
+        }
+      }
+    }
   }
+}
 
-  /* void _updateState() {
+/* void _updateState() {
     setState(() {});
   }
   */
-

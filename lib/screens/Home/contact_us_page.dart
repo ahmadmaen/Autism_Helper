@@ -90,18 +90,25 @@ class _ContactUsPageState extends State<ContactUsPage> {
                 ButtonTheme(
                     minWidth: 100.0,
                     height: 40.0,
-                    child: RaisedButton(
-                        onPressed: () {},
-                        child: Text(
-                          "SEND",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ))),
+                    child: ButtonTheme(
+                        minWidth: 100.0,
+                        height: 40.0,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  )),
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              "SEND",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ))),),
 
               ],
             ),

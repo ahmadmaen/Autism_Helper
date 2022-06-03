@@ -1,8 +1,5 @@
 import 'package:autism_helper_project/models/picture.dart';
-import 'package:flutter/material.dart';
-import 'package:autism_helper_project/models/album.dart';
 import 'package:autism_helper_project/models/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:math';
 
 int albumId = 0;

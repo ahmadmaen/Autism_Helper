@@ -21,7 +21,7 @@ class User1 {
     };
   }
 
-  factory User1.fromMap(Map<String,dynamic> data , String Id) {
+  factory User1.fromMap(Map<String,dynamic> data , String id) {
     return User1(
         name: data['Name'],
         userProfilePictureUrl: data['ProfilePictureURL'],

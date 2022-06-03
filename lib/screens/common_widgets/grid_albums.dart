@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
 import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';

@@ -15,7 +15,9 @@ class FirestoreService {
 
   Future<void> deleteData({required String path}) async {
     final reference = FirebaseFirestore.instance.doc(path);
-    print('delete: $path');
+    if (kDebugMode) {
+      print('delete: $path');
+    }
     await reference.delete();
   }
 

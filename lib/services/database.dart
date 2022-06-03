@@ -1,10 +1,7 @@
 import 'dart:core';
 
 import 'package:autism_helper_project/models/album.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:autism_helper_project/models/user.dart';
-import 'package:flutter/foundation.dart';
-
 import 'api_path.dart';
 import 'firestore_service.dart';
 
