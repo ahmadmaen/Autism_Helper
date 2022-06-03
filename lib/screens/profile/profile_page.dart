@@ -8,17 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, required this.user}) : super(key: key);
+
+  final User1 user;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User1 user = User1(
-      name : 'Ahmad Maen',
-      userProfilePictureUrl :'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/me.jpg?alt=media&token=4f1810e4-1405-458c-b83d-1f490c011ecf'
-  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,20 +36,6 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 Navigator.pop(context);
               }),
-          actions: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => const ProfilePage())),
-              child: Padding(
-                padding:
-                const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
-                child: ProfilePicture(
-                  pictureUrl: user.userProfilePictureUrl,
-                  pictureSize: 30,
-                ),
-              ),
-            ), //(ProfilePicture)
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -59,12 +44,12 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   ProfilePicture(
-                    pictureUrl: user.userProfilePictureUrl,
+                    pictureUrl: widget.user.userProfilePictureUrl,
                     pictureSize: 130,
                   ),
                   SizedBox(height: 15),
                   Text(
-                    user.name,
+                    widget.user.name,
                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
                   SizedBox(height: 25),
@@ -111,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = user.name,
+        controller: TextEditingController()..text = widget.user.name,
         onChanged: (text) => {},
         enabled: false,
         decoration: InputDecoration(
@@ -132,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: TextFormField(
         enabled: false,
         controller: TextEditingController()
-          ..text = user.userEmail,
+          ..text = widget.user.userEmail,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -150,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
         enabled: false,
-        controller: TextEditingController()..text = user.userPassword,
+        controller: TextEditingController()..text = widget.user.userPassword,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,

@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (_) => const ProfilePage())),
+                fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
             child: Padding(
               padding:
                   const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),

@@ -30,20 +30,6 @@ class ContactUsPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               }),
-          actions: [
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  fullscreenDialog: true, builder: (_) => ProfilePage())),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 12, bottom: 12, right: 5, left: 5),
-                child: ProfilePicture(
-                  pictureUrl: defaultUser.userProfilePictureUrl,
-                  pictureSize: 30,
-                ),
-              ),
-            ), //(ProfilePicture)
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
