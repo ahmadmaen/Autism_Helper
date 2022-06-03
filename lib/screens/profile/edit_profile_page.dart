@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
 
@@ -75,7 +77,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white70,
                               size: 23,
                             ),
-                            onPressed: () { },
+                            onPressed: () { openCamera(); },
                           ),
                         ),
                       ),
@@ -212,5 +214,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
   void saveEntries() {}
+}
+
+void openCamera() async {
+  final status = await Permission.locationWhenInUse.request();
+  if (status == PermissionStatus.granted) {
+    if (kDebugMode) {
+      print('Permission granted');
+    }
+  } else if (status == PermissionStatus.denied) {
+    if (kDebugMode) {
+      print('Denied. Show a dialog with a reason and again ask for the permission.');
+    }
+  } else if (status == PermissionStatus.permanentlyDenied) {
+    if (kDebugMode) {
+      print('Take the user to the settings page.');
+    }
+  }
 }
 

@@ -17,6 +17,8 @@ class AddImage extends StatefulWidget {
 class _AddImageState extends State<AddImage> {
   _AddImageState();
   String item = 'Choose Album';
+  var labelBoxController = TextEditingController();
+
 
   // List of items in our dropdown menu
   @override
@@ -85,7 +87,7 @@ class _AddImageState extends State<AddImage> {
               buildNameField(),
               SizedBox(height: 20),
               buildDropDown(),
-              SizedBox(height: 20),
+              SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -100,7 +102,9 @@ class _AddImageState extends State<AddImage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
                         ),
-                        onPressed: () {resetEntries();},
+                        onPressed: () {
+                          labelBoxController.clear();
+                        },
                         child: Text(
                           "Reset",
                           style: TextStyle(
@@ -109,7 +113,7 @@ class _AddImageState extends State<AddImage> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  SizedBox(width: 125),
+                  SizedBox(width: 100),
                   SizedBox(
                     width: 100,
                     height: 40,
@@ -148,7 +152,7 @@ class _AddImageState extends State<AddImage> {
           padding: const EdgeInsets.all(15.0),
           child: TextFormField(
             textAlign: TextAlign.center,
-            controller: TextEditingController()..text = widget.user.name,
+            controller: labelBoxController..text = widget.user.name,
             onChanged: (text) => {},
             decoration: InputDecoration.collapsed(
               border: InputBorder.none,
@@ -163,19 +167,18 @@ class _AddImageState extends State<AddImage> {
     );
   }
 
-  void dropdownCallback(String? selectedValue) {
-    if(selectedValue is String) {
+  void dropdownCallback(String? selectedValue ) {
+    if(selectedValue is String ) {
       setState(() {
         item = selectedValue;
       });
-    }
-  }
+    }}
 
   Card buildDropDown() {
     return Card(
         child:DropdownButton
           (
-          value:item,
+          value: item,
           items: [
             DropdownMenuItem(child: Text('Choose Album'),value: 'Choose Album',),
             DropdownMenuItem(child: Text('Persons'),value: 'Persons',),
@@ -192,7 +195,6 @@ class _AddImageState extends State<AddImage> {
 
   }
 
-  void resetEntries() {}
   void saveEntries() {}
 
 }
