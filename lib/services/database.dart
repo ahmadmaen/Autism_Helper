@@ -2,13 +2,18 @@ import 'dart:core';
 
 import 'package:autism_helper_project/models/album.dart';
 import 'package:autism_helper_project/models/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'api_path.dart';
 import 'firestore_service.dart';
 
 abstract class Database {
+
   Future<void> setUserData(User1 user);
+
   Stream<List<Album>> readAlbums();
-  Stream<User1> readUser() ;
+
+  User1 getUser();
+
 }
 
 class FirestoreDatabase implements Database {
@@ -26,10 +31,23 @@ class FirestoreDatabase implements Database {
       );
 
   @override
-   Stream<User1> readUser() => _service.documentStream(
-      path: APIPath.user(uid),
-      builder: (data,uid) => User1.fromMap(data,uid),
-  );
+  User1 getUser()  {
+    User1 user=User1();
+    DatabaseReference userName = FirebaseDatabase.instance.ref('/User/TBdjYjLCSJarf7KTjJQWrcfgkOf2/Name');
+    userName.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      user.name = data as String;
+      print(data);
+    });
+    print('s1');
+    DatabaseReference userProfilePictureURL = FirebaseDatabase.instance.ref('/User/TBdjYjLCSJarf7KTjJQWrcfgkOf2/ProfilePictureURL');
+    userProfilePictureURL.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      user.userProfilePictureUrl = data as String;
+    });
+    print('s2');
+    return user;
+  }
 
   @override
   Stream<List<Album>> readAlbums() => _service.collectionStream
