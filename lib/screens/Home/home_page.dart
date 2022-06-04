@@ -1,21 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/albums_screens/add_image.dart';
-import 'package:autism_helper_project/screens/albums_screens/persons.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/drinks.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/feelings.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/foods.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/games.dart';
-import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
 import '../../models/album.dart';
 import '../../services/database.dart';
+import '../albums_screens/album.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
@@ -74,9 +69,7 @@ class _HomePageState extends State<HomePage> {
     userData.get().then((DocumentSnapshot data) {
       if (data.exists) {
         user = User1.fromMap(data);
-        if (kDebugMode) {
-          print(user.name);
-        }
+        //setState((){});
         return Scaffold(
           appBar: AppBar(
             title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -101,9 +94,6 @@ class _HomePageState extends State<HomePage> {
         );
       }
     });
-    if (kDebugMode) {
-      print(user.name);
-    }
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -127,7 +117,6 @@ class _HomePageState extends State<HomePage> {
       body: _buildContent(),
     );
   }
-
   Widget _buildContent() {
     final Database database = Provider.of<Database>(context, listen: false,);
     final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
@@ -150,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                 child: CustomRaisedButton(
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       fullscreenDialog: true,
-                      builder: (_) => getScreen(album.id))),
+                      builder: (_) => AlbumPage(user: user,album:album,))),
                   color: Color(album.albumColor),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -165,25 +154,6 @@ class _HomePageState extends State<HomePage> {
             }).toList(),
           );
         });
-  }
-
-  Widget getScreen(int index) {
-    switch (index) {
-      case 0:
-        return Persons();
-      case 1:
-        return Feelings();
-      case 2:
-        return Places();
-      case 3:
-        return Games();
-      case 4:
-        return Drinks();
-      case 5:
-        return Foods();
-      default:
-        return Places();
-    }
   }
 
   Future<void> _setUserData(BuildContext context) async {

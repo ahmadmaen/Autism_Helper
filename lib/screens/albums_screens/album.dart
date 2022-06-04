@@ -1,21 +1,34 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/database.dart';
-import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
-
+import 'package:autism_helper_project/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Drinks extends StatelessWidget {
-  const Drinks({Key? key}) : super(key: key);
+import '../../models/album.dart';
+import '../common_widgets/profile_picture.dart';
 
+
+
+
+class AlbumPage extends StatefulWidget {
+   const AlbumPage({Key? key , required this.album, required this.user}) : super(key: key);
+
+  final Album album;
+   final User1 user;
+
+  @override
+  State<AlbumPage> createState() => _AlbumPageState();
+}
+
+class _AlbumPageState extends State<AlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Center(child: Center(
           child: Text(
-            'Drinks',
+            widget.album.label ,
             style: GoogleFonts.abel(
                 fontSize: 30,
                 color: Colors.black,
@@ -37,7 +50,7 @@ class Drinks extends StatelessWidget {
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.userProfilePictureUrl,
+                pictureUrl: widget.user.userProfilePictureUrl,
                 pictureSize: 30,
                 pictureRadius: 60,
               ),
@@ -48,10 +61,11 @@ class Drinks extends StatelessWidget {
       body: SafeArea(child: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child:_buildContent(),
+          child: _buildContent(),
         ),
       )),
     );
+
   }
 
   Widget _buildContent() {
