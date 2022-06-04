@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../Services/auth.dart';
 import '../../models/album.dart';
 import '../../services/database.dart';
-import '../albums_screens/album.dart';
+import '../albums_screens/albumPage.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
@@ -51,28 +51,6 @@ class _HomePageState extends State<HomePage> {
       if (data.exists) {
         user = User1.fromMap(data);
         //setState((){});
-        return Scaffold(
-          appBar: AppBar(
-            title: Center(child: Image.asset('images/title.png', scale: 18)),
-            leading: menu(context),
-            actions: [
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
-                child: Padding(
-                  padding:
-                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
-                  child: ProfilePicture(
-                    pictureUrl: user.userProfilePictureUrl,
-                    pictureSize: 30,
-                    pictureRadius: 60,
-                  ),
-                ),
-              ), //(ProfilePicture)
-            ],
-          ),
-          body: _buildContent(),
-        );
       }
     });
     return Scaffold(
@@ -127,7 +105,14 @@ class _HomePageState extends State<HomePage> {
                   child: CustomRaisedButton(
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                         fullscreenDialog: true,
-                        builder: (_) => AlbumPage(user: user,album:album,))),
+                        builder: (_) {
+                          /*FirebaseFirestore.instance.collection('Picture').where('AlbumID', isEqualTo: album.id)
+                              .get().then( snapshot.data!.docs.map((DocumentSnapshot document){
+                                print('suiiiiiiiiiiii');
+
+                               });*/
+                          return AlbumPage(user: user,album:album,);
+                        })),
                     color: Color(album.albumColor),
                     child: Image.network(
                       album.url,
