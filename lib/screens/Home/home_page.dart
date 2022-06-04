@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     final Database database = Provider.of<Database>(context, listen: false,);
-    userData = database.getUser();
+    userData = database.getUser() as DocumentReference<Map<String, dynamic>>;
     super.initState();
 
   }
@@ -80,7 +80,9 @@ class _HomePageState extends State<HomePage> {
     userData.get().then((DocumentSnapshot data) {
       if (data.exists) {
         user = User1.fromMap(data);
-        print(user.name);
+        if (kDebugMode) {
+          print(user.name);
+        }
         return Scaffold(
           appBar: AppBar(
             title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -105,7 +107,9 @@ class _HomePageState extends State<HomePage> {
         );
       }
     });
-    print(user.name);
+    if (kDebugMode) {
+      print(user.name);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
