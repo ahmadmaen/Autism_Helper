@@ -130,28 +130,33 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text("Loading");
           }
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-              Album album = Album.fromMap(data);
-              return SizedBox(
-                width: 150,
-                child: CustomRaisedButton(
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (_) => AlbumPage(user: user,album:album,))),
-                  color: Color(album.albumColor),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15.0,
+                  mainAxisSpacing: 15.0,
+                ),
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                Album album = Album.fromMap(data);
+                return SizedBox(
+                  width: 150,
+                  child: CustomRaisedButton(
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (_) => AlbumPage(user: user,album:album,))),
+                    color: Color(album.albumColor),
                     child: Image.network(
                       album.url,
                       width: 150,
                       height: 150,
                     ),
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              }).toList(),
+            ),
           );
         });
   }
