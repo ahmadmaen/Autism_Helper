@@ -3,6 +3,7 @@ import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/albums_screens/add_image.dart';
 import 'package:autism_helper_project/screens/albums_screens/persons.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:autism_helper_project/screens/Albums_Screens/places.dart';
 import '../../Services/auth.dart';
 import '../../models/album.dart';
 import '../../services/database.dart';
+import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
 import '../common_widgets/show_alert_dialog.dart';
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Album> albums = <Album>[];
 
-  Future<void> getData()  async {
+  /*Future<void> getData()  async {
     final Database database = Provider.of<Database>(context, listen: false,);
     var albums1 =  await database.readAlbums().first;
     /*User1 user1;
@@ -70,11 +72,10 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     getData();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    print(user.name);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -100,40 +101,42 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContent() {
-    return Padding(
-      padding: const EdgeInsets.only(top:8.0),
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 0,
-            mainAxisSpacing: 0,
-            crossAxisCount: 2,
-          ),
-          itemCount: albums.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (_) => getScreen(index))),
-                  child: Card(
-                    color: Color( albums[index].albumColor),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.network(
-                        albums[index].url,
-                        width: 150,
-                        height: 150,
-                      ),
-                    ),
+    final Database database = Provider.of<Database>(context, listen: false,);
+    final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
+    database.getUser();
+    return StreamBuilder<QuerySnapshot>(
+      stream: _albumStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            Album album = Album.fromMap(data);
+            return SizedBox(
+              width: 150,
+              child: CustomRaisedButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (_) => getScreen(album.ID))),
+                color: Color(album.albumColor),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Image.network(
+                    album.url,
+                    width: 150,
+                    height: 150,
                   ),
-                ), //(Picture)
-              ],
+                ),
+              ),
             );
-          }),
-    );
+          }).toList(),
+        );
+      });
   }
 
   Widget getScreen(int index) {

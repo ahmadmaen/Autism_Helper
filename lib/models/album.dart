@@ -3,15 +3,26 @@ import 'package:autism_helper_project/models/picture.dart';
 //enum Group { me, person, game, feelings, food, drink, place }
 
 class Album {
-  Album({ required this.label,  required this.url,  required this.albumColor, this.pictures = const [],});
+  Album({
+    required this.label,
+    required this.url,
+    required this.albumColor,
+    required this.ID,
+    this.pictures = const [],  });
+
+
+
+
   final String label;
   final String url;
   final int albumColor;
+  final int ID;
 
   final List<Picture> pictures;
 
   factory Album.fromMap(Map<String,dynamic> data) {
     return Album(
+      ID: int.parse(data['ID']),
         label: data['Label'],
         url: data['URL'],
         albumColor: int.parse(data['Color'])

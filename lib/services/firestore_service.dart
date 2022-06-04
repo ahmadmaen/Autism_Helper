@@ -24,16 +24,9 @@ class FirestoreService {
     await reference.delete();
   }
 
-  Stream<List<T>> collectionStream<T>({ required String path,  required T Function(Map<String, dynamic> data) builder,}) {
-
-    final query = FirebaseFirestore.instance.collection(path);
-    final snapshots = query.snapshots();
-
-
-
-    return snapshots.map((snapshot) =>
-      snapshot.docs.map((snapshot) => builder(snapshot.data())).toList(),
-    );
+  Stream<dynamic> collectionStream({ required String path}) {
+    Stream collectionStream = FirebaseFirestore.instance.collection(path).snapshots();
+    return collectionStream;
   }
 
   User1 getUser({required String path, required String documentID })  {
