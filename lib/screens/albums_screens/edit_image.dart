@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
@@ -8,13 +8,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class EditImage extends StatefulWidget {
-  const EditImage({Key? key, required this.user}) : super(key: key);
+  EditImage({Key? key, required this.user }) : super(key: key);
   final User1 user;
   @override
   State<EditImage> createState() => _EditImageState();
 }
 
 class _EditImageState extends State<EditImage> {
+
   _EditImageState();
   String item = 'Choose Album';
 

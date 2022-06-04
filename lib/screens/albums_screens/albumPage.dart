@@ -73,7 +73,7 @@ class _AlbumPageState extends State<AlbumPage> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 0,
           mainAxisSpacing: 0,
-          crossAxisCount: 3,
+          crossAxisCount: 2,
         ),
         itemCount: 3,
         itemBuilder: (context, index) {

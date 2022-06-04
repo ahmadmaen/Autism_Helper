@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
+<<<<<<< Updated upstream
 import 'package:autism_helper_project/screens/profile/my_images.dart';
+=======
+import 'package:autism_helper_project/screens/Home/my_images.dart';
+>>>>>>> Stashed changes
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -178,7 +182,7 @@ class _HomePageState extends State<HomePage> {
           if (result == 0) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => MyImages(user: user)));
-          }if (result == 1) { 
+          }if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => AboutUsPage(user:user,)));
           } else if (result == 2) {

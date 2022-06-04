@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <application
 
-        android:label="autism_helper_project"
+        android:label="Autism Helper"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
         <activity
