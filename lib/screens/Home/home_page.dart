@@ -34,7 +34,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
-
+  late DocumentReference<Map<String, dynamic>> userData;
    User1 user = User1(
       name: 'User',
       userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
@@ -59,11 +59,12 @@ class _HomePageState extends State<HomePage> {
       albums = albums1;
       //user = user1;
     });
-  }
-
+  }*/
 
   @override
   void initState() {
+    final Database database = Provider.of<Database>(context, listen: false,);
+    userData = database.getUser();
     super.initState();
 
   }
@@ -71,11 +72,40 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getData();
-  }*/
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    userData.get().then((DocumentSnapshot data) {
+      if (data.exists) {
+        user = User1.fromMap(data);
+        print(user.name);
+        return Scaffold(
+          appBar: AppBar(
+            title: Center(child: Image.asset('images/title.png', scale: 18)),
+            leading: menu(context),
+            actions: [
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
+                child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+                  child: ProfilePicture(
+                    pictureUrl: user.userProfilePictureUrl,
+                    pictureSize: 30,
+                    pictureRadius: 60,
+                  ),
+                ),
+              ), //(ProfilePicture)
+            ],
+          ),
+          body: _buildContent(),
+        );
+      }
+    });
+    print(user.name);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
@@ -86,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
             child: Padding(
               padding:
-                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+              const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
                 pictureUrl: user.userProfilePictureUrl,
                 pictureSize: 30,
@@ -103,7 +133,6 @@ class _HomePageState extends State<HomePage> {
   Widget _buildContent() {
     final Database database = Provider.of<Database>(context, listen: false,);
     final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
-    database.getUser();
     return StreamBuilder<QuerySnapshot>(
       stream: _albumStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
