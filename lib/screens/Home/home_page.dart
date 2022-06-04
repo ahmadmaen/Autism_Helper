@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
               child: CustomRaisedButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                     fullscreenDialog: true,
-                    builder: (_) => getScreen(album.ID))),
+                    builder: (_) => getScreen(album.id))),
                 color: Color(album.albumColor),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),

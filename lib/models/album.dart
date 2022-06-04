@@ -7,7 +7,7 @@ class Album {
     required this.label,
     required this.url,
     required this.albumColor,
-    required this.ID,
+    required this.id,
     this.pictures = const [],  });
 
 
@@ -16,13 +16,13 @@ class Album {
   final String label;
   final String url;
   final int albumColor;
-  final int ID;
+  final int id;
 
   final List<Picture> pictures;
 
   factory Album.fromMap(Map<String,dynamic> data) {
     return Album(
-      ID: int.parse(data['ID']),
+      id: int.parse(data['ID']),
         label: data['Label'],
         url: data['URL'],
         albumColor: int.parse(data['Color'])

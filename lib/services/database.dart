@@ -1,9 +1,8 @@
 import 'dart:core';
 
-import 'package:autism_helper_project/models/album.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'api_path.dart';
 import 'firestore_service.dart';
@@ -61,19 +60,29 @@ class FirestoreDatabase implements Database {
         future: users.doc(uid).get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          print("loading");
+          if (kDebugMode) {
+            print("loading");
+          }
           if (snapshot.hasError) {
-            print("Something went wrong");
+            if (kDebugMode) {
+              print("Something went wrong");
+            }
           }
           if (snapshot.hasData && !snapshot.data!.exists) {
-            print("Document does not exist");
+            if (kDebugMode) {
+              print("Document does not exist");
+            }
           }
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
-            print("Full Name: ${data['full_name']} ${data['last_name']}");
+            if (kDebugMode) {
+              print("Full Name: ${data['full_name']} ${data['last_name']}");
+            }
           }
-          print("loading");
+          if (kDebugMode) {
+            print("loading");
+          }
           return const Text("loading");
         });
   }
