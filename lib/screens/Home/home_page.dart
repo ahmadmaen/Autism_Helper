@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/albums_screens/add_image.dart';
+import 'package:autism_helper_project/screens/profile/my_images.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -192,36 +193,35 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context) => [
           PopupMenuItem(
-            child: Text("About Us"),
+            child: Text("My Images"),
             value: 0,
           ),
           PopupMenuItem(
-            child: Text("Contact Us"),
+            child: Text("About Us"),
             value: 1,
           ),
           PopupMenuItem(
-            child: Text("Sign Out"),
+            child: Text("Contact Us"),
             value: 2,
           ),
           PopupMenuItem(
-            child: Text("Add new image"),
+            child: Text("Sign Out"),
             value: 3,
-          )
+          ),
         ],
         onSelected: (result) {
           if (result == 0) {
             Navigator.of(context).push(MaterialPageRoute(
+                fullscreenDialog: true, builder: (context) => MyImages(user: user)));
+          }if (result == 1) { 
+            Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => AboutUsPage(user:user,)));
-          } else if (result == 1) {
+          } else if (result == 2) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,)));
-          } else if (result == 2) {
+          } else if (result == 3) {
             _confirmSignOut();
-          }else if (result == 3) {
-            Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => AddImage(user: user,)));
-          }
-        });
+          }});
   }
 
   Future<void> _confirmSignOut() async {

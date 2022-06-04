@@ -7,15 +7,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 
-class AddImage extends StatefulWidget {
-  const AddImage({Key? key, required this.user}) : super(key: key);
+class EditImage extends StatefulWidget {
+  const EditImage({Key? key, required this.user}) : super(key: key);
   final User1 user;
   @override
-  State<AddImage> createState() => _AddImageState();
+  State<EditImage> createState() => _EditImageState();
 }
 
-class _AddImageState extends State<AddImage> {
-  _AddImageState();
+class _EditImageState extends State<EditImage> {
+  _EditImageState();
   String item = 'Choose Album';
 
   // List of items in our dropdown menu
