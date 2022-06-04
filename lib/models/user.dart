@@ -25,11 +25,11 @@ class User1 {
     };
   }
 
-  factory User1.fromMap(DocumentSnapshot data ) {
+  factory User1.fromMap(DocumentSnapshot data) {
     return User1(
-        name: data['Name'],
-        userProfilePictureUrl: data['ProfilePictureURL'],
-        userId : data['ID']
+      name: data['Name'],
+      userProfilePictureUrl: data['ProfilePictureURL'],
+      userId: data['ID']
     );
   }
 

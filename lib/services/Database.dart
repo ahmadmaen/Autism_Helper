@@ -10,11 +10,12 @@ import 'firestore_service.dart';
 abstract class Database {
   Future<void> setUserData(User1 user);
 
+
   Stream<dynamic> readAlbums();
+  DocumentReference<Map<String, dynamic>> getUser();
 
-  FutureBuilder<DocumentSnapshot> getUser();
+
 }
-
 class FirestoreDatabase implements Database {
   FirestoreDatabase({required this.uid}) : assert(uid != null);
 
@@ -25,9 +26,9 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setUserData(User1 user) async => _service.setData(
-        path: APIPath.user(uid),
-        data: user.toMap(),
-      );
+    path: APIPath.user(uid),
+    data: user.toMap(),
+  );
 
   /*@override
   User1 getUser()  {
@@ -50,40 +51,12 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<dynamic> readAlbums() => _service.collectionStream(
-        path: APIPath.albums(),
-      );
+    path: APIPath.albums(),
+  );
 
   @override
-  FutureBuilder<DocumentSnapshot> getUser() {
-    CollectionReference users = FirebaseFirestore.instance.collection('/User');
-    return FutureBuilder<DocumentSnapshot>(
-        future: users.doc(uid).get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (kDebugMode) {
-            print("loading");
-          }
-          if (snapshot.hasError) {
-            if (kDebugMode) {
-              print("Something went wrong");
-            }
-          }
-          if (snapshot.hasData && !snapshot.data!.exists) {
-            if (kDebugMode) {
-              print("Document does not exist");
-            }
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            Map<String, dynamic> data =
-                snapshot.data!.data() as Map<String, dynamic>;
-            if (kDebugMode) {
-              print("Full Name: ${data['full_name']} ${data['last_name']}");
-            }
-          }
-          if (kDebugMode) {
-            print("loading");
-          }
-          return const Text("loading");
-        });
-  }
+  DocumentReference<Map<String, dynamic>> getUser() => _service.getUser(
+      path: APIPath.users(),
+      documentID: uid!
+  );
 }
