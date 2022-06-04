@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/Home/my_images.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
@@ -108,13 +107,12 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                         fullscreenDialog: true,
                         builder: (_) {
-                          /*FirebaseFirestore.instance.collection('Picture').where('AlbumID', isEqualTo: album.id)
-                              .get().then( snapshot.data!.docs.map((DocumentSnapshot document){
-                                print('suiiiiiiiiiiii');
-
-                               });*/
+                          FirebaseFirestore.instance.collection('Picture').where('AlbumID', isEqualTo: album.id)
+                              .get().then((snapshot) {
+                              });
                           return AlbumPage(user: user,album:album,);
-                        })),
+                        }),
+                    ),
                     color: Color(album.albumColor),
                     child: Image.network(
                       album.url,
