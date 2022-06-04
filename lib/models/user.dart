@@ -1,7 +1,8 @@
 import 'package:autism_helper_project/models/picture.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User1 {
-   int userId=111;
+   String userId;
    String name;
    String userEmail='';
    String userPassword;
@@ -10,6 +11,7 @@ class User1 {
 
   User1({
     this.name = '',
+    this.userId = '',
     this.userPassword = '',
     this.userProfilePictureUrl = '',
     this.pictures = const [],
@@ -23,10 +25,11 @@ class User1 {
     };
   }
 
-  factory User1.fromMap(Map<String,dynamic> data , String id) {
+  factory User1.fromMap(DocumentSnapshot data) {
     return User1(
-        name: data['Name'],
-        userProfilePictureUrl: data['ProfilePictureURL'],
+      name: data['Name'],
+      userProfilePictureUrl: data['ProfilePictureURL'],
+      userId: data['ID']
     );
   }
 

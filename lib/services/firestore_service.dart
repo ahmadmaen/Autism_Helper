@@ -29,22 +29,10 @@ class FirestoreService {
     return collectionStream;
   }
 
-  User1 getUser({required String path, required String documentID })  {
+  DocumentReference<Map<String, dynamic>> getUser({required String path, required String documentID })  {
+    DocumentReference<Map<String, dynamic>> collectionStream = FirebaseFirestore.instance.collection(path).doc(documentID);
+    return collectionStream;
 
-    User1 user=User1();
-    DatabaseReference userName = FirebaseDatabase.instance.ref('User/documentID/Name');
-    userName.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-      user.name = data as String;
-    });
-
-    DatabaseReference userProfilePictureURL = FirebaseDatabase.instance.ref('User/documentID/ProfilePictureURL');
-    userProfilePictureURL.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-      user.userProfilePictureUrl = data as String;
-    });
-
-    return user;
   }
 
 }

@@ -31,14 +31,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
-
-   User1 user = User1(
+  User1 user = User1(
       name: 'User',
       userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
   );
-
-  List<Album> albums = <Album>[];
-
+  late DocumentReference<Map<String, dynamic>> userData;
   /*Future<void> getData()  async {
     final Database database = Provider.of<Database>(context, listen: false,);
     var albums1 =  await database.readAlbums().first;
@@ -56,16 +53,13 @@ class _HomePageState extends State<HomePage> {
       albums = albums1;
       //user = user1;
     });
-  }
+  }*/
 
 
   @override
   void initState() {
-<<<<<<< HEAD
     final Database database = Provider.of<Database>(context, listen: false,);
-    userData = database.getUser() as DocumentReference<Map<String, dynamic>>;
-=======
->>>>>>> parent of 464fad7 (.)
+    userData = database.getUser();
     super.initState();
 
   }
@@ -73,8 +67,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getData();
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,29 +104,27 @@ class _HomePageState extends State<HomePage> {
     if (kDebugMode) {
       print(user.name);
     }
-=======
->>>>>>> parent of 464fad7 (.)
     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Image.asset('images/title.png', scale: 18)),
-        leading: menu(context),
-        actions: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
-              child: ProfilePicture(
-                pictureUrl: user.userProfilePictureUrl,
-                pictureSize: 30,
-                pictureRadius: 60,
-              ),
-            ),
-          ), //(ProfilePicture)
-        ],
-      ),
-      body: _buildContent(),
+    appBar: AppBar(
+    title: Center(child: Image.asset('images/title.png', scale: 18)),
+    leading: menu(context),
+    actions: [
+    GestureDetector(
+    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+    fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
+    child: Padding(
+    padding:
+    const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+    child: ProfilePicture(
+    pictureUrl: user.userProfilePictureUrl,
+    pictureSize: 30,
+    pictureRadius: 60,
+    ),
+    ),
+    ), //(ProfilePicture)
+    ],
+    ),
+    body: _buildContent(),
     );
   }
 
@@ -142,38 +133,38 @@ class _HomePageState extends State<HomePage> {
     final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
     database.getUser();
     return StreamBuilder<QuerySnapshot>(
-      stream: _albumStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-            Album album = Album.fromMap(data);
-            return SizedBox(
-              width: 150,
-              child: CustomRaisedButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (_) => getScreen(album.id))),
-                color: Color(album.albumColor),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.network(
-                    album.url,
-                    width: 150,
-                    height: 150,
+        stream: _albumStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+              Album album = Album.fromMap(data);
+              return SizedBox(
+                width: 150,
+                child: CustomRaisedButton(
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (_) => getScreen(album.id))),
+                  color: Color(album.albumColor),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.network(
+                      album.url,
+                      width: 150,
+                      height: 150,
+                    ),
                   ),
                 ),
-              ),
-            );
-          }).toList(),
-        );
-      });
+              );
+            }).toList(),
+          );
+        });
   }
 
   Widget getScreen(int index) {
@@ -225,23 +216,23 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text("About Us"),
-                value: 0,
-              ),
-              PopupMenuItem(
-                child: Text("Contact Us"),
-                value: 1,
-              ),
-              PopupMenuItem(
-                child: Text("Sign Out"),
-                value: 2,
-              ),
+          PopupMenuItem(
+            child: Text("About Us"),
+            value: 0,
+          ),
+          PopupMenuItem(
+            child: Text("Contact Us"),
+            value: 1,
+          ),
+          PopupMenuItem(
+            child: Text("Sign Out"),
+            value: 2,
+          ),
           PopupMenuItem(
             child: Text("Add new image"),
             value: 3,
           )
-            ],
+        ],
         onSelected: (result) {
           if (result == 0) {
             Navigator.of(context).push(MaterialPageRoute(
