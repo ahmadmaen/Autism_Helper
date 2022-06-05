@@ -82,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white70,
                               size: 23,
                             ),
-                            onPressed: () => yourChoice(),
+                            onPressed: () => yourChoice(context),
                           ),
                         ),
                       ),
@@ -225,9 +225,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void saveEntries() {}
 
-  void yourChoice() {
+  void yourChoice(BuildContext context) {
     showModalBottomSheet(
-        context: context as BuildContext,
+        context: context,
         builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 leading: Icon(Icons.camera_alt),
@@ -247,6 +247,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final img = await ImagePicker().pickImage(source: source);
       if (img == null) return;
       final fileName = basename(img.path);
+      uploadFile(fileName, img as File);
       //widget.user.userProfilePictureUrl = img.path );
     } on PlatformException catch (e) {
       if (kDebugMode) {
