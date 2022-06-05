@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               padding:
               const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: user.userProfilePictureUrl,
+                picture: Image.network(user.userProfilePictureUrl),
                 pictureSize: 30,
                 pictureRadius: 60,
               ),

@@ -47,5 +47,8 @@
       <string>Upload images for screen background</string>
       <key>NSCameraUsageDescription</key>
       <string>Upload image from camera for screen background</string>
+      <key>NSCameraUsageDescription</key>
+      <string>Explanation on why the camera access is needed.</string>
+
 </dict>
 </plist>

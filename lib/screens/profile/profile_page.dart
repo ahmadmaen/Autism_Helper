@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  pictureUrl: widget.user.userProfilePictureUrl,
+                  picture :Image.network(widget.user.userProfilePictureUrl),
                   pictureSize: 30,
                   pictureRadius: 60,
                 ),
@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   ProfilePicture(
-                    pictureUrl: widget.user.userProfilePictureUrl,
+                    picture :Image.network(widget.user.userProfilePictureUrl),
                     pictureSize: 130,
                     pictureRadius: 200,
                   ),

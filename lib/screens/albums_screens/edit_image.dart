@@ -46,7 +46,7 @@ class _EditImageState extends State<EditImage> {
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: defaultUser.userProfilePictureUrl,
+                picture: Image.asset(defaultUser.userProfilePictureUrl),
                 pictureSize: 30,
                 pictureRadius: 60,
               ),
@@ -62,7 +62,7 @@ class _EditImageState extends State<EditImage> {
               Stack(
                 children: [
                   ProfilePicture(
-                    pictureUrl: defaultUser.userProfilePictureUrl,
+                    picture: Image.asset(defaultUser.userProfilePictureUrl),
                     pictureSize: 130,
                     pictureRadius: 20,
                   ),

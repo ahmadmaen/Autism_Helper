@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _AlbumPageState extends State<AlbumPage> {
               padding: const EdgeInsets.only(
                   top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                pictureUrl: widget.user.userProfilePictureUrl,
+                picture: Image.network(widget.user.userProfilePictureUrl),
                 pictureSize: 30,
                 pictureRadius: 60,
               ),
