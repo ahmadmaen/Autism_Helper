@@ -1,8 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
@@ -15,11 +20,10 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-
-  //final ImagePicker _picker = ImagePicker();
-
+  late Image image;
   @override
   Widget build(BuildContext context) {
+    image = Image.network(widget.user.userProfilePictureUrl);
     return Scaffold(
         appBar: AppBar(
           title: Center(
@@ -46,7 +50,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  pictureUrl: widget.user.userProfilePictureUrl,
+                  picture :Image.network(widget.user.userProfilePictureUrl),
                   pictureSize: 30,
                   pictureRadius: 20,
                 ),
@@ -63,7 +67,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Stack(
                     children: [
                       ProfilePicture(
-                        pictureUrl: widget.user.userProfilePictureUrl,
+                        picture: Image.network(widget.user.userProfilePictureUrl),
                         pictureSize: 130,
                         pictureRadius: 200,
                       ),
@@ -77,7 +81,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white70,
                               size: 23,
                             ),
-                            onPressed: () { openCamera(); },
+                            onPressed: () => openGallery() ,
                           ),
                         ),
                       ),
@@ -214,22 +218,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
   void saveEntries() {}
-}
 
-void openCamera() async {
-  final status = await Permission.locationWhenInUse.request();
-  if (status == PermissionStatus.granted) {
-    if (kDebugMode) {
-      print('Permission granted');
+  Future openGallery() async {
+        try {
+          final img = await ImagePicker().pickImage(source: ImageSource.gallery);
+          if (img==null) return;
+          setState( ()=>  image = Image.network(img.path));
+        } on PlatformException catch (e) {
+          if (kDebugMode) {
+            print('Failed to choose an image: $e');
+          }
+        }
+
     }
-  } else if (status == PermissionStatus.denied) {
-    if (kDebugMode) {
-      print('Denied. Show a dialog with a reason and again ask for the permission.');
-    }
-  } else if (status == PermissionStatus.permanentlyDenied) {
-    if (kDebugMode) {
-      print('Take the user to the settings page.');
+    Future openCamera() async {
+    final status = await Permission.camera.request();
+    File cameraFile;
+    if (status == PermissionStatus.granted) {
+      if (kDebugMode) {
+        final image =  await ImagePicker().pickImage(source: ImageSource.camera);
+      }
+    } else if (status == PermissionStatus.denied) {
+      if (kDebugMode) {
+        print('Denied. Show a dialog with a reason and again ask for the permission.');
+      }
+    } else if (status == PermissionStatus.permanentlyDenied) {
+      if (kDebugMode) {
+        print('Take the user to the settings page.');
+      }
     }
   }
-}
+  }
+
+
+
+
+
+
 
