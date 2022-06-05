@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   var _icon = Icons.toggle_off_outlined;
   User1 user = User1(
+      userId: '000',
       name: 'User',
       userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
   );
@@ -53,7 +54,6 @@ class _HomePageState extends State<HomePage> {
     userData.get().then((DocumentSnapshot data) {
       if (data.exists) {
         user = User1.fromMap(data);
-        //setState((){});
       }
     });
     return Scaffold(
@@ -62,8 +62,12 @@ class _HomePageState extends State<HomePage> {
         leading: menu(context),
         actions: [
           GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,))),
+            onTap: () {
+              if(user.userId != '000') {
+                Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,)));
+              }
+            },
             child: Padding(
               padding:
               const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
