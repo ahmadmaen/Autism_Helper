@@ -194,7 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = widget.user.userEmail,
+        controller: TextEditingController()..text = widget.user.email,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
@@ -211,7 +211,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = widget.user.userPassword,
+        controller: TextEditingController()..text = '',
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),

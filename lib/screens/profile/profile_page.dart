@@ -93,8 +93,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(child: Text('Email :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
                   buildEmailField(),
                   SizedBox(height: 15),
-                  Container(child: Text('Password :',style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
-                  buildPasswordField(),
                 ],
               ),
 
@@ -130,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: TextFormField(
         enabled: false,
         controller: TextEditingController()
-          ..text = widget.user.userEmail,
+          ..text = widget.user.email,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -139,23 +137,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
-      ),
-    );
-  }
-
-  Padding buildPasswordField() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: TextFormField(
-        enabled: false,
-        controller: TextEditingController()..text = widget.user.userPassword,
-        onChanged: (text) => {},
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyle(fontSize: 20),
-        ),
-        obscureText: true,
       ),
     );
   }

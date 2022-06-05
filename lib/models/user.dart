@@ -4,15 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class User1 {
    String userId;
    String name;
-   String userEmail='';
-   String userPassword;
+   String email;
    String userProfilePictureUrl;
    List<Picture> pictures;
 
   User1({
     this.name = '',
+    this.email = '',
     this.userId = '',
-    this.userPassword = '',
     this.userProfilePictureUrl = '',
     this.pictures = const [],
   });
