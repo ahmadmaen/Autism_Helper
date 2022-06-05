@@ -56,51 +56,53 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            logoBox(),
-            const SizedBox(height: 15),
-            welcomeBackText(),
-            const SizedBox(height: 15),
-            logInToYourAccountText(),
-            const SizedBox(height: 15),
-            buildEmailCard(context),
-            const SizedBox(height: 10),
-            buildPasswordCard(),
-            const SizedBox(height: 20),
-            CustomRaisedButton(
-              child: signInButtonLabel(),
-              onPressed: (){  _signInButton(context); },
-            ),
-            const SizedBox(height: 10),
-            signInWithText(),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: signInWithRowChildren(context),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  signUpRowChildren(context),
-            ),
-            const SizedBox(height: 10),
-            CustomRaisedButton(
-              child: const Text(
-                'Continue without an account',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              logoBox(),
+              const SizedBox(height: 15),
+              welcomeBackText(),
+              const SizedBox(height: 15),
+              logInToYourAccountText(),
+              const SizedBox(height: 15),
+              buildEmailCard(context),
+              const SizedBox(height: 10),
+              buildPasswordCard(),
+              const SizedBox(height: 20),
+              CustomRaisedButton(
+                child: signInButtonLabel(),
+                onPressed: (){  _signInButton(context); },
               ),
-              onPressed: (){ _signInwWthAnonymous(context);},
-            ),
-          ],
-        ));
+              const SizedBox(height: 10),
+              signInWithText(),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: signInWithRowChildren(context),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  signUpRowChildren(context),
+              ),
+              const SizedBox(height: 10),
+              CustomRaisedButton(
+                child: const Text(
+                  'Continue without an account',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                onPressed: (){ _signInwWthAnonymous(context);},
+              ),
+            ],
+          )),
+    );
   }
 
   SizedBox logoBox() {

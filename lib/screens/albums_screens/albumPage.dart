@@ -102,7 +102,6 @@ class _AlbumPageState extends State<AlbumPage> {
                         onPressed: (){
                           Navigator.pop(context);
                         } ,
-                        color: Colors.transparent,
                         child: Image.network(
                           picture.pictureUrl,
                           width: 150,
