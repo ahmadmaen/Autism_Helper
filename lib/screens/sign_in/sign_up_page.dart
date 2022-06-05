@@ -16,21 +16,21 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   String get _email => _emailController.text;
-  String get _name => _emailController.text;
+  String get _name => _nameController.text;
   String get _password => _passwordController.text;
 
   Future<void> _signUpButton(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       final User? user2 = await auth?.createUserWithEmailAndPassword(_email, _password);
-      User1 user = User1(
-          name: _name,
-          email: _email,
-          userId: user2!.uid,
-          userProfilePictureUrl: 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
-      );
-      CollectionReference database = FirebaseFirestore.instance.collection('User');
-      database.add(user.toMap())
+      var user = {
+          "Name" : _name,
+          "Email": _email,
+          "ID": user2!.uid,
+          "ProfilePictureURL": 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
+      };
+      CollectionReference database = FirebaseFirestore.instance.collection('/User');
+      await database.doc(user2!.uid).set(user)
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
       Navigator.of(context).pop();
