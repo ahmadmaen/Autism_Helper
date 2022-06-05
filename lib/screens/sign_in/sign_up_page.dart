@@ -20,19 +20,20 @@ class SignUpPage extends StatelessWidget {
   String get _password => _passwordController.text;
 
   Future<void> _signUpButton(BuildContext context) async {
-    User1 user = User1(
-      name: _name,
-      email: _email,
-    );
     final AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
-      await auth?.createUserWithEmailAndPassword(_email, _password);
-      CollectionReference database =
-          FirebaseFirestore.instance.collection('User');
-      database
-          .add(user.toMap())
+      final User? user2 = await auth?.createUserWithEmailAndPassword(_email, _password);
+      User1 user = User1(
+          name: _name,
+          email: _email,
+          userId: user2!.uid,
+          userProfilePictureUrl: 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
+      );
+      CollectionReference database = FirebaseFirestore.instance.collection('User');
+      database.add(user.toMap())
           .then((value) => print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       showAlertDialog(
         context,

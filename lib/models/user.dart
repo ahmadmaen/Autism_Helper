@@ -20,6 +20,8 @@ class User1 {
   Map<String, dynamic> toMap() {
     return {
       'Name': name,
+      'Email': email,
+      'ID' : userId,
       'ProfilePictureURL': userProfilePictureUrl,
     };
   }
