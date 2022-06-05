@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:autism_helper_project/models/contact_us.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'api_path.dart';
@@ -8,12 +9,12 @@ import 'firestore_service.dart';
 abstract class Database {
 
   Future<void> setUserData(User1 user);
+  Future<void> setContactUs(ContactUs contactUs);
 
   DocumentReference<Map<String, dynamic>> getAboutUsData();
   DocumentReference<Map<String, dynamic>> getUser();
   Stream<dynamic> readPicture();
   Stream<dynamic> readAlbums();
-
 
 }
 class FirestoreDatabase implements Database {
@@ -26,8 +27,15 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setUserData(User1 user) async => _service.setData(
-    path: APIPath.user(uid),
+    path: APIPath.users(),
     data: user.toMap(),
+  );
+
+
+  @override
+  Future<void> setContactUs(ContactUs contactUs) async => _service.setData(
+    path: APIPath.contactUS(),
+    data: contactUs.toMap(),
   );
 
   @override

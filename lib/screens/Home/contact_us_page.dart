@@ -2,21 +2,39 @@
 
 
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../models/contact_us.dart';
 import '../../models/user.dart';
+import '../../services/database.dart';
+import '../common_widgets/show_alert_dialog.dart';
 
 class ContactUsPage extends StatefulWidget {
-  const ContactUsPage({Key? key, required this.user}) : super(key: key);
-  final User1 user;
+  const ContactUsPage({Key? key, required this.user, required this.database}) : super(key: key);
 
+
+  final Database database;
+  final User1 user;
 
   @override
   State<ContactUsPage> createState() => _ContactUsPageState();
 }
 
-class _ContactUsPageState extends State<ContactUsPage> {
+class _ContactUsPageState extends State <ContactUsPage> {
+
+  late ContactUs contactUs;
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
+
+  String get _name => _nameController.text;
+  String get _email => _emailController.text;
+  String get _text => _textController.text;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +47,8 @@ class _ContactUsPageState extends State<ContactUsPage> {
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
-          ),),
+          )
+          ),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -40,7 +59,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
               }),
           actions: [
             GestureDetector(
-              onTap: (){},
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
@@ -96,7 +114,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             )),
                       ),
-                      onPressed: () {},
+                      onPressed: () => _setContactUsData(),
                       child: Text(
                         "SEND",
                         style: TextStyle(
@@ -112,18 +130,19 @@ class _ContactUsPageState extends State<ContactUsPage> {
         ));
   }
 
-  Card buildEmailCard(BuildContext context) {
+  Card buildNameCard(BuildContext context) {
     return Card(
       elevation: 5,
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),
         child: TextField(
+          controller: _nameController,
           textAlign: TextAlign.start,
           decoration: const InputDecoration(
             border: InputBorder.none,
-            hintText: 'Your Email',
+            hintText: 'Your Name',
           ),
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
         ),
       ),
@@ -131,18 +150,19 @@ class _ContactUsPageState extends State<ContactUsPage> {
     );
   }
 
-  Card buildNameCard(BuildContext context) {
+  Card buildEmailCard(BuildContext context) {
     return Card(
       elevation: 5,
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),
         child: TextField(
+          controller: _emailController,
           textAlign: TextAlign.start,
           decoration: const InputDecoration(
             border: InputBorder.none,
-            hintText: 'Your Name',
+            hintText: 'Your Email',
           ),
-          keyboardType: TextInputType.name,
+          keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
         ),
       ),
@@ -159,6 +179,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: TextField(
+            controller: _textController,
             textAlign: TextAlign.start,
             decoration: const InputDecoration(
               border: InputBorder.none,
@@ -173,4 +194,25 @@ class _ContactUsPageState extends State<ContactUsPage> {
       ),
     );
   }
+
+  Future<void> _setContactUsData() async {
+    try {
+       contactUs = ContactUs(
+         message: _text,
+         email: _email,
+         name: _name,
+      );
+       widget.database.setContactUs(contactUs);
+
+    } on FirebaseAuthException catch (e) {
+      showAlertDialog(
+        context,
+        content: e.message,
+        title: "failed",
+        cancelActionText: "",
+        defaultActionText: "OK",
+      );
+    }
+  }
+
 }

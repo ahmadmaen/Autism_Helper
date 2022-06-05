@@ -7,11 +7,11 @@ class FirestoreService {
   static final instance = FirestoreService._();
 
   Future<void> setData({ required String path, required Map<String, dynamic> data, }) async {
-    final reference = FirebaseFirestore.instance.doc(path);
+    CollectionReference database = FirebaseFirestore.instance.collection(path);
     if (kDebugMode) {
       print('$path: $data');
     }
-    await reference.set(data);
+    database.add(data).then((value) => print(value)).catchError((error) => print("Failed to add user: $error"));
   }
 
   Future<void> deleteData({required String path}) async {

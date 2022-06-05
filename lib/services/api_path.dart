@@ -4,4 +4,5 @@ class APIPath {
   static String picture() => 'Picture';
   static String users() => 'User';
   static String aboutUS() => 'AboutUs';
+  static String contactUS() => 'ContactUs';
 }
