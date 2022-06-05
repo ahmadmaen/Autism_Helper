@@ -35,19 +35,17 @@ class _HomePageState extends State<HomePage> {
   );
   List<Picture> pictures = [];
   late Database database = Provider.of<Database>(context, listen: false,);
-  late DocumentReference<Map<String, dynamic>> userData;
+  late DocumentReference<Map<String, dynamic>> userData = database.getUser();
+  bool isDone = false;
 
   @override
   void initState() {
-    userData = database.getUser();
     super.initState();
-
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
   }
 
   @override
@@ -55,6 +53,11 @@ class _HomePageState extends State<HomePage> {
     userData.get().then((DocumentSnapshot data) {
       if (data.exists) {
         user = User1.fromMap(data);
+        if(!isDone)
+          {
+            setState((){});
+            isDone = true;
+          }
       }
     });
     return Scaffold(
@@ -190,7 +193,7 @@ class _HomePageState extends State<HomePage> {
         ],
         onSelected: (result) {
           if (result == 0) {
-            if(user.userId == '000') {
+            if(user.userId != '000') {
                 Navigator.of(context).push(MaterialPageRoute(
                     fullscreenDialog: true, builder: (context) => MyImages(user: user)));
               }
