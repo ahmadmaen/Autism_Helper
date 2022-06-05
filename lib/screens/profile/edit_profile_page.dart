@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
 
@@ -20,11 +21,10 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   late Image image;
+  UploadTask? task;
   @override
   Widget build(BuildContext context) {
-
-      image = Image.network(widget.user.userProfilePictureUrl);
-
+    image = Image.network(widget.user.userProfilePictureUrl);
     return Scaffold(
         appBar: AppBar(
           title: Center(
@@ -124,10 +124,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  )),
                             ),
                             onPressed: () {
                               Navigator.pop(context);
@@ -147,10 +147,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  )),
                             ),
                             onPressed: () {
                               saveEntries();
@@ -227,7 +227,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void yourChoice() {
     showModalBottomSheet(
-        context: context,
+        context: context as BuildContext,
         builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 leading: Icon(Icons.camera_alt),
@@ -246,11 +246,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
     try {
       final img = await ImagePicker().pickImage(source: source);
       if (img == null) return;
-      setState(() => widget.user.userProfilePictureUrl = img.path );
+      final fileName = basename(img.path);
+      //widget.user.userProfilePictureUrl = img.path );
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print('Failed to choose an image: $e');
       }
+    }
+  }
+  Future uploadFile(String dest,File img) async {
+    try {
+      final ref = FirebaseStorage.instance.ref(dest);
+      task = ref.putFile(img);
+      if (task==null) return;
+      final snapshot = await task!.whenComplete(() => {});
+      setState(() async => widget.user.userProfilePictureUrl = await snapshot.ref.getDownloadURL());
+    } on FirebaseException catch (e) {
+      return null;
     }
   }
 }
