@@ -203,6 +203,9 @@ class _ContactUsPageState extends State <ContactUsPage> {
          name: _name,
       );
        widget.database.setContactUs(contactUs);
+       _textController.clear();
+       _emailController.clear();
+       _nameController.clear();
 
     } on FirebaseAuthException catch (e) {
       showAlertDialog(
