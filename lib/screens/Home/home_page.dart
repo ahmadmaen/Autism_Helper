@@ -59,13 +59,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
-        leading: menu(context),
+        leading: menu(context,user),
         actions: [
           GestureDetector(
             onTap: () {
               if(user.userId != '000') {
                 Navigator.of(context).push(MaterialPageRoute(
                     fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,)));
+              }
+              else {
+                showAlertDialog(
+                  context,
+                  title: 'warning',
+                  content: 'You need to sign up to view profile',
+                  defaultActionText: 'OK',
+                  cancelActionText: '',
+                );
               }
             },
             child: Padding(
@@ -144,7 +153,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  PopupMenuButton menu(BuildContext context) {
+  PopupMenuButton menu(BuildContext context ,User1 user) {
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,
@@ -179,8 +188,19 @@ class _HomePageState extends State<HomePage> {
         ],
         onSelected: (result) {
           if (result == 0) {
-            Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => MyImages(user: user)));
+            if(user.userId != '000') {
+                Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true, builder: (context) => MyImages(user: user)));
+              }
+            else {
+              showAlertDialog(
+                context,
+                title: 'warning',
+                content: 'You need to sign up to add photo',
+                defaultActionText: 'OK',
+                cancelActionText: '',
+              );
+            }
           }if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => AboutUsPage(user:user,)));
