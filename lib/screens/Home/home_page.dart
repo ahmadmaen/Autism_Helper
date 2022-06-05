@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
           }
           else if (result == 2) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,)));
+                fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,database: database,)));
           }
           else if (result == 3) {
             _confirmSignOut();
