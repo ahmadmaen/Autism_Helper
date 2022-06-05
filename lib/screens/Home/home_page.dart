@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
         ],
         onSelected: (result) {
           if (result == 0) {
-            if(user.userId != '000') {
+            if(user.userId == '000') {
                 Navigator.of(context).push(MaterialPageRoute(
                     fullscreenDialog: true, builder: (context) => MyImages(user: user)));
               }
