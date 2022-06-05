@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -23,7 +22,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late Image image;
   @override
   Widget build(BuildContext context) {
-    image = Image.network(widget.user.userProfilePictureUrl);
+
+      image = Image.network(widget.user.userProfilePictureUrl);
+
     return Scaffold(
         appBar: AppBar(
           title: Center(
@@ -45,12 +46,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
               }),
           actions: [
             GestureDetector(
-              onTap: (){},
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  picture :Image.network(widget.user.userProfilePictureUrl),
+                  picture: Image.network(widget.user.userProfilePictureUrl),
                   pictureSize: 30,
                   pictureRadius: 20,
                 ),
@@ -67,9 +68,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Stack(
                     children: [
                       ProfilePicture(
-                        picture: Image.network(widget.user.userProfilePictureUrl),
                         pictureSize: 130,
                         pictureRadius: 200,
+                        picture: image,
                       ),
                       Positioned(
                         bottom: 1,
@@ -81,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: Colors.white70,
                               size: 23,
                             ),
-                            onPressed: () => openGallery() ,
+                            onPressed: () => yourChoice(),
                           ),
                         ),
                       ),
@@ -128,7 +129,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
                             ),
-                            onPressed: () {Navigator.pop(context);},
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                             child: Text(
                               "CANCEL",
                               style: TextStyle(
@@ -144,12 +147,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  )),
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
                             ),
-                            onPressed: () { saveEntries(); },
+                            onPressed: () {
+                              saveEntries();
+                            },
                             child: Text(
                               "SAVE",
                               style: TextStyle(
@@ -220,41 +225,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void saveEntries() {}
 
-  Future openGallery() async {
-        try {
-          final img = await ImagePicker().pickImage(source: ImageSource.gallery);
-          if (img==null) return;
-          setState( ()=>  image = Image.network(img.path));
-        } on PlatformException catch (e) {
-          if (kDebugMode) {
-            print('Failed to choose an image: $e');
-          }
-        }
-
+  void yourChoice() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('Camera'),
+                onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
+              ),
+              ListTile(
+                leading: Icon(Icons.image),
+                title: Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
+              )
+            ]));
   }
 
-  Future openCamera() async {
-    final status = await Permission.camera.request();
-    File cameraFile;
-    if (status == PermissionStatus.granted) {
+  Future selectImage(ImageSource source) async {
+    try {
+      final img = await ImagePicker().pickImage(source: source);
+      if (img == null) return;
+      setState(() => widget.user.userProfilePictureUrl = img.path );
+    } on PlatformException catch (e) {
       if (kDebugMode) {
-        final image =  await ImagePicker().pickImage(source: ImageSource.camera);
-      }
-    } else if (status == PermissionStatus.denied) {
-      if (kDebugMode) {
-        print('Denied. Show a dialog with a reason and again ask for the permission.');
-      }
-    } else if (status == PermissionStatus.permanentlyDenied) {
-      if (kDebugMode) {
-        print('Take the user to the settings page.');
+        print('Failed to choose an image: $e');
       }
     }
   }
-  }
-
-
-
-
-
-
-
+}
