@@ -4,6 +4,7 @@ import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../models/picture.dart';
 import 'api_path.dart';
 import 'firestore_service.dart';
 
@@ -11,9 +12,10 @@ abstract class Database {
   Future<void> setUserData(User1 user);
 
 
-  Stream<dynamic> readAlbums();
+
   DocumentReference<Map<String, dynamic>> getUser();
   Stream<dynamic> readPicture();
+  Stream<dynamic> readAlbums();
 
 
 }
@@ -47,4 +49,11 @@ class FirestoreDatabase implements Database {
       path: APIPath.users(),
       documentID: uid!
   );
+
+
+
+
+
+
+
 }

@@ -16,13 +16,13 @@ class Album {
   final String label;
   final String url;
   final int albumColor;
-  final int id;
+  final String id;
 
   final List<Picture> pictures;
 
   factory Album.fromMap(Map<String,dynamic> data) {
     return Album(
-      id: int.parse(data['ID']),
+      id: data['ID'],
         label: data['Label'],
         url: data['URL'],
         albumColor: int.parse(data['Color'])

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Services/auth.dart';
 import '../../models/album.dart';
+import '../../models/picture.dart';
 import '../../services/database.dart';
 import '../albums_screens/albumPage.dart';
 import '../common_widgets/buttons/raised_button.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
       name: 'User',
       userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
   );
+  List<Picture> pictures = [];
   late DocumentReference<Map<String, dynamic>> userData;
 
   @override
@@ -80,7 +82,6 @@ class _HomePageState extends State<HomePage> {
   Widget _buildContent() {
     final Database database = Provider.of<Database>(context, listen: false,);
     final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
-    database.getUser();
     return StreamBuilder<QuerySnapshot>(
         stream: _albumStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -105,13 +106,11 @@ class _HomePageState extends State<HomePage> {
                   width: 150,
                   child: CustomRaisedButton(
                     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+
                         fullscreenDialog: true,
-                        builder: (_) {
-                          FirebaseFirestore.instance.collection('Picture').where('AlbumID', isEqualTo: album.id)
-                              .get().then((snapshot) {
-                              });
-                          return AlbumPage(user: user,album:album,);
-                        }),
+                        builder: (_) => AlbumPage(user: user,album:album,database :database)
+
+                        ),
                     ),
                     color: Color(album.albumColor),
                     child: Image.network(
