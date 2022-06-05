@@ -27,6 +27,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setUserData(User1 user) async => _service.setData(
+    UID: uid!,
     path: APIPath.users(),
     data: user.toMap(),
   );
@@ -34,6 +35,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> setContactUs(ContactUs contactUs) async => _service.setData(
+    UID: uid!,
     path: APIPath.contactUS(),
     data: contactUs.toMap(),
   );

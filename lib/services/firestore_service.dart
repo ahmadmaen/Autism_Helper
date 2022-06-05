@@ -6,12 +6,12 @@ class FirestoreService {
   FirestoreService._();
   static final instance = FirestoreService._();
 
-  Future<void> setData({ required String path, required Map<String, dynamic> data, }) async {
+  Future<void> setData({ required String path,required String UID, required Map<String, dynamic> data, }) async {
     CollectionReference database = FirebaseFirestore.instance.collection(path);
     if (kDebugMode) {
       print('$path: $data');
     }
-    database.add(data).then((value) => print("Added")).catchError((error) => print("Failed to add user: $error"));
+    database.doc(UID).set(data);
   }
 
   Future<void> deleteData({required String path}) async {
@@ -30,7 +30,6 @@ class FirestoreService {
   DocumentReference<Map<String, dynamic>> getDoc({required String path, required String documentID })  {
     DocumentReference<Map<String, dynamic>> collectionStream = FirebaseFirestore.instance.collection(path).doc(documentID);
     return collectionStream;
-
   }
 
   Stream<dynamic> getDocStream({required String path, required String documentID })  {
