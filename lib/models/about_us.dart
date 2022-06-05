@@ -1,11 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AboutUs {
   final String text;
   final String email;
-  final int phoneNumber;
+  final String address;
+  final String phoneNumber;
 
   AboutUs({
-    required this.text,
-    required this.email,
-    required this.phoneNumber,
+     this.text='',
+     this.email='',
+     this.phoneNumber='',
+     this.address='',
   });
+
+
+  factory AboutUs.fromMap(DocumentSnapshot data ) {
+    return AboutUs(
+        text: data['Text'],
+        phoneNumber: data['MobilePhone'],
+        email: data['Email'],
+        address : data['address']
+    );
+  }
+
+
 }

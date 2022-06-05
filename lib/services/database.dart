@@ -2,15 +2,12 @@ import 'dart:core';
 
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import '../models/picture.dart';
 import 'api_path.dart';
 import 'firestore_service.dart';
 
 abstract class Database {
-  Future<void> setUserData(User1 user);
 
+  Future<void> setUserData(User1 user);
 
   DocumentReference<Map<String, dynamic>> getAboutUsData();
   DocumentReference<Map<String, dynamic>> getUser();

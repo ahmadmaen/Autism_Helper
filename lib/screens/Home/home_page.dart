@@ -34,11 +34,11 @@ class _HomePageState extends State<HomePage> {
       userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
   );
   List<Picture> pictures = [];
+  late Database database = Provider.of<Database>(context, listen: false,);
   late DocumentReference<Map<String, dynamic>> userData;
 
   @override
   void initState() {
-    final Database database = Provider.of<Database>(context, listen: false,);
     userData = database.getUser();
     super.initState();
 
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
-        leading: menu(user),
+        leading: menu(),
         actions: [
           GestureDetector(
             onTap: () {
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  PopupMenuButton menu(User1 user) {
+  PopupMenuButton menu() {
     setState((){});
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
@@ -203,13 +203,18 @@ class _HomePageState extends State<HomePage> {
                 cancelActionText: '',
               );
             }
-          }if (result == 1) {
+          }
+          if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => AboutUsPage(user:user,)));
-          } else if (result == 2) {
+                fullscreenDialog: true,
+                builder: (context) => AboutUsPage(user:user ,database: database,)
+            ));
+          }
+          else if (result == 2) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,)));
-          } else if (result == 3) {
+          }
+          else if (result == 3) {
             _confirmSignOut();
           }});
   }
