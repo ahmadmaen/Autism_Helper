@@ -12,10 +12,9 @@ abstract class Database {
   Future<void> setUserData(User1 user);
 
 
-
-  DocumentReference<Map<String, dynamic>> getUser();
-  Stream<dynamic> readPicture();
   Stream<dynamic> readAlbums();
+  DocumentReference<Map<String, dynamic>> getUser();
+  Stream<dynamic> readPicture(String id);
 
 
 }
@@ -39,9 +38,10 @@ class FirestoreDatabase implements Database {
   );
 
   @override
-  Stream<dynamic> readPicture() => _service.collectionStream(
-    path: APIPath.picture(),
-  );
+  Stream<dynamic> readPicture(String id) {
+    return FirebaseFirestore.instance.collection('Picture')
+        .where('AlbumID', isEqualTo: id).snapshots();
+  }
 
 
   @override

@@ -74,8 +74,7 @@ class _AlbumPageState extends State<AlbumPage> {
   }
 
   Widget _buildContent() {
-    final Stream<QuerySnapshot> _pictureStream = FirebaseFirestore.instance.collection('Picture')
-        .where("AlbumID", isEqualTo: widget.album.id).snapshots();
+    final Stream<QuerySnapshot> _pictureStream = widget.database.readPicture(widget.album.id) as Stream<QuerySnapshot>;
     return StreamBuilder<QuerySnapshot>(
         stream: _pictureStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
