@@ -11,7 +11,7 @@ class FirestoreService {
     if (kDebugMode) {
       print('$path: $data');
     }
-    database.add(data).then((value) => print(value)).catchError((error) => print("Failed to add user: $error"));
+    database.add(data).then((value) => print("Added")).catchError((error) => print("Failed to add user: $error"));
   }
 
   Future<void> deleteData({required String path}) async {
