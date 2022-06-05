@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
   }
 
   @override
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Image.asset('images/title.png', scale: 18)),
-        leading: menu(context,user),
+        leading: menu(user),
         actions: [
           GestureDetector(
             onTap: () {
@@ -153,7 +154,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  PopupMenuButton menu(BuildContext context ,User1 user) {
+  PopupMenuButton menu(User1 user) {
+    setState((){});
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,

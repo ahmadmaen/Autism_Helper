@@ -12,7 +12,7 @@ abstract class Database {
   Future<void> setUserData(User1 user);
 
 
-
+  DocumentReference<Map<String, dynamic>> getAboutUsData();
   DocumentReference<Map<String, dynamic>> getUser();
   Stream<dynamic> readPicture();
   Stream<dynamic> readAlbums();
@@ -45,11 +45,17 @@ class FirestoreDatabase implements Database {
 
 
   @override
-  DocumentReference<Map<String, dynamic>> getUser() => _service.getUser(
+  DocumentReference<Map<String, dynamic>> getUser() => _service.getDoc(
       path: APIPath.users(),
       documentID: uid!
   );
 
+
+  @override
+  DocumentReference<Map<String, dynamic>> getAboutUsData() => _service.getDoc(
+      path: APIPath.aboutUS(),
+      documentID: '0'
+  );
 
 
 
