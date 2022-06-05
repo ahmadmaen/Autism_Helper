@@ -99,7 +99,10 @@ class _AlbumPageState extends State<AlbumPage> {
                 return SizedBox(
                       width: 150,
                       child: CustomRaisedButton(
-                        onPressed: (){  } ,
+                        onPressed: (){
+                          Navigator.pop(context);
+                        } ,
+                        color: Colors.transparent,
                         child: Image.network(
                           picture.pictureUrl,
                           width: 150,
