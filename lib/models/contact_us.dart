@@ -8,4 +8,14 @@ class ContactUs {
     required this.email,
     required this.message,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'Name': name,
+      'Email': email,
+      'Message': message,
+    };
+  }
+
+
 }
