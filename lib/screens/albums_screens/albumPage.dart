@@ -63,12 +63,12 @@ class _AlbumPageState extends State<AlbumPage> {
           ), //(ProfilePicture)
         ],
       ),
-      body: SafeArea(child: Center(
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: _buildContent(),
         ),
-      )),
+      ),
     );
 
   }
@@ -89,7 +89,7 @@ class _AlbumPageState extends State<AlbumPage> {
             padding: const EdgeInsets.all(10.0),
             child: GridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 3,
                 crossAxisSpacing: 15.0,
                 mainAxisSpacing: 15.0,
               ),
@@ -99,12 +99,13 @@ class _AlbumPageState extends State<AlbumPage> {
                 return SizedBox(
                       width: 150,
                       child: CustomRaisedButton(
-                        onPressed: (){} ,
+                        onPressed: (){  } ,
                         child: Image.network(
                           picture.pictureUrl,
                           width: 150,
                           height: 150,
                         ),
+                        color: Colors.white,
                       ),
                     );
               }).toList(),
