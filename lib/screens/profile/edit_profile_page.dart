@@ -217,6 +217,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+
   void saveEntries() {}
 
   Future openGallery() async {
@@ -230,8 +231,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           }
         }
 
-    }
-    Future openCamera() async {
+  }
+
+  Future openCamera() async {
     final status = await Permission.camera.request();
     File cameraFile;
     if (status == PermissionStatus.granted) {
