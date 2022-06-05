@@ -18,6 +18,7 @@ import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
 import '../common_widgets/show_alert_dialog.dart';
 import 'contact_us_page.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage( {Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  final FlutterTts flutterTts = FlutterTts();
   var _icon = Icons.toggle_off_outlined;
   User1 user = User1(
       userId: '000',
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
               else {
                 showAlertDialog(
                   context,
-                  title: 'warning',
+                  title: 'Warning',
                   content: 'You need to sign up to view profile',
                   defaultActionText: 'OK',
                   cancelActionText: '',
@@ -122,13 +123,7 @@ class _HomePageState extends State<HomePage> {
                 return SizedBox(
                   width: 150,
                   child: CustomRaisedButton(
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-
-                        fullscreenDialog: true,
-                        builder: (_) => AlbumPage(user: user,album:album,database :database)
-
-                        ),
-                    ),
+                    onPressed: () => selectImage(album),
                     color: Color(album.albumColor),
                     child: Image.network(
                       album.url,
@@ -274,4 +269,29 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+   selectImage(Album album) async {
+
+    var result = await Navigator.push(context, MaterialPageRoute(
+      builder: (BuildContext context) => AlbumPage(user: user,album:album,database :database),
+      fullscreenDialog: true,)
+    );
+
+    Future speak() async
+    {
+      await flutterTts.speak(result);
+    }
+
+     ScaffoldMessenger.of(context).showMaterialBanner(  MaterialBanner(
+      content: Text(result), actions: [
+     TextButton(
+         child: Text('Dismiss'),
+         onPressed:() {ScaffoldMessenger.of(context)
+             .hideCurrentMaterialBanner();},
+     ),
+     ],
+      leading: IconButton( icon:Icon(Icons.speaker_phone), onPressed: () => speak(),),
+      backgroundColor: Colors.white,));
+
+  }
+
 }

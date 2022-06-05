@@ -45,6 +45,7 @@ dependencies:
   firebase_database: ^9.0.15
   image_picker: ^0.8.5+3
   permission_handler: ^9.2.0
+  flutter_tts: ^3.4.0
 
 dev_dependencies:
   flutter_test:
