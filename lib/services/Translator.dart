@@ -76,15 +76,15 @@ class Translator {
     {
       ifTheFirstAlbumIs2();
     }
-    else if(int.parse(picture.albumID) == 3)
+    else if(firstAlbumId == 3)
     {
       ifTheFirstAlbumIs3();
     }
-    else if(int.parse(picture.albumID) == 4)
+    else if(firstAlbumId == 4)
     {
       ifTheFirstAlbumIs4();
     }
-    else if(int.parse(picture.albumID) == 5)
+    else if(firstAlbumId == 5)
     {
       ifTheFirstAlbumIs5();
     }
