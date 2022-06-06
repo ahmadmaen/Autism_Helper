@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
 
@@ -239,9 +240,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future selectImage(ImageSource source) async {
     try {
      final img = (await ImagePicker().pickImage(source: source)) ;
-      final path = 'files/${img!.name}';
-      final file = File(img.path);
-      final ref = FirebaseStorage.instance.ref().child(path);
+     final path = 'files/${img!.name}';
+     final file = File(img.path);
+     final ref = FirebaseStorage.instance.ref().child(path);
       ref.putFile(file);
     } on PlatformException catch (e) {
       if (kDebugMode) {
@@ -249,17 +250,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }
     }
   }
-  /*
   Future uploadFile(String dest,XFile img) async {
+
+    final storageRef = FirebaseStorage.instance.ref();
+    final mountainsRef = storageRef.child("mountains.jpg");
+    final mountainImagesRef = storageRef.child("images/mountains.jpg");
+    assert(mountainsRef.name == mountainImagesRef.name);
+    assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocDir.absolute}/file-to-upload.png';
+    File file = File(filePath);
     try {
-      final ref = FirebaseStorage.instance.ref(dest);
-      //task = ref.child(path) putXFile(img);
+      await mountainsRef.putFile(file);
+      final storageRef = FirebaseStorage.instance.ref();
+      final ref = storageRef.child('UsersProfilePhoto');
+
       if (task==null) return;
       final snapshot = await task!.whenComplete(() => {});
-      setState(() async => widget.user.userProfilePictureUrl = await snapshot.ref.getDownloadURL());
+
+
     } on FirebaseException catch (e) {
       return e.message;
     }
   }
-   */
 }
