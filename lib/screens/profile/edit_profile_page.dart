@@ -1,15 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
+
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key, required this.user}) : super(key: key);
@@ -21,6 +22,7 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   late Image image;
   UploadTask? task;
+  PlatformFile? pickedFile;
   @override
   Widget build(BuildContext context) {
     image = Image.network(widget.user.userProfilePictureUrl);
@@ -236,21 +238,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Future selectImage(ImageSource source) async {
     try {
-      final img = await ImagePicker().pickImage(source: source);
-      if (img == null) return;
-      final fileName = basename(img.path);
-      uploadFile(fileName, img as File);
-      //widget.user.userProfilePictureUrl = img.path );
+     final img = (await ImagePicker().pickImage(source: source)) ;
+      final path = 'files/${img!.name}';
+      final file = File(img.path);
+      final ref = FirebaseStorage.instance.ref().child(path);
+      ref.putFile(file);
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print('Failed to choose an image: $e');
       }
     }
   }
-  Future uploadFile(String dest,File img) async {
+  /*
+  Future uploadFile(String dest,XFile img) async {
     try {
       final ref = FirebaseStorage.instance.ref(dest);
-      task = ref.putFile(img);
+      //task = ref.child(path) putXFile(img);
       if (task==null) return;
       final snapshot = await task!.whenComplete(() => {});
       setState(() async => widget.user.userProfilePictureUrl = await snapshot.ref.getDownloadURL());
@@ -258,4 +261,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
       return e.message;
     }
   }
+   */
 }
