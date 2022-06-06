@@ -21,9 +21,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+
   late Image image;
   UploadTask? task;
   PlatformFile? pickedFile;
+
   @override
   Widget build(BuildContext context) {
     image = Image.network(widget.user.userProfilePictureUrl);
@@ -223,7 +225,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void yourChoice(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+        builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
               ListTile(
                 leading: Icon(Icons.camera_alt),
                 title: Text('Camera'),
@@ -234,40 +238,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 title: Text('Gallery'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
               )
-            ]));
+            ]
+        )
+    );
   }
 
   Future selectImage(ImageSource source) async {
     try {
-     final img = (await ImagePicker().pickImage(source: source)) ;
-     final path = 'files/${img!.name}';
-     final file = File(img.path);
-     final ref = FirebaseStorage.instance.ref().child(path);
-      ref.putFile(file);
+      final img = (await ImagePicker().pickImage(source: source));
+      final path = img!.name;
+      final file = File(img.path);
+      uploadFile(file,path);
     } on PlatformException catch (e) {
       if (kDebugMode) {
         print('Failed to choose an image: $e');
       }
     }
   }
-  Future uploadFile(String dest,XFile img) async {
+  Future uploadFile(File file,String path) async {
 
     final storageRef = FirebaseStorage.instance.ref();
-    final mountainsRef = storageRef.child("mountains.jpg");
-    final mountainImagesRef = storageRef.child("images/mountains.jpg");
-    assert(mountainsRef.name == mountainImagesRef.name);
-    assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
+    final mountainsRef = storageRef.child('UsersProfilePhoto');
+
     Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.absolute}/file-to-upload.png';
+    String filePath = '${appDocDir.absolute}/$path';
+
     File file = File(filePath);
+
     try {
       await mountainsRef.putFile(file);
-      final storageRef = FirebaseStorage.instance.ref();
-      final ref = storageRef.child('UsersProfilePhoto');
-
-      if (task==null) return;
-      final snapshot = await task!.whenComplete(() => {});
-
 
     } on FirebaseException catch (e) {
       return e.message;
