@@ -246,10 +246,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _confirmSignOut() async {
     final didRequestSignOut = await showAlertDialog(
       context,
-      title: 'Logout',
-      content: 'Are you sure that you want to logout?',
+      title: 'Sign out',
+      content: 'Are you sure that you want to Sign out?',
       cancelActionText: 'Cancel',
-      defaultActionText: 'Logout',
+      defaultActionText: 'Sign out',
     );
     if (didRequestSignOut == true) {
       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
