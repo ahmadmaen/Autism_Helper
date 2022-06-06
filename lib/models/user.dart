@@ -30,6 +30,7 @@ class User1 {
     return User1(
         name: data['Name'],
         userProfilePictureUrl: data['ProfilePictureURL'],
+        email: data['Email'],
         userId : data['ID']
     );
   }
