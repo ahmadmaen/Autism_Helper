@@ -2,6 +2,7 @@
 
 
 import 'package:autism_helper_project/Services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -309,7 +310,17 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _signInWithGoogle(BuildContext context) async {
     final AuthBase? auth = Provider.of<AuthBase>(context ,listen: false);
     try {
-      await auth?.signInWithGoogle();
+      final User? user2 = await auth?.signInWithGoogle();
+      var user = {
+        "Name" : user2!.displayName,
+        "Email": user2!.email,
+        "ID": user2!.uid,
+        "ProfilePictureURL": 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
+      };
+      CollectionReference database = FirebaseFirestore.instance.collection('/User');
+      await database.doc(user2!.uid).set(user)
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
     } on FirebaseAuthException catch (e) {
       showAlertDialog (
         context,
