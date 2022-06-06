@@ -93,6 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(child: Text('Email :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
                   buildEmailField(),
                   SizedBox(height: 15),
+                  Container(child: Text('Password :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
+                  buildPasswordField(),
                 ],
               ),
 
@@ -136,6 +138,23 @@ class _ProfilePageState extends State<ProfilePage> {
           labelStyle: TextStyle(fontSize: 20),
         ),
         keyboardType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.next,
+      ),
+    );
+  }
+  Padding buildPasswordField() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: TextFormField(
+        enabled: false,
+        controller: TextEditingController()
+          ..text = 'YourPassword',
+        obscureText: true,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelStyle: TextStyle(fontSize: 20),
+        ),
         textInputAction: TextInputAction.next,
       ),
     );

@@ -209,15 +209,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Padding buildPasswordField() {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-      child: TextFormField(
-        controller: TextEditingController()..text = '',
-        onChanged: (text) => {},
-        decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyle(fontSize: 20),
-        ),
-        obscureText: true,
+      child: TextButton(onPressed: () {  },
+      child: Text('Change Your Password'),
       ),
     );
   }
