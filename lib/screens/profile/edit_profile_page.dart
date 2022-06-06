@@ -255,21 +255,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }
     }
   }
+
   Future uploadFile(File file,String path) async {
-
-    final storageRef = FirebaseStorage.instance.ref();
-    final mountainsRef = storageRef.child('UsersProfilePhoto');
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.absolute}/$path';
-
-    File file = File(filePath);
-
+    print("Start");
     try {
+      final storageRef = FirebaseStorage.instance.ref();
+
+      final mountainsRef = storageRef.child(path);
+
+      print(path);
+
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String filePath = '${appDocDir.path}/$path';
+
+
+      File file = await File(filePath).create();
+
+      print(filePath);
+
       await mountainsRef.putFile(file);
 
+      print("Start");
+
     } on FirebaseException catch (e) {
-      return e.message;
+      print(e.message);
     }
   }
 }
