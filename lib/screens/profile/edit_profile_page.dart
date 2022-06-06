@@ -268,7 +268,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String filePath = '${appDocDir.path}/$path';
 
-
       File file = await File(filePath).create();
 
       print(filePath);
