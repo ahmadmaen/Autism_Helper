@@ -99,7 +99,7 @@ class _AlbumPageState extends State<AlbumPage> {
                       width: 150,
                       child: CustomRaisedButton(
                         onPressed: (){
-                          Navigator.pop(context, picture.pictureLabel);
+                          Navigator.pop(context, picture);
                         },
                         child: Image.network(
                           picture.pictureUrl,

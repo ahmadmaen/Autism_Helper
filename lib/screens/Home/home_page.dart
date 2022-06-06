@@ -3,6 +3,7 @@
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/Home/my_images.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
+import 'package:autism_helper_project/services/Translator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -21,23 +22,29 @@ import 'contact_us_page.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage( {Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
+
+
   final FlutterTts flutterTts = FlutterTts();
   var _icon = Icons.toggle_off_outlined;
+
   User1 user = User1(
       userId: '000',
       name: 'User',
-      userProfilePictureUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'
-  );
-  List<Picture> pictures = [];
+      userProfilePictureUrl:
+          'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80');
+  Translator translator = Translator();
+
+
   late Database database = Provider.of<Database>(context, listen: false,);
   late DocumentReference<Map<String, dynamic>> userData = database.getUser();
+
+
   bool isDone = false;
 
   @override
@@ -55,11 +62,10 @@ class _HomePageState extends State<HomePage> {
     userData.get().then((DocumentSnapshot data) {
       if (data.exists) {
         user = User1.fromMap(data);
-        if(!isDone)
-          {
-            setState((){});
-            isDone = true;
-          }
+        if (!isDone) {
+          setState(() {});
+          isDone = true;
+        }
       }
     });
     return Scaffold(
@@ -69,11 +75,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           GestureDetector(
             onTap: () {
-              if(user.userId != '000') {
+              if (user.userId != '000') {
                 Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true, builder: (_) =>  ProfilePage(user:user,)));
-              }
-              else {
+                    fullscreenDialog: true,
+                    builder: (_) => ProfilePage(
+                          user: user,
+                        )));
+              } else {
                 showAlertDialog(
                   context,
                   title: 'Warning',
@@ -85,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             },
             child: Padding(
               padding:
-              const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
                 picture: Image.network(user.userProfilePictureUrl),
                 pictureSize: 30,
@@ -98,9 +106,14 @@ class _HomePageState extends State<HomePage> {
       body: _buildContent(),
     );
   }
+
   Widget _buildContent() {
-    final Database database = Provider.of<Database>(context, listen: false,);
-    final Stream<QuerySnapshot> _albumStream = database.readAlbums() as Stream<QuerySnapshot>;
+    final Database database = Provider.of<Database>(
+      context,
+      listen: false,
+    );
+    final Stream<QuerySnapshot> _albumStream =
+        database.readAlbums() as Stream<QuerySnapshot>;
     return StreamBuilder<QuerySnapshot>(
         stream: _albumStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -113,13 +126,14 @@ class _HomePageState extends State<HomePage> {
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15.0,
-                  mainAxisSpacing: 15.0,
-                ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 15.0,
+                mainAxisSpacing: 15.0,
+              ),
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
                 Album album = Album.fromMap(data);
                 return SizedBox(
                   width: 150,
@@ -139,7 +153,7 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
- /* Future<void> _setUserData(BuildContext context) async {
+  /* Future<void> _setUserData(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context, listen: false);
     } on FirebaseAuthException catch (e) {
@@ -155,7 +169,7 @@ class _HomePageState extends State<HomePage> {
   */
 
   PopupMenuButton menu() {
-    setState((){});
+    setState(() {});
     return PopupMenuButton(
         padding: const EdgeInsets.symmetric(
           vertical: 8.0,
@@ -171,30 +185,30 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text("My Images"),
-            value: 0,
-          ),
-          PopupMenuItem(
-            child: Text("About Us"),
-            value: 1,
-          ),
-          PopupMenuItem(
-            child: Text("Contact Us"),
-            value: 2,
-          ),
-          PopupMenuItem(
-            child: Text("Sign Out"),
-            value: 3,
-          ),
-        ],
+              PopupMenuItem(
+                child: Text("My Images"),
+                value: 0,
+              ),
+              PopupMenuItem(
+                child: Text("About Us"),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text("Contact Us"),
+                value: 2,
+              ),
+              PopupMenuItem(
+                child: Text("Sign Out"),
+                value: 3,
+              ),
+            ],
         onSelected: (result) {
           if (result == 0) {
-            if(user.userId != '000') {
-                Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true, builder: (context) => MyImages(user: user)));
-              }
-            else {
+            if (user.userId != '000') {
+              Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) => MyImages(user: user)));
+            } else {
               showAlertDialog(
                 context,
                 title: 'warning',
@@ -207,16 +221,21 @@ class _HomePageState extends State<HomePage> {
           if (result == 1) {
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true,
-                builder: (context) => AboutUsPage(user:user ,database: database,)
-            ));
-          }
-          else if (result == 2) {
+                builder: (context) => AboutUsPage(
+                      user: user,
+                      database: database,
+                    )));
+          } else if (result == 2) {
             Navigator.of(context).push(MaterialPageRoute(
-                fullscreenDialog: true, builder: (context) => ContactUsPage(user:user,database: database,)));
-          }
-          else if (result == 3) {
+                fullscreenDialog: true,
+                builder: (context) => ContactUsPage(
+                      user: user,
+                      database: database,
+                    )));
+          } else if (result == 3) {
             _confirmSignOut();
-          }});
+          }
+        });
   }
 
   Future<void> _confirmSignOut() async {
@@ -271,29 +290,37 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-   selectImage(Album album) async {
 
-    var result = await Navigator.push(context, MaterialPageRoute(
-      builder: (BuildContext context) => AlbumPage(user: user,album:album,database :database),
-      fullscreenDialog: true,)
+  selectImage(Album album) async {
+    Picture picture = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => AlbumPage(user: user, album: album, database: database),
+          fullscreenDialog: true,
+        )
     );
 
-    Future speak() async
-    {
-      await flutterTts.speak(result);
+    translator.addPicture(picture);
+
+    Future speak() async {
+      await flutterTts.speak(translator.sentence);
     }
 
-     ScaffoldMessenger.of(context).showMaterialBanner(  MaterialBanner(
-      content: Text(result), actions: [
-     TextButton(
-         child: Text('Dismiss'),
-         onPressed:() {ScaffoldMessenger.of(context)
-             .hideCurrentMaterialBanner();},
-     ),
-     ],
-      leading: IconButton( icon:Icon(Icons.speaker_phone), onPressed: () => speak(),),
-      backgroundColor: Colors.white,));
-
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      content: Text(translator.sentence),
+      actions: [
+        TextButton(
+          child: Text('Dismiss'),
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+          },
+        ),
+      ],
+      leading: IconButton(
+        icon: Icon(Icons.speaker_phone),
+        onPressed: () => speak(),
+      ),
+      backgroundColor: Colors.white,
+    ));
   }
-
 }
