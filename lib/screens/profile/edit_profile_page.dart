@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -263,7 +262,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final snapshot = await task!.whenComplete(() => {});
       setState(() async => widget.user.userProfilePictureUrl = await snapshot.ref.getDownloadURL());
     } on FirebaseException catch (e) {
-      return null;
+      return e.message;
     }
   }
 }

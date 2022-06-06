@@ -12,7 +12,7 @@ import '../../Services/auth.dart';
 import '../../models/album.dart';
 import '../../models/picture.dart';
 import '../../services/database.dart';
-import '../albums_screens/albumPage.dart';
+import '../albums_screens/album_page.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/models/user.dart';
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  Future<void> _setUserData(BuildContext context) async {
+ /* Future<void> _setUserData(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context, listen: false);
     } on FirebaseAuthException catch (e) {
@@ -152,6 +152,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
+  */
 
   PopupMenuButton menu() {
     setState((){});

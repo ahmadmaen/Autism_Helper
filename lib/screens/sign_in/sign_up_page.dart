@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../Services/auth.dart';
-import '../../models/user.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/show_alert_dialog.dart';
 
@@ -30,8 +29,8 @@ class SignUpPage extends StatelessWidget {
           "ProfilePictureURL": 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
       };
       CollectionReference database = FirebaseFirestore.instance.collection('/User');
-      await database.doc(user2!.uid).set(user)
-          .then((value) => print("User Added"))
+      await database.doc(user2.uid).set(user)
+          .then((value) =>  print("User Added"))
           .catchError((error) => print("Failed to add user: $error"));
       Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
