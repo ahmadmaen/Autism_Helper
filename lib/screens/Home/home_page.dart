@@ -2,7 +2,6 @@
 
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/Home/my_images.dart';
-import 'package:autism_helper_project/screens/common_widgets/my_theme_dark_light.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:autism_helper_project/services/Translator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

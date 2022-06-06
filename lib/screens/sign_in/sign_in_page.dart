@@ -244,7 +244,7 @@ class _SignInPageState extends State<SignInPage> {
                     'Sign up here',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black45,
+                      color: Colors.blue,
                       fontSize: 15.0,
                       fontWeight: FontWeight.normal,
                     ),

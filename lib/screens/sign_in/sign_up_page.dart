@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,13 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed:() {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Center(child: Image.asset('images/title.png', scale: 18)),
         actions: const [
           SizedBox(width: 50),
@@ -187,7 +196,7 @@ class SignUpPage extends StatelessWidget {
             'login here',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.black45,
+              color: Colors.blue,
               fontSize: 15.0,
               fontWeight: FontWeight.normal,
             ),
