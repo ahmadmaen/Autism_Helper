@@ -310,6 +310,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      onVisible: (){speak();},
       content: Text(translator.sentence),
       actions: [
         TextButton(
