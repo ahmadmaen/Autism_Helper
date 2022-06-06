@@ -12,7 +12,19 @@ class Translator {
     if(firstAlbumId == -1)
       {
 
+
+
+
       }
   }
 
+
+  String addFirstPicture(Picture picture)
+  {
+    if(int.parse(picture.albumID) == 0)
+      {
+
+      }
+    return "";
+  }
 }
