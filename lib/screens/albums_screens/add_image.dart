@@ -1,9 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:io';
+
 import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -63,7 +69,7 @@ class _AddImageState extends State<AddImage> {
               Stack(
                 children: [
                   ProfilePicture(
-                    picture: Image.network(defaultUser.userProfilePictureUrl),
+                    picture: Image.network('https://static.vecteezy.com/system/resources/previews/003/513/803/large_2x/single-banana-cartoon-illustration-isolated-free-vector.jpg'),
                     pictureSize: 130,
                     pictureRadius: 20,
                   ),
@@ -73,11 +79,11 @@ class _AddImageState extends State<AddImage> {
                     child: CircleAvatar(
                       child: IconButton(
                         icon: Icon(
-                          Icons.edit,
+                          Icons.add,
                           color: Colors.white70,
                           size: 23,
                         ),
-                        onPressed: () { },
+                        onPressed: () { yourChoice(context); },
                       ),
                     ),
                   ),
@@ -152,7 +158,6 @@ class _AddImageState extends State<AddImage> {
           padding: const EdgeInsets.all(15.0),
           child: TextFormField(
             textAlign: TextAlign.center,
-            controller: labelBoxController..text = widget.user.name,
             onChanged: (text) => {},
             decoration: InputDecoration.collapsed(
               border: InputBorder.none,
@@ -196,5 +201,36 @@ class _AddImageState extends State<AddImage> {
   }
 
   void saveEntries() {}
+
+  void yourChoice(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Camera'),
+            onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
+          ),
+          ListTile(
+            leading: Icon(Icons.image),
+            title: Text('Gallery'),
+            onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
+          )
+        ]));
+  }
+
+  Future selectImage(ImageSource source) async {
+    try {
+      final img = (await ImagePicker().pickImage(source: source)) ;
+      final path = 'files/${img!.name}';
+      final file = File(img.path);
+      final ref = FirebaseStorage.instance.ref().child(path);
+      ref.putFile(file);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Failed to choose an image: $e');
+      }
+    }
+  }
 
 }

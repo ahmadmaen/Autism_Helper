@@ -2,6 +2,7 @@
 
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/Home/my_images.dart';
+import 'package:autism_helper_project/screens/common_widgets/my_theme_dark_light.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
 import 'package:autism_helper_project/services/Translator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -70,9 +71,11 @@ class _HomePageState extends State<HomePage> {
     });
     return MaterialApp(
       themeMode: ThemeMode.system,
+        theme: MyTheme.lightTheme,
+        darkTheme: MyTheme.darkTheme,
         home:Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white70,
+
           title: Center(child: Image.asset('images/title.png', scale: 18)),
           leading: menu(),
           actions: [
@@ -242,6 +245,7 @@ class _HomePageState extends State<HomePage> {
                       database: database,
                     )));
           } else if (result == 3) {
+
             _confirmSignOut();
           }
         });
@@ -256,6 +260,7 @@ class _HomePageState extends State<HomePage> {
       defaultActionText: 'Logout',
     );
     if (didRequestSignOut == true) {
+      ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
       _signOut();
     }
   }
@@ -335,3 +340,5 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 }
+
+
