@@ -17,8 +17,7 @@ class Translator {
     if(firstAlbumId == -1 && secondAlbumId == -1) {
         firstAlbumId = int.parse(picture.albumID);
         firstPicture = picture;
-        addFirstPicture(picture);
-
+        addFirstPicture();
       }
 
     else if(firstAlbumId != -1 && secondAlbumId == -1) {
@@ -31,37 +30,36 @@ class Translator {
       firstAlbumId = int.parse(picture.albumID);
       firstPicture = picture;
       secondAlbumId = -1;
-      addFirstPicture(picture);
+      addFirstPicture();
     }
 
   }
 
 
-  void addFirstPicture(Picture picture) {
-    firstAlbumId = int.parse(picture.albumID);
-    if(int.parse(picture.albumID) == 0)
-      {
-        sentence = "I want to see ${picture.pictureLabel}";
-      }
-    else if(int.parse(picture.albumID) == 1)
+  void addFirstPicture() {
+    if(firstAlbumId == 0)
     {
-      sentence = "I feel ${picture.pictureLabel}";
+      sentence = "I want to see ${firstPicture.pictureLabel}";
     }
-    else if(int.parse(picture.albumID) == 2)
+    else if(firstAlbumId == 1)
     {
-      sentence = "I want to go ${picture.pictureLabel}";
+      sentence = "I feel ${firstPicture.pictureLabel}";
     }
-    else if(int.parse(picture.albumID) == 3)
+    else if(firstAlbumId == 2)
     {
-      sentence = "I want to play ${picture.pictureLabel}";
+      sentence = "I want to go ${firstPicture.pictureLabel}";
     }
-    else if(int.parse(picture.albumID) == 4)
+    else if(firstAlbumId == 3)
     {
-      sentence = "I want to drink ${picture.pictureLabel}";
+      sentence = "I want to play ${firstPicture.pictureLabel}";
     }
-    else if(int.parse(picture.albumID) == 5)
+    else if(firstAlbumId == 4)
     {
-      sentence = "I want to eat ${picture.pictureLabel}";
+      sentence = "I want to drink ${firstPicture.pictureLabel}";
+    }
+    else if(firstAlbumId == 5)
+    {
+      sentence = "I want to eat ${firstPicture.pictureLabel}";
     }
   }
 
@@ -70,30 +68,29 @@ class Translator {
     {
       ifTheFirstAlbumIs0();
     }
-    else if(int.parse(picture.albumID) == 1)
+    else if(firstAlbumId == 1)
     {
-      sentence = "I feel ${picture.pictureLabel}";
+      ifTheFirstAlbumIs1();
     }
-    else if(int.parse(picture.albumID) == 2)
+    else if(firstAlbumId == 2)
     {
-      sentence = "I want to go ${picture.pictureLabel}";
+      ifTheFirstAlbumIs2();
     }
     else if(int.parse(picture.albumID) == 3)
     {
-      sentence = "I want to play ${picture.pictureLabel}";
+      ifTheFirstAlbumIs3();
     }
     else if(int.parse(picture.albumID) == 4)
     {
-      sentence = "I want to drink ${picture.pictureLabel}";
+      ifTheFirstAlbumIs4();
     }
     else if(int.parse(picture.albumID) == 5)
     {
-      sentence = "I want to eat ${picture.pictureLabel}";
+      ifTheFirstAlbumIs5();
     }
   }
 
-  void ifTheFirstAlbumIs0()
-  {
+  void ifTheFirstAlbumIs0() {
     if(secondAlbumId == 0)
     {
       sentence = "${firstPicture.pictureLabel} want to see ${secondPicture.pictureLabel}";
@@ -120,7 +117,66 @@ class Translator {
     }
   }
 
+  void ifTheFirstAlbumIs1() {
+    if(secondAlbumId == 0) {
+      sentence = "${secondPicture.pictureLabel} feel ${firstPicture.pictureLabel}";
+    }
+    else {
+      firstAlbumId = secondAlbumId;
+      secondAlbumId = -1;
+      firstPicture = secondPicture;
+      addFirstPicture();
+    }
+  }
 
+  void ifTheFirstAlbumIs2() {
+    if(secondAlbumId == 0) {
+      sentence = "i want to go ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else {
+      firstAlbumId = secondAlbumId;
+      secondAlbumId = -1;
+      firstPicture = secondPicture;
+      addFirstPicture();
+    }
+  }
+
+  void ifTheFirstAlbumIs3() {
+    if(secondAlbumId == 0) {
+      sentence = "i want to play ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else {
+      firstAlbumId = secondAlbumId;
+      secondAlbumId = -1;
+      firstPicture = secondPicture;
+      addFirstPicture();
+    }
+  }
+
+  void ifTheFirstAlbumIs4() {
+    if(secondAlbumId == 0) {
+      sentence = "i want to drink ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else {
+      firstAlbumId = secondAlbumId;
+      secondAlbumId = -1;
+      firstPicture = secondPicture;
+      addFirstPicture();
+    }
+  }
+
+
+  void ifTheFirstAlbumIs5() {
+    if(secondAlbumId == 0) {
+      sentence = "i want to eat ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else {
+      firstAlbumId = secondAlbumId;
+      secondAlbumId = -1;
+      firstPicture = secondPicture;
+      addFirstPicture();
+    }
+  }
 
 
 }
