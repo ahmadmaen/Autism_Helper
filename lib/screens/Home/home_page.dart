@@ -68,42 +68,48 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Image.asset('images/title.png', scale: 18)),
-        leading: menu(),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              if (user.userId != '000') {
-                Navigator.of(context).push(MaterialPageRoute(
-                    fullscreenDialog: true,
-                    builder: (_) => ProfilePage(
-                          user: user,
-                        )));
-              } else {
-                showAlertDialog(
-                  context,
-                  title: 'Warning',
-                  content: 'You need to sign up to view profile',
-                  defaultActionText: 'OK',
-                  cancelActionText: '',
-                );
-              }
-            },
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
-              child: ProfilePicture(
-                picture: Image.network(user.userProfilePictureUrl),
-                pictureSize: 30,
-                pictureRadius: 60,
+    return MaterialApp(
+      themeMode: ThemeMode.system,
+        home:Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white70,
+          title: Center(child: Image.asset('images/title.png', scale: 18)),
+          leading: menu(),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                if (user.userId != '000') {
+                  ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (_) => ProfilePage(
+                            user: user,
+                          )));
+                } else {
+                  showAlertDialog(
+                    context,
+                    title: 'Warning',
+                    content: 'You need to sign up to view profile',
+                    defaultActionText: 'OK',
+                    cancelActionText: '',
+                  );
+                }
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
+                child: ProfilePicture(
+                  picture: Image.network(user.userProfilePictureUrl),
+                  pictureSize: 30,
+                  pictureRadius: 60,
+                ),
               ),
-            ),
-          ), //(ProfilePicture)
-        ],
+            ), //(ProfilePicture)
+          ],
+        ),
+        body: _buildContent(),
       ),
-      body: _buildContent(),
+      debugShowCheckedModeBanner: false,
     );
   }
 
@@ -205,13 +211,14 @@ class _HomePageState extends State<HomePage> {
         onSelected: (result) {
           if (result == 0) {
             if (user.userId != '000') {
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
               Navigator.of(context).push(MaterialPageRoute(
                   fullscreenDialog: true,
                   builder: (context) => MyImages(user: user)));
             } else {
               showAlertDialog(
                 context,
-                title: 'warning',
+                title: 'Warning!',
                 content: 'You need to sign up to add photo',
                 defaultActionText: 'OK',
                 cancelActionText: '',
@@ -219,6 +226,7 @@ class _HomePageState extends State<HomePage> {
             }
           }
           if (result == 1) {
+            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true,
                 builder: (context) => AboutUsPage(
@@ -226,6 +234,7 @@ class _HomePageState extends State<HomePage> {
                       database: database,
                     )));
           } else if (result == 2) {
+            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true,
                 builder: (context) => ContactUsPage(
