@@ -69,13 +69,8 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-        theme: MyTheme.lightTheme,
-        darkTheme: MyTheme.darkTheme,
-        home:Scaffold(
+    return  Scaffold(
         appBar: AppBar(
-
           title: Center(child: Image.asset('images/title.png', scale: 18)),
           leading: menu(),
           actions: [
@@ -111,9 +106,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: _buildContent(),
-      ),
-      debugShowCheckedModeBanner: false,
-    );
+      );
   }
 
   Widget _buildContent() {
@@ -333,7 +326,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
       leading: IconButton(
-        icon: Icon(Icons.speaker_phone),
+        icon: Icon(Icons.volume_up),
         onPressed: () => speak(),
       ),
       backgroundColor: Colors.white,
