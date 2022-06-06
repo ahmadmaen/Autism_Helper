@@ -292,6 +292,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   selectImage(Album album) async {
+    ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     Picture picture = await Navigator.push(
         context,
         MaterialPageRoute(
