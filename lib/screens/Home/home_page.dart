@@ -42,7 +42,6 @@ class _HomePageState extends State<HomePage> {
   late Database database = Provider.of<Database>(context, listen: false,);
   late DocumentReference<Map<String, dynamic>> userData = database.getUser();
 
-
   bool isDone = false;
 
   @override
@@ -153,21 +152,6 @@ class _HomePageState extends State<HomePage> {
           );
         });
   }
-
-  /* Future<void> _setUserData(BuildContext context) async {
-    try {
-      final database = Provider.of<Database>(context, listen: false);
-    } on FirebaseAuthException catch (e) {
-      showAlertDialog(
-        context,
-        content: e.message,
-        title: "failed",
-        cancelActionText: "",
-        defaultActionText: "OK",
-      );
-    }
-  }
-  */
 
   PopupMenuButton menu() {
     setState(() {});
