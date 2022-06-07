@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +47,7 @@ class _ContactUsPageState extends State <ContactUsPage> {
           )
           ),
           leading: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -76,7 +73,7 @@ class _ContactUsPageState extends State <ContactUsPage> {
             child: Column(
               children: [
                 Image.asset('images/logo.png',scale: 4),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Center(
                   child: Text(
                     'Contact Us',
@@ -96,13 +93,13 @@ class _ContactUsPageState extends State <ContactUsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 buildNameCard(context),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 buildEmailCard(context),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 buildTextCard(context),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 SizedBox(
                   width: 120,
                   height: 40,
@@ -115,7 +112,7 @@ class _ContactUsPageState extends State <ContactUsPage> {
                             )),
                       ),
                       onPressed: () => _setContactUsData(),
-                      child: Text(
+                      child: const Text(
                         "SEND",
                         style: TextStyle(
                             color: Colors.white,

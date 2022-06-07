@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 class CustomRaisedButton extends StatelessWidget {
    const CustomRaisedButton({Key? key,

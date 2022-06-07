@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../Services/auth.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/show_alert_dialog.dart';
-
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
 
@@ -51,7 +48,7 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed:() {
             Navigator.of(context).pop();

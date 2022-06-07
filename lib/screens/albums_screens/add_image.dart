@@ -1,16 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:io';
-
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-
 import '../../models/picture.dart';
 import '../../services/database.dart';
 
@@ -50,7 +46,7 @@ class _AddImageState extends State<AddImage> {
           ),
         ),
         leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -76,7 +72,7 @@ class _AddImageState extends State<AddImage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Stack(
                 children: [
                   ProfilePicture(
@@ -89,7 +85,7 @@ class _AddImageState extends State<AddImage> {
                     right: 7,
                     child: CircleAvatar(
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add,
                           color: Colors.white70,
                           size: 23,
@@ -102,11 +98,11 @@ class _AddImageState extends State<AddImage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildNameField(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildDropDown(),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -124,7 +120,7 @@ class _AddImageState extends State<AddImage> {
                         onPressed: () {
                           Navigator.pop(context, picture);
                         },
-                        child: Text(
+                        child: const Text(
                           "Cancel",
                           style: TextStyle(
                               color: Colors.white,
@@ -132,7 +128,7 @@ class _AddImageState extends State<AddImage> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  SizedBox(width: 100),
+                  const SizedBox(width: 100),
                   SizedBox(
                     width: 100,
                     height: 40,
@@ -148,7 +144,7 @@ class _AddImageState extends State<AddImage> {
                           widget.database.setPicture(picture);
                           Navigator.pop(context, picture);
                           },
-                        child: Text(
+                        child: const Text(
                           "SAVE",
                           style: TextStyle(
                               color: Colors.white,
@@ -174,7 +170,7 @@ class _AddImageState extends State<AddImage> {
           child: TextFormField(
             textAlign: TextAlign.center,
             onChanged: (text) => {picture.pictureLabel = text},
-            decoration: InputDecoration.collapsed(
+            decoration: const InputDecoration.collapsed(
               border: InputBorder.none,
               hintText: 'Image Label',
               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -193,7 +189,7 @@ class _AddImageState extends State<AddImage> {
       child:
         DropdownButton(
           value: item,
-          items: [
+          items: const [
             DropdownMenuItem(
               child: Text('Persons                           '),
               value: '0',
@@ -240,13 +236,13 @@ class _AddImageState extends State<AddImage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Camera'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
               ),
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Gallery'),
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
               )
             ]
@@ -282,7 +278,9 @@ class _AddImageState extends State<AddImage> {
 
 
     } on FirebaseException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
   }
 }

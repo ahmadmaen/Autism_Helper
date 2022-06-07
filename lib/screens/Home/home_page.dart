@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:autism_helper_project/screens/Home/about_us_page.dart';
 import 'package:autism_helper_project/screens/Home/my_images.dart';
 import 'package:autism_helper_project/screens/profile/profile_page.dart';
-import 'package:autism_helper_project/services/Translator.dart';
+import 'package:autism_helper_project/services/translator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -121,15 +119,15 @@ class _HomePageState extends State<HomePage> {
         stream: _albumStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15.0,
                 mainAxisSpacing: 15.0,
@@ -179,28 +177,28 @@ class _HomePageState extends State<HomePage> {
           horizontal: 4.0,
         ),
         elevation: 20,
-        offset: Offset(0, 10),
+        offset: const Offset(0, 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        icon: Icon(
+        icon: const Icon(
           Icons.menu,
           color: Colors.black,
         ),
         itemBuilder: (context) => [
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text("My Images"),
                 value: 0,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text("About Us"),
                 value: 1,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text("Contact Us"),
                 value: 2,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 child: Text("Sign Out"),
                 value: 3,
               ),
@@ -324,14 +322,14 @@ class _HomePageState extends State<HomePage> {
       content: Text(translator.sentence),
       actions: [
         TextButton(
-          child: Text('Dismiss'),
+          child: const Text('Dismiss'),
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
           },
         ),
       ],
       leading: IconButton(
-        icon: Icon(Icons.volume_up),
+        icon: const Icon(Icons.volume_up),
         onPressed: () => speak(),
       ),
       backgroundColor: Colors.white,

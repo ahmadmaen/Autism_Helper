@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 class ProfilePicture extends StatelessWidget {
   final Image picture;
   final double pictureSize;

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:autism_helper_project/models/about_us.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,7 +38,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
             ),
           ),),
           leading: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -89,9 +87,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Image.asset('images/logo.png',scale: 4),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(

@@ -1,7 +1,4 @@
-
-
 import '../models/picture.dart';
-
 class Translator {
   int firstAlbumId = -1;
   int secondAlbumId =  -1;

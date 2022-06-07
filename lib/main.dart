@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/screens/landing_page.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +28,13 @@ class MyApp extends StatelessWidget {
         title: 'Autism Helper',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: kAppbarBackground),
+          appBarTheme: const AppBarTheme(backgroundColor: kAppbarBackground),
           scaffoldBackgroundColor: kScaffoldBackground,
-          iconTheme: IconThemeData(color: Colors.black, size: 30),
+          iconTheme: const IconThemeData(color: Colors.black, size: 30),
           fontFamily: GoogleFonts.montserrat().fontFamily,
           textTheme: GoogleFonts.montserratTextTheme(),
         ),
-        home: LandingPage(),
+        home: const LandingPage(),
       ),
     );
   }

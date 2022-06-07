@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/albums_screens/add_image.dart';
@@ -38,7 +37,7 @@ class _MyImagesState extends State<MyImages> {
           ),
         ),),),
         leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -47,7 +46,7 @@ class _MyImagesState extends State<MyImages> {
             }),
         actions: [
           IconButton(onPressed: (){ Navigator.of(context).push(MaterialPageRoute(
-              fullscreenDialog: true, builder: (context) => AddImage(user: widget.user,database: widget.database))); }, icon: Icon(Icons.add_box_outlined),color: Colors.black,) //(ProfilePicture)
+              fullscreenDialog: true, builder: (context) => AddImage(user: widget.user,database: widget.database))); }, icon: const Icon(Icons.add_box_outlined),color: Colors.black,) //(ProfilePicture)
         ],
       ),
       body: SafeArea(child: Center(
@@ -67,15 +66,15 @@ class _MyImagesState extends State<MyImages> {
         stream: _pictureStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 15.0,
                 mainAxisSpacing: 15.0,

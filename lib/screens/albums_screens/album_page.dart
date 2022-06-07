@@ -1,10 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../models/album.dart';
 import '../../models/picture.dart';
 import '../../services/database.dart';
@@ -40,7 +37,7 @@ class _AlbumPageState extends State<AlbumPage> {
           ),
         ),),),
         leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -83,15 +80,15 @@ class _AlbumPageState extends State<AlbumPage> {
         stream: pictureStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 15.0,
                 mainAxisSpacing: 15.0,

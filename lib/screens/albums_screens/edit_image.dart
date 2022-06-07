@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
-
 import 'dart:io';
 
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
@@ -12,11 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import '../../models/picture.dart';
 import '../../models/user.dart';
-
-
-
 class EditImage extends StatefulWidget {
-  EditImage({Key? key, required this.picture, required this.user, required this.database }) : super(key: key);
+  const EditImage({Key? key, required this.picture, required this.user, required this.database }) : super(key: key);
 
   final Picture picture;
   final User1 user;
@@ -47,7 +42,7 @@ class _EditImageState extends State<EditImage> {
               fontWeight: FontWeight.bold),
         ),),
         leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -73,7 +68,7 @@ class _EditImageState extends State<EditImage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Stack(
                 children: [
                   ProfilePicture(
@@ -87,7 +82,7 @@ class _EditImageState extends State<EditImage> {
                     right: 10,
                     child: CircleAvatar(
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.edit,
                           color: Colors.white70,
                           size: 23,
@@ -98,11 +93,11 @@ class _EditImageState extends State<EditImage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildNameField(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               buildDropDown(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -120,7 +115,7 @@ class _EditImageState extends State<EditImage> {
                         onPressed: () {
                           Navigator.pop(context,picture);
                           },
-                        child: Text(
+                        child: const Text(
                           "Cancel",
                           style: TextStyle(
                               color: Colors.white,
@@ -128,7 +123,7 @@ class _EditImageState extends State<EditImage> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  SizedBox(width: 125),
+                  const SizedBox(width: 125),
                   SizedBox(
                     width: 100,
                     height: 40,
@@ -144,7 +139,7 @@ class _EditImageState extends State<EditImage> {
                           widget.database.updateImage(picture);
                           Navigator.pop(context,picture);
                         },
-                        child: Text(
+                        child: const Text(
                           "SAVE",
                           style: TextStyle(
                               color: Colors.white,
@@ -186,7 +181,7 @@ class _EditImageState extends State<EditImage> {
       child:
       DropdownButton(
         value: item,
-        items: [
+        items: const [
           DropdownMenuItem(
             child: Text('Persons                          '),
             value: '0',
@@ -233,13 +228,13 @@ class _EditImageState extends State<EditImage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Camera'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
               ),
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Gallery'),
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
               )
             ]
@@ -275,7 +270,9 @@ class _EditImageState extends State<EditImage> {
 
 
     } on FirebaseException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
   }
 

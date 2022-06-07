@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
@@ -35,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 fontWeight: FontWeight.bold),
           ),),
           leading: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -68,12 +65,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     pictureSize: 130,
                     pictureRadius: 200,
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Text(
                     user.name,
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Center(
                     child:  Padding(
                       padding: const EdgeInsets.only(right: 10),
@@ -91,19 +88,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                     );
                                     setState((){});
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.edit_outlined,
                                     size: 25,
                                   )))),
                     ),
                   ),
-                  Container(child: Text('Name :',style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7 ),),
+                  Container(child: const Text('Name :',style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: const EdgeInsets.only(left: 7 ),),
                   buildNameField(),
-                  SizedBox(height: 15),
-                  Container(child: Text('Email :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
+                  const SizedBox(height: 15),
+                  Container(child: const Text('Email :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: const EdgeInsets.only(left: 7),),
                   buildEmailField(),
-                  SizedBox(height: 15),
-                  Container(child: Text('Password :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: EdgeInsets.only(left: 7),),
+                  const SizedBox(height: 15),
+                  Container(child: const Text('Password :' ,style: TextStyle(color: Colors.blueGrey),),alignment: Alignment.centerLeft,margin: const EdgeInsets.only(left: 7),),
                   buildPasswordField(),
                 ],
               ),
@@ -122,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
         controller: TextEditingController()..text = user.name,
         onChanged: (text) => {},
         enabled: false,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           fillColor: Colors.white,
           border: InputBorder.none,
           floatingLabelBehavior: FloatingLabelBehavior.always,

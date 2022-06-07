@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -61,7 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           leading: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -101,7 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         right: 1,
                         child: CircleAvatar(
                           child: IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.edit,
                               color: Colors.white70,
                               size: 23,
@@ -112,33 +110,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Text(
                     user.name,
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
+                    style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Container(
-                    child: Text('Name :'),
+                    child: const Text('Name :'),
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(left: 7),
+                    margin: const EdgeInsets.only(left: 7),
                   ),
                   buildNameField(),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
-                    child: Text('Email :'),
+                    child: const Text('Email :'),
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(left: 7),
+                    margin: const EdgeInsets.only(left: 7),
                   ),
                   buildEmailField(),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Container(
-                    child: Text('Password :'),
+                    child: const Text('Password :'),
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(left: 7),
+                    margin: const EdgeInsets.only(left: 7),
                   ),
                   buildPasswordField(),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -156,7 +154,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             onPressed: () {
                               Navigator.pop(context,user);
                             },
-                            child: Text(
+                            child: const Text(
                               "CANCEL",
                               style: TextStyle(
                                   color: Colors.white,
@@ -164,7 +162,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   fontWeight: FontWeight.bold),
                             )),
                       ),
-                      SizedBox(width: 70),
+                      const SizedBox(width: 70),
                       SizedBox(
                         width: 130,
                         height: 40,
@@ -179,7 +177,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             onPressed: () {
                               saveEntries();
                             },
-                            child: Text(
+                            child: const Text(
                               "SAVE",
                               style: TextStyle(
                                   color: Colors.white,
@@ -204,9 +202,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         decoration: InputDecoration(
           hintText: user.name,
           fillColor: Colors.white,
-          border: UnderlineInputBorder(),
+          border: const UnderlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: TextStyle(fontSize: 20),
+          labelStyle: const TextStyle(fontSize: 20),
         ),
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
@@ -237,7 +235,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextButton(onPressed: () {  },
-      child: Text('Change Your Password'),
+      child: const Text('Change Your Password'),
       ),
     );
   }
@@ -255,13 +253,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Camera'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
               ),
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Gallery'),
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
                 onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
               )
             ]
@@ -298,7 +296,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
 
     } on FirebaseException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
   }
 }

@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:autism_helper_project/screens/sign_in/sign_in_page.dart';
 import 'package:autism_helper_project/services/database.dart';
@@ -29,7 +28,7 @@ class LandingPage extends StatelessWidget {
             }
             return Provider<Database>(
                 create: (_) => FirestoreDatabase(uid: user.uid),
-                child:  HomePage(),
+                child:  const HomePage(),
             );
           }
           return const Scaffold(
