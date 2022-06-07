@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../models/user.dart';
 import '../common_widgets/profile_picture.dart';
@@ -244,40 +245,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future selectImage(ImageSource source) async {
+    String imageUrl;
     try {
-      final img = (await ImagePicker().pickImage(source: source));
-      final path = img!.name;
-      final file = File(img.path);
-      uploadFile(file,path);
-    } on PlatformException catch (e) {
-      if (kDebugMode) {
-        print('Failed to choose an image: $e');
-      }
-    }
-  }
 
-  Future uploadFile(File file,String path) async {
-    print("Start");
-    try {
-      final storageRef = FirebaseStorage.instance.ref();
+      var newImage = await ImagePicker().pickImage(source: source);//getting picture from phone
 
-      final mountainsRef = storageRef.child(path);
+      var imageFile = File(newImage!.path);
 
-      print(path);
+      String fileName = basename(imageFile.path);
 
-      Directory appDocDir = await getApplicationDocumentsDirectory();
-      String filePath = '${appDocDir.path}/$path';
+      Reference storageRef = FirebaseStorage.instance.ref().child("UsersProfilePhoto/Image-$fileName");
 
-      File file = await File(filePath).create();
+      UploadTask uploadTask = storageRef.putFile(imageFile);
 
-      print(filePath);
 
-      await mountainsRef.putFile(file);
-
-      print("Start");
+      await uploadTask.whenComplete(() async {
+        var url = await storageRef.getDownloadURL();
+        imageUrl = url.toString();
+      }).catchError((onError) {
+        print(onError);
+      });
 
     } on FirebaseException catch (e) {
       print(e.message);
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
