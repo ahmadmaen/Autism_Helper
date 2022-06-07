@@ -10,7 +10,7 @@ import '../../models/picture.dart';
 import '../../services/database.dart';
 import '../common_widgets/buttons/raised_button.dart';
 import '../common_widgets/profile_picture.dart';
-
+import 'dart:async';
 
 
 
@@ -73,10 +73,16 @@ class _AlbumPageState extends State<AlbumPage> {
   }
 
   Widget _buildContent() {
-    final Stream<QuerySnapshot> _pictureStream = FirebaseFirestore.instance.collection('Picture')
-        .where("AlbumID", isEqualTo: widget.album.id ,).snapshots();
+
+    Stream<QuerySnapshot> pictureStream= Stream.empty();
+
+    pictureStream= FirebaseFirestore.instance.collection('Picture')
+        .where("AlbumID", isEqualTo: widget.album.id ,)
+        .where("UserID", whereIn: ['Admin',widget.user.userId] ).snapshots();
+
+
     return StreamBuilder<QuerySnapshot>(
-        stream: _pictureStream,
+        stream: pictureStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
@@ -116,4 +122,5 @@ class _AlbumPageState extends State<AlbumPage> {
         );
 
   }
+
 }
