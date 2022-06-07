@@ -1,21 +1,30 @@
 
 class Picture {
-  final String id;
-  final String pictureLabel;
-  final String pictureUrl;
-  final String albumID;
-  final String userID;
+  String id;
+  String pictureLabel;
+  String pictureUrl;
+  String albumID;
+  String userID;
 
 
-  const Picture({
-    required this.id,
-    required this.pictureLabel,
-    required this.pictureUrl,
-    required this.albumID,
-    required this.userID,
+   Picture({
+     this.id = "",
+     this.pictureLabel = "",
+     this.pictureUrl = "",
+     this.albumID = "",
+     this.userID ="",
   });
 
 
+  Map<String, dynamic> toMap() {
+    return {
+      'ID': id,
+      'Label': pictureLabel,
+      'AlbumID' : albumID,
+      'UserID' : userID,
+      'URL': pictureUrl,
+    };
+  }
 
   factory Picture.fromMap( Map<String,dynamic> data) {
     return Picture(

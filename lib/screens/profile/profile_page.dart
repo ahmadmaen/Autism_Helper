@@ -23,7 +23,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   late User1 user ;
 
-
   @override
   Widget build(BuildContext context) {
     user = widget.user;

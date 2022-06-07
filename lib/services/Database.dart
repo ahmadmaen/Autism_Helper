@@ -3,16 +3,19 @@ import 'dart:core';
 import 'package:autism_helper_project/models/contact_us.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/picture.dart';
 import 'api_path.dart';
 import 'firestore_service.dart';
 
 abstract class Database {
 
   Future<void> setUserData(User1 user);
+  Future<void> setPicture(Picture picture);
   Future<void> setContactUs(ContactUs contactUs);
 
   Future<void> updateUserImage(User1 user);
   Future<void> updateUserdata(User1 user);
+  Future<void> updateImage(Picture picture);
 
   DocumentReference<Map<String, dynamic>> getAboutUsData();
   DocumentReference<Map<String, dynamic>> getUser();
@@ -36,10 +39,24 @@ class FirestoreDatabase implements Database {
 
 
   @override
+  Future<void> setPicture(Picture picture) async => _service.setData(
+    path: APIPath.picture(),
+    data: picture.toMap(),
+  );
+
+
+  @override
   Future<void> updateUserImage(User1 user) async => _service.updateDoc(
     path: APIPath.users(),
     docID: user.userId,
     data: user.imageToMap(),
+  );
+
+  @override
+  Future<void> updateImage(Picture picture) async => _service.updateDoc(
+    path: APIPath.picture(),
+    docID: picture.id,
+    data: picture.toMap(),
   );
 
   @override

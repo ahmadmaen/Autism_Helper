@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:io';
 
-import 'package:autism_helper_project/database.dart';
 import 'package:autism_helper_project/models/user.dart';
 import 'package:autism_helper_project/screens/common_widgets/profile_picture.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,50 +9,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
-
+import '../../models/picture.dart';
+import '../../services/database.dart';
 
 class AddImage extends StatefulWidget {
-  const AddImage({Key? key, required this.user}) : super(key: key);
+  const AddImage({Key? key, required this.user, required this.database})
+      : super(key: key);
+
   final User1 user;
+  final Database database;
+
   @override
   State<AddImage> createState() => _AddImageState();
 }
 
 class _AddImageState extends State<AddImage> {
-  _AddImageState();
-  String item = 'Choose Album';
+
+
+  String item = '0';
   var labelBoxController = TextEditingController();
+  Picture picture = Picture();
+
 
 
   // List of items in our dropdown menu
   @override
   Widget build(BuildContext context) {
+    picture.userID = widget.user.userId;
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(
-          'Add a new image',
-          style: GoogleFonts.abel(
-              fontSize: 25,
-              color: Colors.black,
-              fontWeight: FontWeight.bold),
-        ),),
+        title: Center(
+          child: Text(
+            'Add a new image',
+            style: GoogleFonts.abel(
+                fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context,picture);
             }),
         actions: [
           GestureDetector(
             onTap: () {},
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 12, bottom: 12, right: 5, left: 5),
+              padding:
+                  const EdgeInsets.only(top: 12, bottom: 12, right: 5, left: 5),
               child: ProfilePicture(
-                picture: Image.network(defaultUser.userProfilePictureUrl),
+                picture: Image.network(widget.user.userProfilePictureUrl),
                 pictureSize: 30,
                 pictureRadius: 60,
               ),
@@ -65,12 +74,13 @@ class _AddImageState extends State<AddImage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 50),
               Stack(
                 children: [
                   ProfilePicture(
-                    picture: Image.network('https://static.vecteezy.com/system/resources/previews/003/513/803/large_2x/single-banana-cartoon-illustration-isolated-free-vector.jpg'),
-                    pictureSize: 130,
+                    picture: Image.network(
+                        'https://static.vecteezy.com/system/resources/previews/003/513/803/large_2x/single-banana-cartoon-illustration-isolated-free-vector.jpg'),
+                    pictureSize: 220,
                     pictureRadius: 20,
                   ),
                   Positioned(
@@ -83,7 +93,9 @@ class _AddImageState extends State<AddImage> {
                           color: Colors.white70,
                           size: 23,
                         ),
-                        onPressed: () { yourChoice(context); },
+                        onPressed: () {
+                          yourChoice(context);
+                        },
                       ),
                     ),
                   ),
@@ -102,17 +114,17 @@ class _AddImageState extends State<AddImage> {
                     height: 40,
                     child: ElevatedButton(
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          )),
                         ),
                         onPressed: () {
-                          labelBoxController.clear();
+                          Navigator.pop(context, picture);
                         },
                         child: Text(
-                          "Reset",
+                          "Cancel",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -125,13 +137,13 @@ class _AddImageState extends State<AddImage> {
                     height: 40,
                     child: ElevatedButton(
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          )),
                         ),
-                        onPressed: () { saveEntries(); },
+                        onPressed: () {widget.database.setPicture(picture);},
                         child: Text(
                           "SAVE",
                           style: TextStyle(
@@ -140,7 +152,6 @@ class _AddImageState extends State<AddImage> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-
                 ],
               ),
             ],
@@ -158,7 +169,7 @@ class _AddImageState extends State<AddImage> {
           padding: const EdgeInsets.all(15.0),
           child: TextFormField(
             textAlign: TextAlign.center,
-            onChanged: (text) => {},
+            onChanged: (text) => {picture.pictureLabel = text},
             decoration: InputDecoration.collapsed(
               border: InputBorder.none,
               hintText: 'Image Label',
@@ -172,65 +183,102 @@ class _AddImageState extends State<AddImage> {
     );
   }
 
-  void dropdownCallback(String? selectedValue ) {
-    if(selectedValue is String ) {
-      setState(() {
-        item = selectedValue;
-      });
-    }}
-
-  Card buildDropDown() {
-    return Card(
-        child:DropdownButton
-          (
+  SizedBox buildDropDown() {
+    return SizedBox(
+      width: 200,
+      child:
+        DropdownButton(
           value: item,
           items: [
-            DropdownMenuItem(child: Text('Choose Album'),value: 'Choose Album',),
-            DropdownMenuItem(child: Text('Persons'),value: 'Persons',),
-            DropdownMenuItem(child: Text('Feelings'),value: 'Feelings',),
-            DropdownMenuItem(child: Text('Places'),value: 'Places',),
-            DropdownMenuItem(child: Text('Games'),value: 'Games',),
-            DropdownMenuItem(child: Text('Drinks'),value: 'Drinks',),
-            DropdownMenuItem(child: Text('Foods'),value: 'Foods',),
-
+            DropdownMenuItem(
+              child: Text('Persons                           '),
+              value: '0',
+            ),
+            DropdownMenuItem(
+              child: Text('Feelings'),
+              value: '1',
+            ),
+            DropdownMenuItem(
+              child: Text('Places'),
+              value: '2',
+            ),
+            DropdownMenuItem(
+              child: Text('Games'),
+              value: '3',
+            ),
+            DropdownMenuItem(
+              child: Text('Drinks'),
+              value: '4',
+            ),
+            DropdownMenuItem(
+              child: Text('Foods'),
+              value: '5',
+            ),
           ],
-          onChanged:dropdownCallback,
-        )
+          onChanged: dropdownCallback,
+        ),
     );
-
   }
 
-  void saveEntries() {}
+  void dropdownCallback(String? selectedValue) {
+    if (selectedValue is String) {
+      setState(() {
+        item = selectedValue;
+        picture.albumID = selectedValue;
+      });
+    }
+  }
 
   void yourChoice(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(
-            leading: Icon(Icons.camera_alt),
-            title: Text('Camera'),
-            onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
-          ),
-          ListTile(
-            leading: Icon(Icons.image),
-            title: Text('Gallery'),
-            onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
-          )
-        ]));
+        builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('Camera'),
+                onTap: () => Navigator.of(context).pop(selectImage(ImageSource.camera)) ,
+              ),
+              ListTile(
+                leading: Icon(Icons.image),
+                title: Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(selectImage(ImageSource.gallery)),
+              )
+            ]
+        )
+    );
   }
 
   Future selectImage(ImageSource source) async {
+    String imageUrl="";
     try {
-      final img = (await ImagePicker().pickImage(source: source)) ;
-      final path = 'files/${img!.name}';
-      final file = File(img.path);
-      final ref = FirebaseStorage.instance.ref().child(path);
-      ref.putFile(file);
-    } on PlatformException catch (e) {
-      if (kDebugMode) {
-        print('Failed to choose an image: $e');
-      }
+
+      var newImage = await ImagePicker().pickImage(source: source);//getting picture from phone
+
+      var imageFile = File(newImage!.path);
+
+      String fileName = basename(imageFile.path);
+
+      Reference storageRef = FirebaseStorage.instance.ref().child("UserImage/$fileName");
+
+      UploadTask uploadTask = storageRef.putFile(imageFile);
+
+
+      await uploadTask.whenComplete( () async {
+        var url = await storageRef.getDownloadURL();
+        imageUrl = url.toString();
+      }).catchError( (onError) {
+        if (kDebugMode) {  print(onError);   }
+      });
+
+
+      picture.pictureUrl = imageUrl;
+      setState((){});
+
+
+    } on FirebaseException catch (e) {
+      print(e.message);
     }
   }
-
 }

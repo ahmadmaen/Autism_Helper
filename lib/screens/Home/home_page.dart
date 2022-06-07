@@ -211,8 +211,9 @@ class _HomePageState extends State<HomePage> {
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
               Navigator.of(context).push(MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) => MyImages(user: user)));
-            } else {
+                  builder: (context) => MyImages(user: user,database: database)));
+            }
+            else {
               showAlertDialog(
                 context,
                 title: 'Warning!',
@@ -230,7 +231,8 @@ class _HomePageState extends State<HomePage> {
                       user: user,
                       database: database,
                     )));
-          } else if (result == 2) {
+          }
+          else if (result == 2) {
             ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
             Navigator.of(context).push(MaterialPageRoute(
                 fullscreenDialog: true,
@@ -238,7 +240,8 @@ class _HomePageState extends State<HomePage> {
                       user: user,
                       database: database,
                     )));
-          } else if (result == 3) {
+          }
+          else if (result == 3) {
 
             _confirmSignOut();
           }
