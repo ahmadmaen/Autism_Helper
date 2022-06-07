@@ -121,6 +121,9 @@ class Translator {
     if(secondAlbumId == 0) {
       sentence = "${secondPicture.pictureLabel} feel ${firstPicture.pictureLabel}";
     }
+    else if(secondAlbumId == 2) {
+      sentence = "I feel ${firstPicture.pictureLabel} in the ${secondPicture.pictureLabel}";
+    }
     else {
       firstAlbumId = secondAlbumId;
       secondAlbumId = -1;
@@ -132,6 +135,15 @@ class Translator {
   void ifTheFirstAlbumIs2() {
     if(secondAlbumId == 0) {
       sentence = "i want to go ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else if(secondAlbumId == 1) {
+      sentence = "I feel ${secondPicture.pictureLabel} in the ${firstPicture.pictureLabel}";
+    }
+    else if(secondAlbumId == 4) {
+      sentence = "i want to drink ${secondPicture.pictureLabel} in the ${firstPicture.pictureLabel}";
+    }
+    else if(secondAlbumId == 5) {
+      sentence = "i want to eat ${secondPicture.pictureLabel} in the ${firstPicture.pictureLabel}";
     }
     else {
       firstAlbumId = secondAlbumId;
@@ -157,6 +169,10 @@ class Translator {
     if(secondAlbumId == 0) {
       sentence = "i want to drink ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
     }
+    else if(secondAlbumId == 2) {
+      sentence = "i want to drink ${firstPicture.pictureLabel} in the ${secondPicture.pictureLabel}";
+    }
+
     else {
       firstAlbumId = secondAlbumId;
       secondAlbumId = -1;
@@ -169,6 +185,9 @@ class Translator {
   void ifTheFirstAlbumIs5() {
     if(secondAlbumId == 0) {
       sentence = "i want to eat ${firstPicture.pictureLabel} with ${secondPicture.pictureLabel}";
+    }
+    else if(secondAlbumId == 2) {
+      sentence = "i want to eat ${firstPicture.pictureLabel} in the ${secondPicture.pictureLabel}";
     }
     else {
       firstAlbumId = secondAlbumId;
