@@ -33,7 +33,7 @@ class Auth implements AuthBase{
   }
 
   @override
-  Future<User?> signInWithGoogle() async{
+  Future<User?> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
     final googleUser = await googleSignIn.signIn();
     if(googleUser != null) {

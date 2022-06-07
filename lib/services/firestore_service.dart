@@ -9,15 +9,17 @@ class FirestoreService {
   Future<void> setData({ required String path, required Map<String, dynamic> data, }) async {
     var newDocRef = FirebaseFirestore.instance.collection(path).doc();
     data.addAll({
-      'ID': newDocRef.id
+      'IDD': newDocRef.id
     });
     newDocRef.set(data);
   }
 
   Future<void> updateDoc({ required String path,required String docID, required Map<String, dynamic> data, }) async {
     CollectionReference database = FirebaseFirestore.instance.collection(path);
-    database.doc(docID).update(data).then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+    database.doc(docID).update(data).then((value)
+    => print("User Updated"))
+        .catchError((error)
+    => print("Failed to update user: $error"));
   }
 
   Future<void> deleteData({required String path}) async {
