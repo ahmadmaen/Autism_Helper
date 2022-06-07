@@ -14,6 +14,12 @@ class FirestoreService {
     database.add(data).then((value) => print("Added")).catchError((error) => print("Failed to add user: $error"));
   }
 
+  Future<void> updateDoc({ required String path,required String docID, required Map<String, dynamic> data, }) async {
+    CollectionReference database = FirebaseFirestore.instance.collection(path);
+    database.doc(docID).update(data).then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   Future<void> deleteData({required String path}) async {
     final reference = FirebaseFirestore.instance.doc(path);
     if (kDebugMode) {
@@ -38,5 +44,7 @@ class FirestoreService {
     return collectionStream;
 
   }
+
+
 
 }

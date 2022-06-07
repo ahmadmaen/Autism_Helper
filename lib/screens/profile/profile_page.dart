@@ -7,10 +7,13 @@ import 'package:autism_helper_project/screens/profile/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../services/database.dart';
+
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.user}) : super(key: key);
+  const ProfilePage({Key? key, required this.user, required this.database}) : super(key: key);
 
   final User1 user;
+  final Database database;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -18,8 +21,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  late User1 user ;
+
+
   @override
   Widget build(BuildContext context) {
+    user = widget.user;
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Text( 'Profile Page',
@@ -43,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  picture :Image.network(widget.user.userProfilePictureUrl),
+                  picture :Image.network(user.userProfilePictureUrl),
                   pictureSize: 30,
                   pictureRadius: 60,
                 ),
@@ -58,13 +65,13 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   ProfilePicture(
-                    picture :Image.network(widget.user.userProfilePictureUrl),
+                    picture :Image.network(user.userProfilePictureUrl),
                     pictureSize: 130,
                     pictureRadius: 200,
                   ),
                   SizedBox(height: 15),
                   Text(
-                    widget.user.name,
+                    user.name,
                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
                   SizedBox(height: 25),
@@ -76,10 +83,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: CircleAvatar(
                               backgroundColor: Colors.orange,
                               child: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        fullscreenDialog: true,
-                                        builder: (context) => EditProfilePage(user: widget.user)));
+                                  onPressed: () async {
+                                    user = await Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            fullscreenDialog: true,
+                                            builder: (context) => EditProfilePage(user: widget.user,database : widget.database)
+                                        )
+                                    );
+                                    setState((){});
                                   },
                                   icon: Icon(
                                     Icons.edit_outlined,
@@ -109,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = widget.user.name,
+        controller: TextEditingController()..text = user.name,
         onChanged: (text) => {},
         enabled: false,
         decoration: InputDecoration(
@@ -130,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: TextFormField(
         enabled: false,
         controller: TextEditingController()
-          ..text = widget.user.email,
+          ..text = user.email,
         onChanged: (text) => {},
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -142,6 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
   Padding buildPasswordField() {
     return Padding(
       padding: const EdgeInsets.only(left: 10),

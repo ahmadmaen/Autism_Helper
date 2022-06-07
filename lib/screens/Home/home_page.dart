@@ -74,14 +74,16 @@ class _HomePageState extends State<HomePage> {
           leading: menu(),
           actions: [
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (user.userId != '000') {
                   ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (_) => ProfilePage(
-                            user: user,
-                          )));
+                  user = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (_) => ProfilePage(user: user,database: database,)
+                      )
+                  );
+                  setState((){});
                 } else {
                   showAlertDialog(
                     context,
@@ -298,6 +300,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   selectImage(Album album) async {
+
     ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     Picture picture = await Navigator.push(
         context,

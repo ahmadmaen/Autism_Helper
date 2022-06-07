@@ -9,26 +9,45 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import '../../models/user.dart';
+import '../../services/database.dart';
 import '../common_widgets/profile_picture.dart';
 
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key, required this.user}) : super(key: key);
+   const EditProfilePage({Key? key, required this.user, required this.database}) : super(key: key);
+
+
   final User1 user;
+  final Database database;
+
+
+
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
 
+  late User1 user;
+
   late Image image;
   UploadTask? task;
   PlatformFile? pickedFile;
 
+  final TextEditingController nameController = TextEditingController();
+
+  String get name => nameController.text;
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    user = widget.user;
     image = Image.network(widget.user.userProfilePictureUrl);
     return Scaffold(
         appBar: AppBar(
@@ -47,7 +66,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context,user);
               }),
           actions: [
             GestureDetector(
@@ -56,7 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: const EdgeInsets.only(
                     top: 12, bottom: 12, right: 5, left: 5),
                 child: ProfilePicture(
-                  picture: Image.network(widget.user.userProfilePictureUrl),
+                  picture: Image.network(user.userProfilePictureUrl),
                   pictureSize: 30,
                   pictureRadius: 20,
                 ),
@@ -95,7 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    widget.user.name,
+                    user.name,
                     style: TextStyle(fontWeight: FontWeight.w900, fontSize: 25),
                   ),
                   SizedBox(height: 25),
@@ -124,7 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 100,
+                        width: 130,
                         height: 40,
                         child: ElevatedButton(
                             style: ButtonStyle(
@@ -135,7 +154,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   )),
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pop(context,user);
                             },
                             child: Text(
                               "CANCEL",
@@ -145,9 +164,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   fontWeight: FontWeight.bold),
                             )),
                       ),
-                      SizedBox(width: 125),
+                      SizedBox(width: 70),
                       SizedBox(
-                        width: 100,
+                        width: 130,
                         height: 40,
                         child: ElevatedButton(
                             style: ButtonStyle(
@@ -181,9 +200,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: TextFormField(
-        controller: TextEditingController()..text = widget.user.name,
-        onChanged: (text) => {},
+        controller: nameController,
         decoration: InputDecoration(
+          hintText: user.name,
           fillColor: Colors.white,
           border: UnderlineInputBorder(),
           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -197,12 +216,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Padding buildEmailField() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
-        controller: TextEditingController()..text = widget.user.email,
+        enabled: false,
+        controller: TextEditingController()
+          ..text = user.email,
         onChanged: (text) => {},
         decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
+          border: InputBorder.none,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: TextStyle(fontSize: 20),
         ),
@@ -221,7 +242,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  void saveEntries() {}
+  void saveEntries() {
+    user.name = name;
+    widget.database.updateUserdata(user);
+    setState((){});
+  }
 
   void yourChoice(BuildContext context) {
     showModalBottomSheet(
@@ -245,7 +270,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future selectImage(ImageSource source) async {
-    String imageUrl;
+    String imageUrl="";
     try {
 
       var newImage = await ImagePicker().pickImage(source: source);//getting picture from phone
@@ -254,17 +279,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       String fileName = basename(imageFile.path);
 
-      Reference storageRef = FirebaseStorage.instance.ref().child("UsersProfilePhoto/Image-$fileName");
+      Reference storageRef = FirebaseStorage.instance.ref().child("UsersProfilePhoto/$fileName");
 
       UploadTask uploadTask = storageRef.putFile(imageFile);
 
 
-      await uploadTask.whenComplete(() async {
+      await uploadTask.whenComplete( () async {
         var url = await storageRef.getDownloadURL();
         imageUrl = url.toString();
-      }).catchError((onError) {
-        print(onError);
+      }).catchError( (onError) {
+        if (kDebugMode) {  print(onError);   }
       });
+
+
+      widget.user.userProfilePictureUrl = imageUrl;
+      widget.database.updateUserImage(widget.user);
+      setState((){});
+
 
     } on FirebaseException catch (e) {
       print(e.message);

@@ -26,6 +26,14 @@ class User1 {
     };
   }
 
+   Map<String, dynamic> imageToMap() {
+     return {
+       'ProfilePictureURL': userProfilePictureUrl,
+     };
+   }
+
+
+
   factory User1.fromMap(DocumentSnapshot data ) {
     return User1(
         name: data['Name'],

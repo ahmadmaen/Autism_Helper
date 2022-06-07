@@ -11,6 +11,9 @@ abstract class Database {
   Future<void> setUserData(User1 user);
   Future<void> setContactUs(ContactUs contactUs);
 
+  Future<void> updateUserImage(User1 user);
+  Future<void> updateUserdata(User1 user);
+
   DocumentReference<Map<String, dynamic>> getAboutUsData();
   DocumentReference<Map<String, dynamic>> getUser();
   Stream<dynamic> readPicture();
@@ -30,6 +33,22 @@ class FirestoreDatabase implements Database {
     path: APIPath.users(),
     data: user.toMap(),
   );
+
+
+  @override
+  Future<void> updateUserImage(User1 user) async => _service.updateDoc(
+    path: APIPath.users(),
+    docID: user.userId,
+    data: user.imageToMap(),
+  );
+
+  @override
+  Future<void> updateUserdata(User1 user) async => _service.updateDoc(
+    path: APIPath.users(),
+    docID: user.userId,
+    data: user.toMap(),
+  );
+
 
 
   @override
