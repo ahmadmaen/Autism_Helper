@@ -15,9 +15,6 @@ abstract class AuthBase {
   Future<User?> createUserWithEmailAndPassword(String email, String password);
   Future<void> resetPassword(String email);
 
-
-
-
 }
 
 class Auth implements AuthBase{
