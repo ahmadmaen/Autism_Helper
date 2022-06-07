@@ -74,7 +74,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
   Widget _buildContent() {
     final Stream<QuerySnapshot> _pictureStream = FirebaseFirestore.instance.collection('Picture')
-        .where("AlbumID", isEqualTo: widget.album.id).snapshots();
+        .where("AlbumID", isEqualTo: widget.album.id ,).snapshots();
     return StreamBuilder<QuerySnapshot>(
         stream: _pictureStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -112,6 +112,8 @@ class _AlbumPageState extends State<AlbumPage> {
               }).toList(),
             ),
           );
-        });
+        }
+        );
+
   }
 }

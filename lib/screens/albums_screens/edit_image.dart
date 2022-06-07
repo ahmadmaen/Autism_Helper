@@ -29,13 +29,14 @@ class EditImage extends StatefulWidget {
 
 class _EditImageState extends State<EditImage> {
 
-  String item = 'Choose Album';
+  String item = '0';
   late Picture picture;
 
   // List of items in our dropdown menu
   @override
   Widget build(BuildContext context) {
     picture = widget.picture;
+    item = picture.albumID;
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(
@@ -118,7 +119,6 @@ class _EditImageState extends State<EditImage> {
                         ),
                         onPressed: () {
                           Navigator.pop(context,picture);
-
                           },
                         child: Text(
                           "Cancel",
@@ -140,7 +140,10 @@ class _EditImageState extends State<EditImage> {
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
                         ),
-                        onPressed: () { saveEntries(); },
+                        onPressed: () {
+                          widget.database.updateImage(picture);
+                          Navigator.pop(context,picture);
+                        },
                         child: Text(
                           "SAVE",
                           style: TextStyle(
@@ -166,14 +169,9 @@ class _EditImageState extends State<EditImage> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: TextFormField(
+            initialValue: picture.pictureLabel,
             textAlign: TextAlign.center,
-            controller: TextEditingController()..text = widget.picture.pictureLabel,
-            onChanged: (text) => {},
-            decoration: InputDecoration.collapsed(
-              border: InputBorder.none,
-              hintText: 'Image Label',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-            ),
+            onChanged: (text) => {picture.pictureLabel = text},
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
           ),
@@ -182,33 +180,50 @@ class _EditImageState extends State<EditImage> {
     );
   }
 
-  void dropdownCallback(String? selectedValue) {
-    if(selectedValue is String) {
-      setState(() {
-        item = selectedValue;
-      });
-    }
+  SizedBox buildDropDown() {
+    return SizedBox(
+      width: 200,
+      child:
+      DropdownButton(
+        value: item,
+        items: [
+          DropdownMenuItem(
+            child: Text('Persons                          '),
+            value: '0',
+          ),
+          DropdownMenuItem(
+            child: Text('Feelings'),
+            value: '1',
+          ),
+          DropdownMenuItem(
+            child: Text('Places'),
+            value: '2',
+          ),
+          DropdownMenuItem(
+            child: Text('Games'),
+            value: '3',
+          ),
+          DropdownMenuItem(
+            child: Text('Drinks'),
+            value: '4',
+          ),
+          DropdownMenuItem(
+            child: Text('Foods'),
+            value: '5',
+          ),
+        ],
+        onChanged: dropdownCallback,
+      ),
+    );
   }
 
-  Card buildDropDown() {
-    return Card(
-        child:DropdownButton
-          (
-          value:item,
-          items: [
-            DropdownMenuItem(child: Text('Choose Album'),value: 'Choose Album',),
-            DropdownMenuItem(child: Text('Persons'),value: 'Persons',),
-            DropdownMenuItem(child: Text('Feelings'),value: 'Feelings',),
-            DropdownMenuItem(child: Text('Places'),value: 'Places',),
-            DropdownMenuItem(child: Text('Games'),value: 'Games',),
-            DropdownMenuItem(child: Text('Drinks'),value: 'Drinks',),
-            DropdownMenuItem(child: Text('Foods'),value: 'Foods',),
-
-          ],
-          onChanged:dropdownCallback,
-        )
-    );
-
+  void dropdownCallback(String? selectedValue) {
+    if (selectedValue is String) {
+      setState(() {
+        item = selectedValue;
+        picture.albumID = selectedValue;
+      });
+    }
   }
 
   void yourChoice(BuildContext context) {
@@ -256,7 +271,6 @@ class _EditImageState extends State<EditImage> {
 
 
       picture.pictureUrl = imageUrl;
-      widget.database.updateImage(picture);
       setState((){});
 
 
@@ -265,8 +279,5 @@ class _EditImageState extends State<EditImage> {
     }
   }
 
-  void resetEntries() {}
-
-  void saveEntries() {}
 
 }

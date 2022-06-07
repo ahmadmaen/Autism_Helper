@@ -30,7 +30,9 @@ class _AddImageState extends State<AddImage> {
 
   String item = '0';
   var labelBoxController = TextEditingController();
-  Picture picture = Picture();
+  Picture picture = Picture(
+    pictureUrl: 'https://static.vecteezy.com/system/resources/previews/003/513/803/large_2x/single-banana-cartoon-illustration-isolated-free-vector.jpg',
+  );
 
 
 
@@ -78,14 +80,13 @@ class _AddImageState extends State<AddImage> {
               Stack(
                 children: [
                   ProfilePicture(
-                    picture: Image.network(
-                        'https://static.vecteezy.com/system/resources/previews/003/513/803/large_2x/single-banana-cartoon-illustration-isolated-free-vector.jpg'),
+                    picture: Image.network(picture.pictureUrl),
                     pictureSize: 220,
                     pictureRadius: 20,
                   ),
                   Positioned(
-                    bottom: 1,
-                    right: 1,
+                    bottom: 7,
+                    right: 7,
                     child: CircleAvatar(
                       child: IconButton(
                         icon: Icon(
@@ -143,7 +144,10 @@ class _AddImageState extends State<AddImage> {
                             borderRadius: BorderRadius.circular(10.0),
                           )),
                         ),
-                        onPressed: () {widget.database.setPicture(picture);},
+                        onPressed: () {
+                          widget.database.setPicture(picture);
+                          Navigator.pop(context, picture);
+                          },
                         child: Text(
                           "SAVE",
                           style: TextStyle(
