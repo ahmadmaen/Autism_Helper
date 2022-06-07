@@ -18,7 +18,7 @@ class Picture {
 
   Map<String, dynamic> toMap() {
     return {
-      'ID': id,
+      'IDD': id,
       'Label': pictureLabel,
       'AlbumID' : albumID,
       'UserID' : userID,
@@ -28,7 +28,7 @@ class Picture {
 
   factory Picture.fromMap( Map<String,dynamic> data) {
     return Picture(
-        id: data['ID'],
+        id: data['IDD'],
         pictureLabel: data['Label'],
         pictureUrl: data['URL'],
         albumID: data['AlbumID'],

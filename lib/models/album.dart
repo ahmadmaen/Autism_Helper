@@ -22,7 +22,7 @@ class Album {
 
   factory Album.fromMap(Map<String,dynamic> data) {
     return Album(
-      id: data['ID'],
+      id: data['IDD'],
         label: data['Label'],
         url: data['URL'],
         albumColor: int.parse(data['Color'])

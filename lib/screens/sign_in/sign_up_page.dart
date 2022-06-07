@@ -27,7 +27,7 @@ class SignUpPage extends StatelessWidget {
       var user = {
           "Name" : _name,
           "Email": _email,
-          "ID": user2!.uid,
+          "IDD": user2!.uid,
           "ProfilePictureURL": 'https://firebasestorage.googleapis.com/v0/b/autismhelperdatabase.appspot.com/o/UsersProfilePhoto%2FuserLogo.png?alt=media&token=30b77c9b-8469-40dc-a2c8-94b48ae1ea51'
       };
       CollectionReference database = FirebaseFirestore.instance.collection('/User');

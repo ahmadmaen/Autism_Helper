@@ -21,7 +21,7 @@ class User1 {
     return {
       'Name': name,
       'Email': email,
-      'ID' : userId,
+      'IDD' : userId,
       'ProfilePictureURL': userProfilePictureUrl,
     };
   }
@@ -39,7 +39,7 @@ class User1 {
         name: data['Name'],
         userProfilePictureUrl: data['ProfilePictureURL'],
         email: data['Email'],
-        userId : data['ID']
+        userId : data['IDD']
     );
   }
 
