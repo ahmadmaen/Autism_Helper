@@ -9,7 +9,7 @@ class FirestoreService {
   Future<void> setData({ required String path, required Map<String, dynamic> data, }) async {
     var newDocRef = FirebaseFirestore.instance.collection(path).doc();
     data.addAll({
-      'ID': newDocRef.id
+      'IDD': newDocRef.id
     });
     newDocRef.set(data);
   }
