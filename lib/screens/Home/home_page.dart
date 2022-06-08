@@ -27,22 +27,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-
   final FlutterTts flutterTts = FlutterTts();
   var _icon = Icons.toggle_off_outlined;
-
   User1 user = User1(
       userId: '000',
       name: 'User',
       userProfilePictureUrl:
           'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80');
   Translator translator = Translator();
-
-
   late Database database = Provider.of<Database>(context, listen: false,);
   late DocumentReference<Map<String, dynamic>> userData = database.getUser();
-
   bool isDone = false;
+
 
   @override
   void initState() {
@@ -67,7 +63,8 @@ class _HomePageState extends State<HomePage> {
     });
     return  Scaffold(
         appBar: AppBar(
-          title: Center(child: Image.asset('images/title.png', scale: 18)),
+          title: Center(
+              child: Image.asset('images/title.png', scale: 18)),
           leading: menu(),
           actions: [
             GestureDetector(

@@ -123,7 +123,31 @@ class _EditImageState extends State<EditImage> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  const SizedBox(width: 125),
+                  const SizedBox(width: 30),
+                  SizedBox(
+                    width: 100,
+                    height: 40,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
+                        ),
+                        onPressed: () {
+                          widget.database.deletePicture(picture);
+                          Navigator.pop(context,picture);
+                        },
+                        child: const Text(
+                          "Delete",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        )),
+                  ),
+                  const SizedBox(width: 30),
                   SizedBox(
                     width: 100,
                     height: 40,
