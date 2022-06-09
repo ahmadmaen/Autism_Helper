@@ -28,6 +28,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final FlutterTts flutterTts = FlutterTts();
+
+
+
   var _icon = Icons.toggle_off_outlined;
   User1 user = User1(
       userId: '000',
@@ -298,6 +301,7 @@ class _HomePageState extends State<HomePage> {
       await flutterTts.speak(translator.sentence);
     }
 
+
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
       onVisible: (){speak();},
       content: Text(translator.sentence),
@@ -316,6 +320,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
     ));
   }
+
 }
 
 
