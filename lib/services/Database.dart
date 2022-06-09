@@ -13,6 +13,9 @@ abstract class Database {
   Future<void> setPicture(Picture picture);
   Future<void> setContactUs(ContactUs contactUs);
 
+  Future<void> deletePicture(Picture picture);
+
+
   Future<void> updateUserImage(User1 user);
   Future<void> updateUserdata(User1 user);
   Future<void> updateImage(Picture picture);
@@ -43,6 +46,12 @@ class FirestoreDatabase implements Database {
     path: APIPath.picture(),
     data: picture.toMap(),
   );
+
+  @override
+  Future<void> deletePicture(Picture picture) async => _service.deleteData(
+    path: '${APIPath.picture()}/${picture.id}',
+  );
+
 
 
   @override
